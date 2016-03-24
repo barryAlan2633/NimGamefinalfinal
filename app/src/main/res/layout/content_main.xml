@@ -15,5 +15,75 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="User: "
+        android:id="@+id/textView"
+        android:layout_marginTop="109dp"
+        android:layout_marginLeft="81dp"
+        android:layout_marginStart="81dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="High Score: "
+        android:id="@+id/textView2"
+        android:layout_marginTop="49dp"
+        android:layout_below="@+id/textView"
+        android:layout_alignRight="@+id/textView"
+        android:layout_alignEnd="@+id/textView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="HIgh Score Tab"
+        android:id="@+id/textView3"
+        android:layout_marginTop="26dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Set User"
+        android:id="@+id/textViewUser"
+        android:layout_alignBottom="@+id/textView"
+        android:layout_alignRight="@+id/textView3"
+        android:layout_alignEnd="@+id/textView3" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Set Score"
+        android:id="@+id/textViewScore"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_alignLeft="@+id/textViewUser"
+        android:layout_alignStart="@+id/textViewUser" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set High Sore"
+        android:id="@+id/buttonHighScore"
+        android:layout_marginTop="104dp"
+        android:layout_below="@+id/textViewScore"
+        android:layout_alignLeft="@+id/textViewScore"
+        android:layout_alignStart="@+id/textViewScore" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set User"
+        android:id="@+id/buttonUser"
+        android:layout_alignBaseline="@+id/buttonHighScore"
+        android:layout_alignBottom="@+id/buttonHighScore"
+        android:layout_alignRight="@+id/textView"
+        android:layout_alignEnd="@+id/textView" />
+
 </RelativeLayout>
