@@ -12,7 +12,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Homescreen.MainActivity"
     tools:showIn="@layout/activity_main"
-    android:background="@drawable/background">
+    android:background="@drawable/banckground">
 
     <com.nightonke.boommenu.BoomMenuButton
         android:id="@+id/boom"
@@ -23,7 +23,7 @@
         android:layout_alignParentEnd="true"
         android:layout_margin="20dp"
         app:boom_inActionBar="false"
-        app:boom_button_color="@color/colorPrimary"
+        app:boom_button_color="@color/fbutton_color_orange"
         app:boom_button_pressed_color="@color/colorPrimary"
         />
 
