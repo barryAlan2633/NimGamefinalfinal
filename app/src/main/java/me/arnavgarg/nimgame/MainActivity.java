@@ -16,27 +16,11 @@ import com.firebase.client.Firebase;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    Firebase ref = new Firebase("https://nimgame.firebaseio.com/");
-    Button setUser;
-
-    EditText userID;
-
-    TextView user;
-    TextView highscore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        user = (TextView) findViewById(R.id.textViewUser);
-        highscore = (TextView) findViewById(R.id.textViewScore);
-        setUser = (Button) findViewById(R.id.buttonUser);
-        userID = (EditText) findViewById(R.id.userName);
-
-        setUser.setOnClickListener(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
