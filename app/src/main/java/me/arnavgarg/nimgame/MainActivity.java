@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.firebase.client.Firebase;
@@ -17,7 +18,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     Firebase ref = new Firebase("https://nimgame.firebaseio.com/");
     Button setUser;
-    Button setHighScore;
+
+    EditText userID;
 
     TextView user;
     TextView highscore;
@@ -32,10 +34,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         user = (TextView) findViewById(R.id.textViewUser);
         highscore = (TextView) findViewById(R.id.textViewScore);
         setUser = (Button) findViewById(R.id.buttonUser);
-        setHighScore = (Button) findViewById(R.id.buttonHighScore);
+        userID = (EditText) findViewById(R.id.userName);
 
         setUser.setOnClickListener(this);
-        setHighScore.setOnClickListener(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -70,23 +71,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-
-        switch(v.getId()) {
-
-            case R.id.buttonUser:
-                userMethod();
-                break;
-            case R.id.buttonHighScore:
-                userHighScore();
-                break;
-        }
     }
 
-    public void userMethod() {
-        //TODO
-    }
-
-    public void userHighScore() {
-        //TODO
-    }
 }

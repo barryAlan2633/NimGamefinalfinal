@@ -42,7 +42,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="HIgh Score Tab"
         android:id="@+id/textView3"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="32dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -69,21 +69,25 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Set High Sore"
-        android:id="@+id/buttonHighScore"
-        android:layout_marginTop="104dp"
-        android:layout_below="@+id/textViewScore"
-        android:layout_alignLeft="@+id/textViewScore"
-        android:layout_alignStart="@+id/textViewScore" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Set User"
         android:id="@+id/buttonUser"
-        android:layout_alignBaseline="@+id/buttonHighScore"
-        android:layout_alignBottom="@+id/buttonHighScore"
-        android:layout_alignRight="@+id/textView"
-        android:layout_alignEnd="@+id/textView" />
+        android:layout_below="@+id/view"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="34dp" />
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/view"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2">
+
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter the ID"
+            android:id="@+id/userName" />
+    </android.support.design.widget.TextInputLayout>
 
 </RelativeLayout>
