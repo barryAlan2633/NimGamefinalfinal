@@ -1,8 +1,10 @@
-package me.arnavgarg.nimgame;
+package me.arnavgarg.nimgame.Homescreen;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+
+import me.arnavgarg.nimgame.Homescreen.MainActivity;
 
 /**
  * Created by Arnav on 3/26/2016.
