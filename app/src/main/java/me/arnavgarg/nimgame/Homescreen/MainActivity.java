@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         buttonPlay = (Button) findViewById(R.id.buttonPlay);
-        buttonHighScore = (Button) findViewById(R.id.buttonContinuePlaying);
+        buttonHighScore = (Button) findViewById(R.id.buttonHighScore);
         mContext = this;
         boomMenuButton = (BoomMenuButton) findViewById(R.id.boom);
 

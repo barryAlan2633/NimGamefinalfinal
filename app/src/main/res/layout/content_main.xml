@@ -38,11 +38,12 @@
         fbutton:shadowHeight="8dp"
         fbutton:cornerRadius="8dp"
         android:text="Play"
-        android:id="@+id/buttonSettings"
-        android:layout_marginBottom="23dp"
-        android:layout_above="@+id/buttonContinuePlaying"
-        android:layout_alignLeft="@+id/buttonContinuePlaying"
-        android:layout_alignStart="@+id/buttonContinuePlaying" />
+        android:id="@+id/buttonPlay"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_marginTop="128dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/buttonGameOptions"
+        android:layout_alignStart="@+id/buttonGameOptions" />
 
     <info.hoang8f.widget.FButton
         android:layout_width="200dp"
@@ -53,12 +54,10 @@
         fbutton:shadowHeight="8dp"
         fbutton:cornerRadius="8dp"
         android:text="Game Options"
-        android:id="@+id/buttonContinuePlaying"
-        android:layout_above="@+id/buttonPlay"
-        android:layout_alignLeft="@+id/buttonPlay"
-        android:layout_alignStart="@+id/buttonPlay"
-        android:layout_marginBottom="22dp" />
-
+        android:id="@+id/buttonGameOptions"
+        android:layout_below="@+id/buttonPlay"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp" />
 
     <info.hoang8f.widget.FButton
         android:layout_width="200dp"
@@ -68,11 +67,12 @@
         fbutton:shadowEnabled="true"
         fbutton:shadowHeight="8dp"
         fbutton:cornerRadius="8dp"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:text="Highscore"
-        android:id="@+id/buttonPlay"
-        />
+        android:text="High Score"
+        android:id="@+id/buttonHighScore"
+        android:layout_below="@+id/buttonGameOptions"
+        android:layout_alignLeft="@+id/buttonGameOptions"
+        android:layout_alignStart="@+id/buttonGameOptions"
+        android:layout_marginTop="39dp" />
 
 
 </RelativeLayout>
