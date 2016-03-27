@@ -14,6 +14,8 @@
     tools:showIn="@layout/activity_main"
     android:background="@drawable/banckground">
 
+
+
     <com.nightonke.boommenu.BoomMenuButton
         android:id="@+id/boom"
         android:layout_width="wrap_content"
@@ -35,11 +37,28 @@
         fbutton:shadowEnabled="true"
         fbutton:shadowHeight="8dp"
         fbutton:cornerRadius="8dp"
-        android:text="Play Once"
+        android:text="Play"
+        android:id="@+id/buttonSettings"
+        android:layout_marginBottom="23dp"
+        android:layout_above="@+id/buttonContinuePlaying"
+        android:layout_alignLeft="@+id/buttonContinuePlaying"
+        android:layout_alignStart="@+id/buttonContinuePlaying" />
+
+    <info.hoang8f.widget.FButton
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        fbutton:buttonColor="@color/fbutton_color_peter_river"
+        fbutton:shadowColor="@color/fbutton_color_midnight_blue"
+        fbutton:shadowEnabled="true"
+        fbutton:shadowHeight="8dp"
+        fbutton:cornerRadius="8dp"
+        android:text="Game Options"
         android:id="@+id/buttonContinuePlaying"
         android:layout_above="@+id/buttonPlay"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="35dp" />
+        android:layout_alignLeft="@+id/buttonPlay"
+        android:layout_alignStart="@+id/buttonPlay"
+        android:layout_marginBottom="22dp" />
+
 
     <info.hoang8f.widget.FButton
         android:layout_width="200dp"

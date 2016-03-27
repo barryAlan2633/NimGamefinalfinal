@@ -3,19 +3,12 @@ package me.arnavgarg.nimgame.Homescreen;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-
-import com.firebase.client.Firebase;
 import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.Types.BoomType;
 import com.nightonke.boommenu.Types.ButtonType;
@@ -27,6 +20,7 @@ import me.arnavgarg.nimgame.R;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     BoomMenuButton boomMenuButton;
+    Button buttonPlay, buttonHighScore;
     Context mContext;
 
     @Override
@@ -34,9 +28,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        buttonPlay = (Button) findViewById(R.id.buttonPlay);
+        buttonHighScore = (Button) findViewById(R.id.buttonContinuePlaying);
         mContext = this;
         boomMenuButton = (BoomMenuButton) findViewById(R.id.boom);
+
+
     }
+
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
