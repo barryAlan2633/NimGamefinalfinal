@@ -20,7 +20,7 @@ import me.arnavgarg.nimgame.R;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     BoomMenuButton boomMenuButton;
-    Button buttonPlay, buttonHighScore;
+    Button buttonPlay, buttonHighScore, buttonGameOptions;
     Context mContext;
 
     @Override
@@ -30,10 +30,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         buttonPlay = (Button) findViewById(R.id.buttonPlay);
         buttonHighScore = (Button) findViewById(R.id.buttonHighScore);
+        buttonGameOptions = (Button) findViewById(R.id.buttonGameOptions);
         mContext = this;
         boomMenuButton = (BoomMenuButton) findViewById(R.id.boom);
 
-
+        buttonPlay.setOnClickListener(this);
+        buttonHighScore.setOnClickListener(this);
     }
 
 
@@ -102,6 +104,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+
+        switch(v.getId()) {
+
+            case R.id.buttonPlay:
+                break;
+            case R.id.buttonGameOptions:
+                break;
+            case R.id.buttonHighScore:
+                break;
+        }
     }
 
 }
