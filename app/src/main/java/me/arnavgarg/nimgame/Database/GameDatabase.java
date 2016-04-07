@@ -84,30 +84,6 @@ public class GameDatabase {
         }
 
         return false;
-//        if (mCursor.moveToFirst())
-//        {
-//            Log.d(LOG_TAG, "Has some data in it");
-//            return false;
-//        }
-//
-//        Log.d(LOG_TAG, "WORKED SUCCESSFULLY");
-//        return true;
-//        try {
-//
-//            String count = "SELECT count(*) FROM " + DATABASE_TABLE;
-//            Cursor cursor = sqLiteDatabase.rawQuery(count, null);
-//            cursor.moveToFirst();
-//            int iCount = cursor.getInt(0);
-//
-//            if (iCount == 0) {
-//                return true;
-//            }
-//        } catch(Exception e) {
-//            Log.v(LOG_TAG, "Error in finding empty databse" + e.getMessage());
-//
-//        }
-//
-//        return false;
     }
     public void deleteAll()
     {

@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(gameDatabase.checkEmpty()) {
             gameDatabase.createEntry(2131492992,2131492996,2131493001);
         } else {
-            Log.d(LOG_TAG, "DELETING AND CREATING A NEW ONE");
         }
 
         gameDatabase.close();
