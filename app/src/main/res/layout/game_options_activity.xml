@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:fbutton="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="20dp">
 
@@ -33,22 +34,27 @@
 
         <RadioGroup
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/rgDifficulty">
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Easy" />
+                android:text="Easy"
+                android:id="@+id/rDiffEasy"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Intermediate" />
+                android:text="Intermediate"
+                android:id="@+id/rDiffIntermediate"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Difficult" />
+                android:text="Difficult"
+                android:id="@+id/rDiffDifficult"
+                android:checked="true"/>
 
         </RadioGroup>
     </LinearLayout>
@@ -73,17 +79,21 @@
 
         <RadioGroup
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/rgFirstTurn">
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="User" />
+                android:text="User"
+                android:id="@+id/rUser"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Computer" />
+                android:text="Computer"
+                android:checked="true"
+                android:id="@+id/rComputer"/>
 
 
         </RadioGroup>
@@ -109,7 +119,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="horizontal"
-            android:padding="0dp">
+            android:id="@+id/rgSticks">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -119,7 +129,8 @@
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="3" />
+                    android:text="3"
+                    android:id="@+id/rThree"/>
             </LinearLayout>
 
             <LinearLayout
@@ -130,7 +141,8 @@
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="4" />
+                    android:text="4"
+                    android:id="@+id/rFour"/>
             </LinearLayout>
 
             <LinearLayout
@@ -141,19 +153,26 @@
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="5" />
+                    android:text="5"
+                    android:checked="true"
+                    android:id="@+id/rFive"/>
             </LinearLayout>
 
         </RadioGroup>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
+    <info.hoang8f.widget.FButton
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        fbutton:buttonColor="@color/fbutton_color_carrot"
+        fbutton:shadowColor="@color/fbutton_color_alizarin"
+        fbutton:shadowEnabled="true"
+        fbutton:shadowHeight="8dp"
+        fbutton:cornerRadius="8dp"
+        android:text="Done"
+        android:id="@+id/btnDone"
         android:layout_gravity="center"
-        android:paddingTop="10dp"
-        android:text="DONE" />
+        android:layout_marginTop="10dp" />
 
 
 </LinearLayout>
