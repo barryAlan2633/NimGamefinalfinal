@@ -59,20 +59,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="35dp" />
 
-    <info.hoang8f.widget.FButton
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        fbutton:buttonColor="@color/fbutton_color_peter_river"
-        fbutton:shadowColor="@color/fbutton_color_midnight_blue"
-        fbutton:shadowEnabled="true"
-        fbutton:shadowHeight="8dp"
-        fbutton:cornerRadius="8dp"
-        android:text="High Score"
-        android:id="@+id/buttonHighScore"
-        android:layout_below="@+id/buttonGameOptions"
-        android:layout_alignLeft="@+id/buttonGameOptions"
-        android:layout_alignStart="@+id/buttonGameOptions"
-        android:layout_marginTop="39dp" />
 
 
 </RelativeLayout>

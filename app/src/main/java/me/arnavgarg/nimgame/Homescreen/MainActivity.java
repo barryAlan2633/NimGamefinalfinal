@@ -1,14 +1,17 @@
 package me.arnavgarg.nimgame.Homescreen;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+
 import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.Types.BoomType;
 import com.nightonke.boommenu.Types.ButtonType;
@@ -16,11 +19,12 @@ import com.nightonke.boommenu.Types.PlaceType;
 import com.nightonke.boommenu.Util;
 
 import me.arnavgarg.nimgame.R;
+import me.arnavgarg.nimgame.settings.GameSettings;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     BoomMenuButton boomMenuButton;
-    Button buttonPlay, buttonHighScore, buttonGameOptions;
+    Button buttonPlay, buttonGameOptions;
     Context mContext;
 
     @Override
@@ -29,13 +33,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         buttonPlay = (Button) findViewById(R.id.buttonPlay);
-        buttonHighScore = (Button) findViewById(R.id.buttonHighScore);
         buttonGameOptions = (Button) findViewById(R.id.buttonGameOptions);
         mContext = this;
         boomMenuButton = (BoomMenuButton) findViewById(R.id.boom);
 
         buttonPlay.setOnClickListener(this);
-        buttonHighScore.setOnClickListener(this);
     }
 
 
@@ -43,42 +45,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
 
-        Drawable[] drawables = new Drawable[3];
-        int[] drawablesResource = new int[]{
-                R.drawable.ic_launcher,
-                R.drawable.ic_launcher,
-                R.drawable.ic_launcher
-        };
-        for (int i = 0; i < 3; i++)
-            drawables[i] = ContextCompat.getDrawable(mContext, drawablesResource[i]);
+        BoomMenuThead boomMenuThead = new BoomMenuThead();
+        boomMenuThead.run();
+    }
 
-        int[][] colors = new int[3][2];
-        for (int i = 0; i < 3; i++) {
-            colors[i][1] = ContextCompat.getColor(mContext, R.color.colorPrimary);
-            colors[i][0] = Util.getInstance().getPressedColor(colors[i][1]);
-        }
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 
-        String[] text = {
-                "Settings",
-                "How To Play",
-                "About The Developer"
-        };
-
-        boomMenuButton.init(
-                drawables, // The drawables of images of sub buttons. Can not be null.
-                text,     // The texts of sub buttons, ok to be null.
-                colors,    // The colors of sub buttons, including pressed-state and normal-state.
-                ButtonType.HAM,     // The button type.
-                BoomType.PARABOLA,  // The boom type.
-                PlaceType.HAM_3_1,  // The place type.
-                null,               // Ease type to move the sub buttons when showing.
-                null,               // Ease type to scale the sub buttons when showing.
-                null,               // Ease type to rotate the sub buttons when showing.
-                null,               // Ease type to move the sub buttons when dismissing.
-                null,               // Ease type to scale the sub buttons when dismissing.
-                null,               // Ease type to rotate the sub buttons when dismissing.
-                null                // Rotation degree.
-        );
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 
     @Override
@@ -105,15 +83,72 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
 
+        Intent intent = null;
         switch(v.getId()) {
 
             case R.id.buttonPlay:
+                intent = new Intent(MainActivity.this, GameSettings.class);
+                startActivity(intent);
                 break;
             case R.id.buttonGameOptions:
-                break;
-            case R.id.buttonHighScore:
                 break;
         }
     }
 
+    private class BoomMenuThead implements Runnable {
+
+        @Override
+        public void run() {
+
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            Log.d("MainActivityLog", "Working");
+
+            Drawable[] drawables = new Drawable[3];
+            int[] drawablesResource = new int[]{
+                    R.drawable.ic_launcher,
+                    R.drawable.ic_launcher,
+                    R.drawable.ic_launcher
+            };
+            for (int i = 0; i < 3; i++)
+                drawables[i] = ContextCompat.getDrawable(mContext, drawablesResource[i]);
+
+            int[][] colors = new int[3][2];
+            for (int i = 0; i < 3; i++) {
+                colors[i][1] = ContextCompat.getColor(mContext, R.color.colorPrimary);
+                colors[i][0] = Util.getInstance().getPressedColor(colors[i][1]);
+            }
+
+            String[] text = {
+                    "Settings",
+                    "How To Play",
+                    "About The Developer"
+            };
+
+            boomMenuButton.init(
+                    drawables,          // The drawables of images of sub buttons. Can not be null.
+                    text,               // The texts of sub buttons, ok to be null.
+                    colors,             // The colors of sub buttons, including pressed-state and normal-state.
+                    ButtonType.HAM,     // The button type.
+                    BoomType.PARABOLA,  // The boom type.
+                    PlaceType.HAM_3_1,  // The place type.
+                    null,               // Ease type to move the sub buttons when showing.
+                    null,               // Ease type to scale the sub buttons when showing.
+                    null,               // Ease type to rotate the sub buttons when showing.
+                    null,               // Ease type to move the sub buttons when dismissing.
+                    null,               // Ease type to scale the sub buttons when dismissing.
+                    null,               // Ease type to rotate the sub buttons when dismissing.
+                    null                // Rotation degree.
+            );
+        }
+
+        public void pause() {
+
+            //TODO
+        }
+    }
 }
