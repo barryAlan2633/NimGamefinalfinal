@@ -18,14 +18,18 @@ import com.nightonke.boommenu.Types.ButtonType;
 import com.nightonke.boommenu.Types.PlaceType;
 import com.nightonke.boommenu.Util;
 
+import me.arnavgarg.nimgame.Database.GameDatabase;
 import me.arnavgarg.nimgame.R;
 import me.arnavgarg.nimgame.settings.GameSettings;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
+
     BoomMenuButton boomMenuButton;
     Button buttonPlay, buttonGameOptions;
     Context mContext;
+    GameDatabase gameDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +40,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonGameOptions = (Button) findViewById(R.id.buttonGameOptions);
         mContext = this;
         boomMenuButton = (BoomMenuButton) findViewById(R.id.boom);
-
         buttonPlay.setOnClickListener(this);
+        buttonGameOptions.setOnClickListener(this);
+        gameDatabase = new GameDatabase(this);
+
+        //Default settings for the game.
+        gameDatabase.open();
+
+        if(gameDatabase.checkEmpty()) {
+            gameDatabase.createEntry(2131492992,2131492996,2131493001);
+        } else {
+            Log.d(LOG_TAG, "DELETING AND CREATING A NEW ONE");
+            gameDatabase.deleteAll();
+            gameDatabase.createEntry(2131492992,2131492996,2131493001);
+        }
+
+        gameDatabase.close();
     }
 
 
@@ -87,10 +105,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch(v.getId()) {
 
             case R.id.buttonPlay:
-                intent = new Intent(MainActivity.this, GameSettings.class);
-                startActivity(intent);
                 break;
             case R.id.buttonGameOptions:
+                intent = new Intent(MainActivity.this, GameSettings.class);
+                startActivity(intent);
                 break;
         }
     }
