@@ -1,6 +1,7 @@
 package me.arnavgarg.nimgame.settings;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -8,12 +9,13 @@ import android.widget.Button;
 import android.widget.RadioGroup;
 
 import me.arnavgarg.nimgame.Database.GameDatabase;
+import me.arnavgarg.nimgame.Homescreen.MainActivity;
 import me.arnavgarg.nimgame.R;
 
 /**
  * Created by Arnav on 4/6/2016.
  */
-public class GameSettings extends Activity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener{
+public class GameSettings extends Activity implements RadioGroup.OnCheckedChangeListener{
 
 
     private static final String LOG_TAG = GameSettings.class.getSimpleName();
@@ -49,7 +51,7 @@ public class GameSettings extends Activity implements View.OnClickListener, Radi
 
             Log.d(LOG_TAG, "Difficulty Level: " + diffculty
                     + "\nFirst Turn: " + turn
-                    + "\nNumber of Sticks: " + sticksGroup.getCheckedRadioButtonId()
+                    + "\nNumber of Sticks: " + sticksNumber
                     + "\nData: " + data);
 
             difficultyGroup.check(diffculty);
@@ -59,11 +61,27 @@ public class GameSettings extends Activity implements View.OnClickListener, Radi
 
         gameDatabase.close();
 
-
-        btnDone.setOnClickListener(this);
         difficultyGroup.setOnCheckedChangeListener(this);
         turnGroup.setOnCheckedChangeListener(this);
         sticksGroup.setOnCheckedChangeListener(this);
+
+
+
+        btnDone.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                gameDatabase.open();
+                gameDatabase.deleteAll();
+                gameDatabase.createEntry(difficultyLevel, firstTurn, numberOfSticks);
+                gameDatabase.close();
+
+                Intent intent = new Intent(GameSettings.this, MainActivity.class);
+                startActivity(intent);
+
+            }
+        });
     }
 
     @Override
@@ -72,44 +90,24 @@ public class GameSettings extends Activity implements View.OnClickListener, Radi
         switch(group.getId()) {
 
             case R.id.rgDifficulty:
-                switch(checkedId) {
 
-                    case R.id.rDiffEasy:
-                        break;
-                    case R.id.rDiffIntermediate:
-                        break;
-                    case R.id.rDiffDifficult:
-                        break;
-                }
+                Log.d(LOG_TAG, String.valueOf(group.getId()));
+                Log.d(LOG_TAG, String.valueOf(group.getCheckedRadioButtonId()));
+
+                difficultyLevel = group.getCheckedRadioButtonId();
+
                 break;
 
             case R.id.rgFirstTurn:
-                switch(checkedId) {
 
-                    case R.id.rUser:
-                        break;
-                    case R.id.rComputer:
-                        break;
-                }
+                firstTurn = group.getCheckedRadioButtonId();
                 break;
 
             case R.id.rgSticks:
-                switch(checkedId) {
 
-                    case R.id.rThree:
-                        break;
-                    case R.id.rFour:
-                        break;
-                    case R.id.rFive:
-                        break;
-                }
+                numberOfSticks = group.getCheckedRadioButtonId();
                 break;
         }
     }
 
-    @Override
-    public void onClick(View v) {
-
-        //TODO
-    }
 }
