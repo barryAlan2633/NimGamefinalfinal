@@ -49,8 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         gameDatabase.open();
 
         if(gameDatabase.checkEmpty()) {
-            gameDatabase.createEntry(2131492992,2131492996,2131493001);
-        } else {
+            gameDatabase.createEntry(2131492990,2131492995,2131492999);
         }
 
         gameDatabase.close();

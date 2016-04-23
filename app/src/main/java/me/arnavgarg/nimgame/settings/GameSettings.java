@@ -38,6 +38,7 @@ public class GameSettings extends Activity implements RadioGroup.OnCheckedChange
         gameDatabase.open();
 
         String data = gameDatabase.getData();
+        Log.d(LOG_TAG, "" + data);
 
         if(data != null) {
 
@@ -52,12 +53,16 @@ public class GameSettings extends Activity implements RadioGroup.OnCheckedChange
                     + "\nNumber of Sticks: " + numberOfSticks
                     + "\nData: " + data);
 
+
             difficultyGroup.check(difficultyLevel);
             turnGroup.check(firstTurn);
             sticksGroup.check(numberOfSticks);
+
+
         }
 
         gameDatabase.close();
+
 
         difficultyGroup.setOnCheckedChangeListener(this);
         turnGroup.setOnCheckedChangeListener(this);
@@ -90,7 +95,6 @@ public class GameSettings extends Activity implements RadioGroup.OnCheckedChange
             case R.id.rgDifficulty:
 
                 Log.d(LOG_TAG, "Difficulty Level: " + difficultyLevel);
-
                 difficultyLevel = group.getCheckedRadioButtonId();
 
                 break;
