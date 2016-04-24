@@ -1,7 +1,9 @@
 package me.arnavgarg.nimgame.Game;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -39,6 +41,7 @@ public class GameMain extends Activity implements View.OnClickListener{
         workingRow = WorkingRow.NONE;
 
         getData = new GetData(this);
+        selectedButtons = new ArrayList<>();
 
         //Row 1
         btn11 = (ImageButton) findViewById(R.id.ibRow1_1);
@@ -112,47 +115,196 @@ public class GameMain extends Activity implements View.OnClickListener{
 
         switch(v.getId()){
             case R.id.ibRow1_1:
-                if(workingRow.equals(WorkingRow.ROW1)) {
-                    //TODO
+                if(!(workingRow.equals(WorkingRow.ROW1))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW1;
+                }else if(selectedButtons.contains(btn11)) {
+                    selectedButtons.remove(btn11);
+                    btn11.setBackgroundColor(Color.parseColor("#b00125"));
+                    break;
                 }
+                selectedButtons.add(btn11);
+                btn11.setBackgroundColor(Color.parseColor("#5ab1ff"));
                 break;
             case R.id.ibRow2_1:
-                if(workingRow.equals(WorkingRow.ROW2)) {
-                    //TODO
+                if(!(workingRow.equals(WorkingRow.ROW2))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW2;
+                    Log.d(LOG_TAG, "" + workingRow.name());
+                }else if(selectedButtons.contains(btn21)) {
+                    selectedButtons.remove(btn21);
+                    btn21.setBackgroundColor(Color.parseColor("#b00125"));
+                    break;
                 }
+                selectedButtons.add(btn21);
+                btn21.setBackgroundColor(Color.parseColor("#5ab1ff"));
                 break;
             case R.id.ibRow2_2:
+                if(!(workingRow.equals(WorkingRow.ROW2))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW2;
+                }else if(selectedButtons.contains(btn22)) {
+                    selectedButtons.remove(btn22);
+                    btn22.setBackgroundColor(Color.parseColor("#b00125"));
+                    break;
+                }
+                selectedButtons.add(btn22);
+                btn22.setBackgroundColor(Color.parseColor("#5ab1ff"));
                 break;
             case R.id.ibRow3_1:
+                if(!(workingRow.equals(WorkingRow.ROW3))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW3;
+                }else if(selectedButtons.contains(btn31)) {
+                    selectedButtons.remove(btn31);
+                    btn31.setBackgroundColor(Color.parseColor("#b00125"));
+                    break;
+                }
+                selectedButtons.add(btn31);
+                btn31.setBackgroundColor(Color.parseColor("#5ab1ff"));
                 break;
             case R.id.ibRow3_2:
+                if(!(workingRow.equals(WorkingRow.ROW3))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW3;
+                }else if(selectedButtons.contains(btn32)) {
+                    selectedButtons.remove(btn32);
+                    btn32.setBackgroundColor(Color.parseColor("#b00125"));
+                    break;
+                }
+                selectedButtons.add(btn32);
+                btn32.setBackgroundColor(Color.parseColor("#5ab1ff"));
                 break;
             case R.id.ibRow3_3:
+                if(!(workingRow.equals(WorkingRow.ROW3))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW3;
+                }else if(selectedButtons.contains(btn33)) {
+                    selectedButtons.remove(btn33);
+                    btn33.setBackgroundColor(Color.parseColor("#b00125"));
+                    break;
+                }
+                selectedButtons.add(btn33);
+                btn33.setBackgroundColor(Color.parseColor("#5ab1ff"));
                 break;
             case R.id.ibRow4_1:
+                if(!(workingRow.equals(WorkingRow.ROW4))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW4;
+                }else if(selectedButtons.contains(btn41)) {
+                    selectedButtons.remove(btn41);
+                    btn41.setBackgroundColor(Color.parseColor("#b00125"));
+                    break;
+                }
+                selectedButtons.add(btn41);
+                btn41.setBackgroundColor(Color.parseColor("#5ab1ff"));
                 break;
             case R.id.ibRow4_2:
+                if(!(workingRow.equals(WorkingRow.ROW4))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW4;
+                }else if(selectedButtons.contains(btn42)) {
+                    selectedButtons.remove(btn42);
+                    btn42.setBackgroundColor(Color.parseColor("#b00125"));
+                    break;
+                }
+                selectedButtons.add(btn42);
+                btn42.setBackgroundColor(Color.parseColor("#5ab1ff"));
                 break;
             case R.id.ibRow4_3:
+                if(!(workingRow.equals(WorkingRow.ROW4))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW4;
+                }else if(selectedButtons.contains(btn43)) {
+                    selectedButtons.remove(btn43);
+                    btn43.setBackgroundColor(Color.parseColor("#b00125"));
+                    break;
+                }
+                selectedButtons.add(btn43);
+                btn43.setBackgroundColor(Color.parseColor("#5ab1ff"));
                 break;
             case R.id.ibRow4_4:
+                if(!(workingRow.equals(WorkingRow.ROW4))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW4;
+                }else if(selectedButtons.contains(btn44)) {
+                    selectedButtons.remove(btn44);
+                    btn44.setBackgroundColor(Color.parseColor("#b00125"));
+                    break;
+                }
+                selectedButtons.add(btn44);
+                btn44.setBackgroundColor(Color.parseColor("#5ab1ff"));
                 break;
             case R.id.ibRow5_1:
+                if(!(workingRow.equals(WorkingRow.ROW5))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW5;
+                }else if(selectedButtons.contains(btn51)) {
+                    selectedButtons.remove(btn51);
+                    btn51.setBackgroundColor(Color.parseColor("#b00125"));
+                    break;
+                }
+                selectedButtons.add(btn51);
+                btn51.setBackgroundColor(Color.parseColor("#5ab1ff"));
                 break;
             case R.id.ibRow5_2:
+                if(!(workingRow.equals(WorkingRow.ROW5))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW5;
+                }else if(selectedButtons.contains(btn52)) {
+                    selectedButtons.remove(btn52);
+                    btn52.setBackgroundColor(Color.parseColor("#b00125"));
+                    break;
+                }
+                selectedButtons.add(btn52);
+                btn52.setBackgroundColor(Color.parseColor("#5ab1ff"));
                 break;
             case R.id.ibRow5_3:
+                if(!(workingRow.equals(WorkingRow.ROW5))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW5;
+                }else if(selectedButtons.contains(btn53)) {
+                    selectedButtons.remove(btn53);
+                    btn53.setBackgroundColor(Color.parseColor("#b00125"));
+                    break;
+                }
+                selectedButtons.add(btn53);
+                btn53.setBackgroundColor(Color.parseColor("#5ab1ff"));
                 break;
             case R.id.ibRow5_4:
+                if(!(workingRow.equals(WorkingRow.ROW5))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW5;
+                }else if(selectedButtons.contains(btn54)) {
+                    selectedButtons.remove(btn54);
+                    btn54.setBackgroundColor(Color.parseColor("#b00125"));
+                    break;
+                }
+                selectedButtons.add(btn54);
+                btn54.setBackgroundColor(Color.parseColor("#5ab1ff"));
                 break;
             case R.id.ibRow5_5:
+                if(!(workingRow.equals(WorkingRow.ROW5))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW5;
+                } else if(selectedButtons.contains(btn55)) {
+                    Log.d(LOG_TAG, "This is clicked again");
+                    btn55.setBackgroundColor(Color.parseColor("#b00125"));
+                    selectedButtons.remove(btn55);
+                    break;
+                }
+                selectedButtons.add(btn55);
+                btn55.setBackgroundColor(Color.parseColor("#5ab1ff"));
                 break;
         }
-
     }
 
-    public void makeVisible(ArrayList<ImageButton> imageButtons) {
-        //TODO
+    public void revertPreviousSelectionRow() {
 
+        for(ImageButton imageButton : selectedButtons) {
+
+            imageButton.setBackgroundColor(Color.parseColor("#b00125"));
+        }
+        selectedButtons.clear();
     }
 }
