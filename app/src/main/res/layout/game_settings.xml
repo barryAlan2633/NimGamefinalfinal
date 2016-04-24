@@ -119,23 +119,23 @@
             android:orientation="vertical">
 
             <RadioButton
-                android:id="@+id/rThree"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="3" />
-
-
-            <RadioButton
-                android:id="@+id/rFour"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="4" />
-
-            <RadioButton
                 android:id="@+id/rFive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="5"/>
+                android:text="5" />
+
+
+            <RadioButton
+                android:id="@+id/rSix"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="6" />
+
+            <RadioButton
+                android:id="@+id/rSeven"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="7"/>
 
         </RadioGroup>
     </LinearLayout>

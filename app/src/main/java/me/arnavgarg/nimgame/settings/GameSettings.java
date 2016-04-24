@@ -89,20 +89,19 @@ public class GameSettings extends Activity implements RadioGroup.OnCheckedChange
 
             case R.id.rgDifficulty:
 
-                Log.d(LOG_TAG, String.valueOf(group.getId()));
-                Log.d(LOG_TAG, String.valueOf(group.getCheckedRadioButtonId()));
+                Log.d(LOG_TAG, "Difficulty Level: " + difficultyLevel);
 
                 difficultyLevel = group.getCheckedRadioButtonId();
 
                 break;
 
             case R.id.rgFirstTurn:
-
+                Log.d(LOG_TAG,"\nFirst Turn: " + firstTurn);
                 firstTurn = group.getCheckedRadioButtonId();
                 break;
 
             case R.id.rgSticks:
-
+                Log.d(LOG_TAG, "\nNumber of Sticks: " + numberOfSticks);
                 numberOfSticks = group.getCheckedRadioButtonId();
                 break;
         }
