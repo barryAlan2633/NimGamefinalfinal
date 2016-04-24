@@ -19,6 +19,7 @@ import com.nightonke.boommenu.Types.PlaceType;
 import com.nightonke.boommenu.Util;
 
 import me.arnavgarg.nimgame.Database.GameDatabase;
+import me.arnavgarg.nimgame.Game.GameMain;
 import me.arnavgarg.nimgame.R;
 import me.arnavgarg.nimgame.settings.GameSettings;
 
@@ -102,6 +103,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch(v.getId()) {
 
             case R.id.buttonPlay:
+                intent = new Intent(MainActivity.this, GameMain.class);
+                startActivity(intent);
                 break;
             case R.id.buttonGameOptions:
                 intent = new Intent(MainActivity.this, GameSettings.class);

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="TURN BASED!"
+        android:textSize="30dp"
+        android:padding="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <pl.droidsonroids.gif.GifImageButton
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:background="@drawable/image"
+                android:id="@+id/ibRow1.1">
+
+            </pl.droidsonroids.gif.GifImageButton>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <pl.droidsonroids.gif.GifImageButton
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:background="@drawable/image"
+                android:id="@+id/ibRow2.1"/>
+
+            <pl.droidsonroids.gif.GifImageButton
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:background="@drawable/image"
+                android:id="@+id/ibRow2.2">
+            </pl.droidsonroids.gif.GifImageButton>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <pl.droidsonroids.gif.GifImageButton
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:background="@drawable/image"
+                android:id="@+id/ibRow3.1"/>
+
+            <pl.droidsonroids.gif.GifImageButton
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:background="@drawable/image"
+                android:id="@+id/ibRow3.2">
+
+            </pl.droidsonroids.gif.GifImageButton>
+
+            <pl.droidsonroids.gif.GifImageButton
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:background="@drawable/image"
+                android:id="@+id/ibRow3.3">
+
+            </pl.droidsonroids.gif.GifImageButton>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <pl.droidsonroids.gif.GifImageButton
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:background="@drawable/image"
+                android:id="@+id/ibRow4.1">
+
+            </pl.droidsonroids.gif.GifImageButton>
+
+            <pl.droidsonroids.gif.GifImageButton
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:background="@drawable/image"
+                android:id="@+id/ibRow4.2">
+
+            </pl.droidsonroids.gif.GifImageButton>
+
+            <pl.droidsonroids.gif.GifImageButton
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:background="@drawable/image"
+                android:id="@+id/ibRow4.3">
+
+            </pl.droidsonroids.gif.GifImageButton>
+
+            <pl.droidsonroids.gif.GifImageButton
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:background="@drawable/image"
+                android:id="@+id/ibRow4.4">
+
+            </pl.droidsonroids.gif.GifImageButton>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <pl.droidsonroids.gif.GifImageButton
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:background="@drawable/image"
+                android:id="@+id/ibRow5.1">
+
+            </pl.droidsonroids.gif.GifImageButton>
+
+            <pl.droidsonroids.gif.GifImageButton
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:background="@drawable/image"
+                android:id="@+id/ibRow5.2">
+
+            </pl.droidsonroids.gif.GifImageButton>
+
+            <pl.droidsonroids.gif.GifImageButton
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:background="@drawable/image"
+                android:id="@+id/ibRow5.3">
+
+            </pl.droidsonroids.gif.GifImageButton>
+
+            <pl.droidsonroids.gif.GifImageButton
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:background="@drawable/image"
+                android:id="@+id/ibRow5.4">
+
+            </pl.droidsonroids.gif.GifImageButton>
+
+            <pl.droidsonroids.gif.GifImageButton
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:background="@drawable/image"
+                android:id="@+id/ibRow5.5">
+
+            </pl.droidsonroids.gif.GifImageButton>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:text="Next Turn"
+        android:id="@+id/btnNextTurn"/>
+
+</LinearLayout>
