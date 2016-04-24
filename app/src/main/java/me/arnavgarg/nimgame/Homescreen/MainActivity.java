@@ -48,8 +48,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Default settings for the game.
         gameDatabase.open();
 
+//        gameDatabase.deleteAll();
         if(gameDatabase.checkEmpty()) {
-            gameDatabase.createEntry(2131492990,2131492995,2131492999);
+            gameDatabase.createEntry(2131493008,2131493012,2131493015);
         }
 
         gameDatabase.close();

@@ -27,8 +27,8 @@
             <pl.droidsonroids.gif.GifImageButton
                 android:layout_width="55dp"
                 android:layout_height="55dp"
-                android:background="@drawable/image"
-                android:id="@+id/ibRow1.1">
+                android:background="@drawable/ic_launcher"
+                android:id="@+id/ibRow1_1">
 
             </pl.droidsonroids.gif.GifImageButton>
         </LinearLayout>
@@ -43,13 +43,13 @@
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:background="@drawable/image"
-                android:id="@+id/ibRow2.1"/>
+                android:id="@+id/ibRow2_1"/>
 
             <pl.droidsonroids.gif.GifImageButton
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:background="@drawable/image"
-                android:id="@+id/ibRow2.2">
+                android:id="@+id/ibRow2_2">
             </pl.droidsonroids.gif.GifImageButton>
 
         </LinearLayout>
@@ -63,13 +63,13 @@
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:background="@drawable/image"
-                android:id="@+id/ibRow3.1"/>
+                android:id="@+id/ibRow3_1"/>
 
             <pl.droidsonroids.gif.GifImageButton
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:background="@drawable/image"
-                android:id="@+id/ibRow3.2">
+                android:id="@+id/ibRow3_2">
 
             </pl.droidsonroids.gif.GifImageButton>
 
@@ -77,46 +77,7 @@
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:background="@drawable/image"
-                android:id="@+id/ibRow3.3">
-
-            </pl.droidsonroids.gif.GifImageButton>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-
-            <pl.droidsonroids.gif.GifImageButton
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                android:background="@drawable/image"
-                android:id="@+id/ibRow4.1">
-
-            </pl.droidsonroids.gif.GifImageButton>
-
-            <pl.droidsonroids.gif.GifImageButton
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                android:background="@drawable/image"
-                android:id="@+id/ibRow4.2">
-
-            </pl.droidsonroids.gif.GifImageButton>
-
-            <pl.droidsonroids.gif.GifImageButton
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                android:background="@drawable/image"
-                android:id="@+id/ibRow4.3">
-
-            </pl.droidsonroids.gif.GifImageButton>
-
-            <pl.droidsonroids.gif.GifImageButton
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                android:background="@drawable/image"
-                android:id="@+id/ibRow4.4">
+                android:id="@+id/ibRow3_3">
 
             </pl.droidsonroids.gif.GifImageButton>
 
@@ -131,7 +92,7 @@
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:background="@drawable/image"
-                android:id="@+id/ibRow5.1">
+                android:id="@+id/ibRow4_1">
 
             </pl.droidsonroids.gif.GifImageButton>
 
@@ -139,7 +100,7 @@
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:background="@drawable/image"
-                android:id="@+id/ibRow5.2">
+                android:id="@+id/ibRow4_2">
 
             </pl.droidsonroids.gif.GifImageButton>
 
@@ -147,7 +108,7 @@
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:background="@drawable/image"
-                android:id="@+id/ibRow5.3">
+                android:id="@+id/ibRow4_3">
 
             </pl.droidsonroids.gif.GifImageButton>
 
@@ -155,7 +116,22 @@
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:background="@drawable/image"
-                android:id="@+id/ibRow5.4">
+                android:id="@+id/ibRow4_4">
+
+            </pl.droidsonroids.gif.GifImageButton>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <pl.droidsonroids.gif.GifImageButton
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:background="@drawable/image"
+                android:id="@+id/ibRow5_1">
 
             </pl.droidsonroids.gif.GifImageButton>
 
@@ -163,7 +139,31 @@
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:background="@drawable/image"
-                android:id="@+id/ibRow5.5">
+                android:id="@+id/ibRow5_2">
+
+            </pl.droidsonroids.gif.GifImageButton>
+
+            <pl.droidsonroids.gif.GifImageButton
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:background="@drawable/image"
+                android:id="@+id/ibRow5_3">
+
+            </pl.droidsonroids.gif.GifImageButton>
+
+            <pl.droidsonroids.gif.GifImageButton
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:background="@drawable/image"
+                android:id="@+id/ibRow5_4">
+
+            </pl.droidsonroids.gif.GifImageButton>
+
+            <pl.droidsonroids.gif.GifImageButton
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:background="@drawable/image"
+                android:id="@+id/ibRow5_5">
 
             </pl.droidsonroids.gif.GifImageButton>
 

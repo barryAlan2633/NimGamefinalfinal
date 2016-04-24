@@ -85,8 +85,7 @@ public class GameDatabase {
 
         return false;
     }
-    public void deleteAll()
-    {
+    public void deleteAll() {
         sqLiteDatabase.delete(DATABASE_TABLE, null, null);
     }
 
