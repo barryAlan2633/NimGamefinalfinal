@@ -41,6 +41,7 @@ public class GameMain extends Activity implements View.OnClickListener{
         workingRow = WorkingRow.NONE;
 
         getData = new GetData(this);
+        getData.parseData();
         selectedButtons = new ArrayList<>();
 
         //Row 1
@@ -107,6 +108,15 @@ public class GameMain extends Activity implements View.OnClickListener{
 //        btn75 = (ImageButton) findViewById(R.id.ibRow1_1);
 //        btn76 = (ImageButton) findViewById(R.id.ibRow1_1);
 //        btn77 = (ImageButton) findViewById(R.id.ibRow1_1);
+
+        if(getData.getDifficultyLevel() == 2131493008) {
+
+
+        }
+
+
+
+
     }
 
 
@@ -304,6 +314,15 @@ public class GameMain extends Activity implements View.OnClickListener{
         for(ImageButton imageButton : selectedButtons) {
 
             imageButton.setBackgroundColor(Color.parseColor("#b00125"));
+        }
+        selectedButtons.clear();
+    }
+
+    public void removeSelected() {
+
+        for(ImageButton imageButton : selectedButtons) {
+
+            imageButton.setVisibility(View.GONE);
         }
         selectedButtons.clear();
     }
