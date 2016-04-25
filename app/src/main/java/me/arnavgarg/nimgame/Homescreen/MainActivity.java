@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 //        gameDatabase.deleteAll();
         if(gameDatabase.checkEmpty()) {
-            gameDatabase.createEntry(2131493008,2131493012,2131493015);
+            gameDatabase.createEntry(2131493009,2131493012,2131493016);
         }
 
         gameDatabase.close();

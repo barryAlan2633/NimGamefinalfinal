@@ -2,15 +2,16 @@ package me.arnavgarg.nimgame.Game;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.TimerTask;
 
 import me.arnavgarg.nimgame.Database.GetData;
 import me.arnavgarg.nimgame.R;
@@ -23,7 +24,7 @@ enum WorkingRow {
     NONE, ROW1, ROW2, ROW3, ROW4, ROW5, ROW6, ROW7
 }
 
-public class GameMain extends Activity implements View.OnClickListener{
+public class GameMain extends Activity implements View.OnClickListener {
 
     private static final String LOG_TAG = GameMain.class.getSimpleName();
 
@@ -35,6 +36,7 @@ public class GameMain extends Activity implements View.OnClickListener{
     //TODO: Assign then tasks!
     private ImageButton btn61, btn62, btn63, btn64, btn65, btn66;
     private ImageButton btn71, btn72, btn73, btn74, btn75, btn76, btn77;
+    private TextView displayTurn;
 
     private ArrayList<ImageButton> row1;
     private ArrayList<ImageButton> row2;
@@ -50,7 +52,7 @@ public class GameMain extends Activity implements View.OnClickListener{
     private Button nextTurn;
     private GetData getData;
     private ArrayList<ImageButton> selectedButtons;
-    private int TOTAL_SELECTIONS = 0;
+    private int TOTAL_SELECTIONS = 15;
     private GameDifficultyMain gameDifficulty;
 
     @Override
@@ -61,6 +63,8 @@ public class GameMain extends Activity implements View.OnClickListener{
         getData = new GetData(this);
         getData.parseData();
         selectedButtons = new ArrayList<>();
+
+        displayTurn = (TextView) findViewById(R.id.tvTurn);
 
         //Row 1
         btn11 = (ImageButton) findViewById(R.id.ibRow1_1);
@@ -144,36 +148,33 @@ public class GameMain extends Activity implements View.OnClickListener{
 
         nextTurn = (Button) findViewById(R.id.btnNextTurn);
 
-        nextTurn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendingDataAI();
-            }
-        });
+        rowMap.put(1, row1);
+        rowMap.put(2, row2);
+        rowMap.put(3, row3);
+        rowMap.put(4, row4);
+        rowMap.put(5, row5);
+        TOTAL_SELECTIONS = 15;
 
 
-        switch(getData.getNumberOfSticks()) {
+        switch (getData.getNumberOfSticks()) {
             case 7:
             case 6:
-            case 2131493015:
-                rowMap.put(1, row1);
-                rowMap.put(2, row2);
-                rowMap.put(3, row3);
-                rowMap.put(4, row4);
-                rowMap.put(5, row5);
-                TOTAL_SELECTIONS = 15;
+            case 2131493016:
+
                 break;
         }
 
-        switch(getData.getFirstTurn()) {
-            case 2131493012:
+        switch (getData.getFirstTurn()) {
+            case 2131493013:
+                displayTurn.setText("COMPUTER'S TURN");
                 playerTurn = false;
                 break;
-            case 2131493011:
+            case 2131493012:
+                displayTurn.setText("PLAYER'S TURN");
                 playerTurn = true;
         }
 
-        switch(getData.getDifficultyLevel()) {
+        switch (getData.getDifficultyLevel()) {
             case 2131493008:
                 gameDifficulty = new DifficultyHard();
                 break;
@@ -183,32 +184,34 @@ public class GameMain extends Activity implements View.OnClickListener{
                 break;
         }
 
-        Thread backgroundThread = new Thread(new TimerTask() {
+        nextTurn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
+            public void onClick(View v) {
 
-                while(TOTAL_SELECTIONS != 0) {
+                TOTAL_SELECTIONS -= selectedButtons.size();
+                for (ImageButton imageButton : selectedButtons) {
 
-
+                    imageButton.setVisibility(View.INVISIBLE);
                 }
+                displayTurn.setText("COMPUTER'S TURN");
+                nextTurn.setClickable(false);
+                playerTurn = false;
             }
         });
 
-        backgroundThread.run();
+        BackgroundThread bt = new BackgroundThread();
+        bt.execute();
     }
-
-
-
 
     @Override
     public void onClick(View v) {
 
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.ibRow1_1:
-                if(!(workingRow.equals(WorkingRow.ROW1))) {
+                if (!(workingRow.equals(WorkingRow.ROW1))) {
                     revertPreviousSelectionRow();
                     workingRow = WorkingRow.ROW1;
-                }else if(selectedButtons.contains(row1.get(0))) {
+                } else if (selectedButtons.contains(row1.get(0))) {
                     selectedButtons.remove(row1.get(0));
                     row1.get(0).setBackgroundColor(Color.parseColor("#b00125"));
                     break;
@@ -217,11 +220,11 @@ public class GameMain extends Activity implements View.OnClickListener{
                 row1.get(0).setBackgroundColor(Color.parseColor("#5ab1ff"));
                 break;
             case R.id.ibRow2_1:
-                if(!(workingRow.equals(WorkingRow.ROW2))) {
+                if (!(workingRow.equals(WorkingRow.ROW2))) {
                     revertPreviousSelectionRow();
                     workingRow = WorkingRow.ROW2;
                     Log.d(LOG_TAG, "" + workingRow.name());
-                }else if(selectedButtons.contains(row2.get(0))){
+                } else if (selectedButtons.contains(row2.get(0))) {
                     selectedButtons.remove(row2.get(0));
                     row2.get(0).setBackgroundColor(Color.parseColor("#b00125"));
                     break;
@@ -230,10 +233,10 @@ public class GameMain extends Activity implements View.OnClickListener{
                 btn21.setBackgroundColor(Color.parseColor("#5ab1ff"));
                 break;
             case R.id.ibRow2_2:
-                if(!(workingRow.equals(WorkingRow.ROW2))) {
+                if (!(workingRow.equals(WorkingRow.ROW2))) {
                     revertPreviousSelectionRow();
                     workingRow = WorkingRow.ROW2;
-                }else if(selectedButtons.contains(row2.get(1))) {
+                } else if (selectedButtons.contains(row2.get(1))) {
                     selectedButtons.remove(row2.get(1));
                     row2.get(1).setBackgroundColor(Color.parseColor("#b00125"));
                     break;
@@ -242,10 +245,10 @@ public class GameMain extends Activity implements View.OnClickListener{
                 row2.get(1).setBackgroundColor(Color.parseColor("#5ab1ff"));
                 break;
             case R.id.ibRow3_1:
-                if(!(workingRow.equals(WorkingRow.ROW3))) {
+                if (!(workingRow.equals(WorkingRow.ROW3))) {
                     revertPreviousSelectionRow();
                     workingRow = WorkingRow.ROW3;
-                }else if(selectedButtons.contains(row3.get(0))) {
+                } else if (selectedButtons.contains(row3.get(0))) {
                     selectedButtons.remove(row3.get(0));
                     row3.get(0).setBackgroundColor(Color.parseColor("#b00125"));
                     break;
@@ -254,10 +257,10 @@ public class GameMain extends Activity implements View.OnClickListener{
                 row3.get(0).setBackgroundColor(Color.parseColor("#5ab1ff"));
                 break;
             case R.id.ibRow3_2:
-                if(!(workingRow.equals(WorkingRow.ROW3))) {
+                if (!(workingRow.equals(WorkingRow.ROW3))) {
                     revertPreviousSelectionRow();
                     workingRow = WorkingRow.ROW3;
-                }else if(selectedButtons.contains(row3.get(1))) {
+                } else if (selectedButtons.contains(row3.get(1))) {
                     selectedButtons.remove(row3.get(1));
                     row3.get(1).setBackgroundColor(Color.parseColor("#b00125"));
                     break;
@@ -266,10 +269,10 @@ public class GameMain extends Activity implements View.OnClickListener{
                 row3.get(1).setBackgroundColor(Color.parseColor("#5ab1ff"));
                 break;
             case R.id.ibRow3_3:
-                if(!(workingRow.equals(WorkingRow.ROW3))) {
+                if (!(workingRow.equals(WorkingRow.ROW3))) {
                     revertPreviousSelectionRow();
                     workingRow = WorkingRow.ROW3;
-                }else if(selectedButtons.contains(row3.get(2))) {
+                } else if (selectedButtons.contains(row3.get(2))) {
                     selectedButtons.remove(row3.get(2));
                     row3.get(2).setBackgroundColor(Color.parseColor("#b00125"));
                     break;
@@ -278,10 +281,10 @@ public class GameMain extends Activity implements View.OnClickListener{
                 row3.get(2).setBackgroundColor(Color.parseColor("#5ab1ff"));
                 break;
             case R.id.ibRow4_1:
-                if(!(workingRow.equals(WorkingRow.ROW4))) {
+                if (!(workingRow.equals(WorkingRow.ROW4))) {
                     revertPreviousSelectionRow();
                     workingRow = WorkingRow.ROW4;
-                }else if(selectedButtons.contains(row4.get(0))) {
+                } else if (selectedButtons.contains(row4.get(0))) {
                     selectedButtons.remove(row4.get(0));
                     row4.get(0).setBackgroundColor(Color.parseColor("#b00125"));
                     break;
@@ -290,10 +293,10 @@ public class GameMain extends Activity implements View.OnClickListener{
                 row4.get(0).setBackgroundColor(Color.parseColor("#5ab1ff"));
                 break;
             case R.id.ibRow4_2:
-                if(!(workingRow.equals(WorkingRow.ROW4))) {
+                if (!(workingRow.equals(WorkingRow.ROW4))) {
                     revertPreviousSelectionRow();
                     workingRow = WorkingRow.ROW4;
-                }else if(selectedButtons.contains(row4.get(1))) {
+                } else if (selectedButtons.contains(row4.get(1))) {
                     selectedButtons.remove(row4.get(1));
                     row4.get(1).setBackgroundColor(Color.parseColor("#b00125"));
                     break;
@@ -302,10 +305,10 @@ public class GameMain extends Activity implements View.OnClickListener{
                 row4.get(1).setBackgroundColor(Color.parseColor("#5ab1ff"));
                 break;
             case R.id.ibRow4_3:
-                if(!(workingRow.equals(WorkingRow.ROW4))) {
+                if (!(workingRow.equals(WorkingRow.ROW4))) {
                     revertPreviousSelectionRow();
                     workingRow = WorkingRow.ROW4;
-                }else if(selectedButtons.contains(row4.get(2))) {
+                } else if (selectedButtons.contains(row4.get(2))) {
                     selectedButtons.remove(row4.get(2));
                     row4.get(2).setBackgroundColor(Color.parseColor("#b00125"));
                     break;
@@ -314,10 +317,10 @@ public class GameMain extends Activity implements View.OnClickListener{
                 row4.get(2).setBackgroundColor(Color.parseColor("#5ab1ff"));
                 break;
             case R.id.ibRow4_4:
-                if(!(workingRow.equals(WorkingRow.ROW4))) {
+                if (!(workingRow.equals(WorkingRow.ROW4))) {
                     revertPreviousSelectionRow();
                     workingRow = WorkingRow.ROW4;
-                }else if(selectedButtons.contains(row4.get(3))) {
+                } else if (selectedButtons.contains(row4.get(3))) {
                     selectedButtons.remove(row4.get(3));
                     btn44.setBackgroundColor(Color.parseColor("#b00125"));
                     break;
@@ -326,10 +329,10 @@ public class GameMain extends Activity implements View.OnClickListener{
                 row4.get(3).setBackgroundColor(Color.parseColor("#5ab1ff"));
                 break;
             case R.id.ibRow5_1:
-                if(!(workingRow.equals(WorkingRow.ROW5))) {
+                if (!(workingRow.equals(WorkingRow.ROW5))) {
                     revertPreviousSelectionRow();
                     workingRow = WorkingRow.ROW5;
-                }else if(selectedButtons.contains(row5.get(0))) {
+                } else if (selectedButtons.contains(row5.get(0))) {
                     selectedButtons.remove(row5.get(0));
                     btn51.setBackgroundColor(Color.parseColor("#b00125"));
                     break;
@@ -338,10 +341,10 @@ public class GameMain extends Activity implements View.OnClickListener{
                 row5.get(0).setBackgroundColor(Color.parseColor("#5ab1ff"));
                 break;
             case R.id.ibRow5_2:
-                if(!(workingRow.equals(WorkingRow.ROW5))) {
+                if (!(workingRow.equals(WorkingRow.ROW5))) {
                     revertPreviousSelectionRow();
                     workingRow = WorkingRow.ROW5;
-                }else if(selectedButtons.contains(row5.get(1))) {
+                } else if (selectedButtons.contains(row5.get(1))) {
                     selectedButtons.remove(row5.get(1));
                     row5.get(1).setBackgroundColor(Color.parseColor("#b00125"));
                     break;
@@ -350,10 +353,10 @@ public class GameMain extends Activity implements View.OnClickListener{
                 row5.get(1).setBackgroundColor(Color.parseColor("#5ab1ff"));
                 break;
             case R.id.ibRow5_3:
-                if(!(workingRow.equals(WorkingRow.ROW5))) {
+                if (!(workingRow.equals(WorkingRow.ROW5))) {
                     revertPreviousSelectionRow();
                     workingRow = WorkingRow.ROW5;
-                }else if(selectedButtons.contains(row5.get(2))) {
+                } else if (selectedButtons.contains(row5.get(2))) {
                     selectedButtons.remove(row5.get(2));
                     row5.get(2).setBackgroundColor(Color.parseColor("#b00125"));
                     break;
@@ -362,10 +365,10 @@ public class GameMain extends Activity implements View.OnClickListener{
                 row5.get(2).setBackgroundColor(Color.parseColor("#5ab1ff"));
                 break;
             case R.id.ibRow5_4:
-                if(!(workingRow.equals(WorkingRow.ROW5))) {
+                if (!(workingRow.equals(WorkingRow.ROW5))) {
                     revertPreviousSelectionRow();
                     workingRow = WorkingRow.ROW5;
-                }else if(selectedButtons.contains(row5.get(3))) {
+                } else if (selectedButtons.contains(row5.get(3))) {
                     selectedButtons.remove(row5.get(3));
                     row5.get(3).setBackgroundColor(Color.parseColor("#b00125"));
                     break;
@@ -374,10 +377,10 @@ public class GameMain extends Activity implements View.OnClickListener{
                 row5.get(3).setBackgroundColor(Color.parseColor("#5ab1ff"));
                 break;
             case R.id.ibRow5_5:
-                if(!(workingRow.equals(WorkingRow.ROW5))) {
+                if (!(workingRow.equals(WorkingRow.ROW5))) {
                     revertPreviousSelectionRow();
                     workingRow = WorkingRow.ROW5;
-                } else if(selectedButtons.contains(row5.get(4))) {
+                } else if (selectedButtons.contains(row5.get(4))) {
                     Log.d(LOG_TAG, "This is clicked again");
                     row5.get(4).setBackgroundColor(Color.parseColor("#b00125"));
                     selectedButtons.remove(row5.get(4));
@@ -391,7 +394,7 @@ public class GameMain extends Activity implements View.OnClickListener{
 
     public void revertPreviousSelectionRow() {
 
-        for(ImageButton imageButton : selectedButtons) {
+        for (ImageButton imageButton : selectedButtons) {
 
             imageButton.setBackgroundColor(Color.parseColor("#b00125"));
         }
@@ -400,7 +403,7 @@ public class GameMain extends Activity implements View.OnClickListener{
 
     public void removeSelected() {
 
-        for(ImageButton imageButton : selectedButtons) {
+        for (ImageButton imageButton : selectedButtons) {
 
             imageButton.setVisibility(View.GONE);
         }
@@ -409,25 +412,44 @@ public class GameMain extends Activity implements View.OnClickListener{
 
     public void sendingDataAI() {
 
+        Log.d(LOG_TAG, "poop");
+
         int[] a = new int[]{-1, -1, -1, -1, -1, -1, -1};
-        int size = 0;
-        if(getData.getNumberOfSticks() == 2131493015){
+        int size = 5;
 
-            size = 5;
-            a = new int[6];
-        }
+        Log.d(LOG_TAG, "" + rowMap.get(5).get(1).isShown());
+        for (int i = 1; i <= size; i++) {
+            for (int j = 0; j < rowMap.get(i).size(); j++) {
 
-        for(int i = 1; i <= size; i++) {
-            for(int j = 0; j < rowMap.get(i).size(); j++) {
-
-                if(rowMap.get(i).get(j).getVisibility() == View.VISIBLE) {
+                if (rowMap.get(i).get(j).isShown()) {
 
                     a[i] += 1;
                 }
             }
         }
-        gameDifficulty.computerTurn(a);
 
+        for (int i = 1; i <= 5; i++) {
+            Log.d(LOG_TAG, "Row " +  + a[i]);
+        }
+
+        playerTurn = true;
+
+        //gameDifficulty.computerTurn(a);
+
+    }
+
+    private class BackgroundThread extends AsyncTask<Void, Void, Void> {
+
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            while(true) {
+                if (playerTurn == false) {
+                    sendingDataAI();
+                }
+            }
+        }
     }
 
 }

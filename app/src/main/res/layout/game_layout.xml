@@ -9,9 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="TURN BASED!"
+        android:text=""
         android:textSize="30dp"
-        android:padding="20dp"/>
+        android:padding="20dp"
+        android:id="@+id/tvTurn"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,7 +29,8 @@
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:background="#b00125"
-                android:id="@+id/ibRow1_1">
+                android:id="@+id/ibRow1_1"
+                android:layout_margin="5dp">
 
             </pl.droidsonroids.gif.GifImageButton>
         </LinearLayout>
@@ -50,7 +52,8 @@
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:background="#b00125"
-                android:id="@+id/ibRow2_2">
+                android:id="@+id/ibRow2_2"
+                android:layout_margin="5dp">
             </pl.droidsonroids.gif.GifImageButton>
 
         </LinearLayout>
@@ -185,8 +188,8 @@
     </LinearLayout>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
         android:layout_gravity="center"
         android:layout_margin="20dp"
         android:text="Next Turn"
