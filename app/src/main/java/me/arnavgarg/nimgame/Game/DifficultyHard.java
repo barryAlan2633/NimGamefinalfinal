@@ -1,5 +1,7 @@
 package me.arnavgarg.nimgame.Game;
 
+import android.util.Log;
+
 /**
  * Created by Arnav on 4/24/2016.
  */
@@ -11,9 +13,14 @@ public class DifficultyHard extends GameDifficultyMain {
     }
 
     @Override
-    public void computerTurn(int a[]) {
+    public int[] computerTurn(int a[]) {
+
+        int[] storeValue = new int[2];
+        int counter = 0;
+        int i;
+
         if(winningCondidtion(a)) {
-            for(int i = 0; i < 4; i++) {
+            for(i = 0; i < 4; i++) {
 
                 int storeRowValue = a[i];
                 int resultChecker = 0;
@@ -23,6 +30,7 @@ public class DifficultyHard extends GameDifficultyMain {
                         break;
                     }
                     a[i] = a[i]-1;
+                    counter++;
                     resultChecker = 1;
                 }
 
@@ -35,13 +43,19 @@ public class DifficultyHard extends GameDifficultyMain {
             }
         }
         else {
-            for(int i = 0; i < 4; i++) {
+            for(i = 0; i < 4; i++) {
                 if(a[i] != 0) {
                     a[i] = a[i] - 1;
+                    counter++;
                     break;
                 }
             }
         }
+
+        Log.d("DifficultyHard", "" + counter);
+        storeValue[0] = i;
+        storeValue[1] = counter;
+        return storeValue;
     }
 
 }

@@ -16,5 +16,5 @@ public abstract class GameDifficultyMain {
         return false;
     }
 
-    public abstract void computerTurn(int[] a);
+    public abstract int[] computerTurn(int[] a);
 }

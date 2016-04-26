@@ -36,8 +36,10 @@ public class GameMain extends Activity implements View.OnClickListener {
     //TODO: Assign then tasks!
     private ImageButton btn61, btn62, btn63, btn64, btn65, btn66;
     private ImageButton btn71, btn72, btn73, btn74, btn75, btn76, btn77;
+    //For displaying whose turn it is
     private TextView displayTurn;
 
+    //Stores all the buttons in each row!
     private ArrayList<ImageButton> row1;
     private ArrayList<ImageButton> row2;
     private ArrayList<ImageButton> row3;
@@ -47,21 +49,32 @@ public class GameMain extends Activity implements View.OnClickListener {
     private ArrayList<ImageButton> row6;
     private ArrayList<ImageButton> row7;
 
+    //For storing all the buttons on the screen based on rows
     private HashMap<Integer, ArrayList<ImageButton>> rowMap;
     private boolean playerTurn;
     private Button nextTurn;
+
+    //Getting the data from the database.
     private GetData getData;
+    //Buttons that have been selected by the user.
     private ArrayList<ImageButton> selectedButtons;
+    //Total selections LEFT!
     private int TOTAL_SELECTIONS = 15;
+    //Selecting the game difficulty.
     private GameDifficultyMain gameDifficulty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_layout);
+        //NO ROW SELECTED IN THE BEGENNING.
         workingRow = WorkingRow.NONE;
+
+        //GETTING THE DATA FROM THE DATABASE
         getData = new GetData(this);
         getData.parseData();
+
+        //INITIALZING THE ARRAYLIST.
         selectedButtons = new ArrayList<>();
 
         displayTurn = (TextView) findViewById(R.id.tvTurn);
@@ -148,6 +161,8 @@ public class GameMain extends Activity implements View.OnClickListener {
 
         nextTurn = (Button) findViewById(R.id.btnNextTurn);
 
+        //Putting the 5 rows in the map.
+        //TODO: NEED TO PUT THESE IN THE SWITCH STATEMENT
         rowMap.put(1, row1);
         rowMap.put(2, row2);
         rowMap.put(3, row3);
@@ -156,14 +171,16 @@ public class GameMain extends Activity implements View.OnClickListener {
         TOTAL_SELECTIONS = 15;
 
 
-        switch (getData.getNumberOfSticks()) {
-            case 7:
-            case 6:
-            case 2131493016:
+        //TODO: NEED TO MAKE IT WORK
+//        switch (getData.getNumberOfSticks()) {
+//            case 7:
+//            case 6:
+//            case 2131493016:
+//
+//                break;
+//        }
 
-                break;
-        }
-
+        //FOR FINDING WHOSE FIRST TURN IT IS.
         switch (getData.getFirstTurn()) {
             case 2131493013:
                 displayTurn.setText("COMPUTER'S TURN");
@@ -174,6 +191,7 @@ public class GameMain extends Activity implements View.OnClickListener {
                 playerTurn = true;
         }
 
+        //SELECTING THE DIFFICULTY LEVEL.
         switch (getData.getDifficultyLevel()) {
             case 2131493008:
                 gameDifficulty = new DifficultyHard();
@@ -184,6 +202,7 @@ public class GameMain extends Activity implements View.OnClickListener {
                 break;
         }
 
+        //ON CLICK LISTENER ON THE NEXT TURN BUTTON.
         nextTurn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -199,12 +218,22 @@ public class GameMain extends Activity implements View.OnClickListener {
             }
         });
 
+        //SETTING THE BACKGROUND THREAD.
         BackgroundThread bt = new BackgroundThread();
         bt.execute();
     }
 
     @Override
     public void onClick(View v) {
+
+        /**
+         * 1) We check which button is pressed.
+         * 2) We check if the working row is the right one.. if not then revert the perviously selected
+         *    row and making the current row active.
+         * 3) if the selected button is selected again. then remove it from the selectedButton arraylist.
+         *    and then break out of switch!
+         * 4) Selected buttons will be added to the selectedButtons arraylist!
+         */
 
         switch (v.getId()) {
             case R.id.ibRow1_1:
@@ -392,6 +421,9 @@ public class GameMain extends Activity implements View.OnClickListener {
         }
     }
 
+    /**
+     * FOR REVERTING THE SELECTIONS IN THE PREVIOUSLY SELECTED ROW.
+     */
     public void revertPreviousSelectionRow() {
 
         for (ImageButton imageButton : selectedButtons) {
@@ -401,18 +433,38 @@ public class GameMain extends Activity implements View.OnClickListener {
         selectedButtons.clear();
     }
 
+    /**
+     * REMOVE THE SELECTED BUTTONS FROM THE SCREEN!
+     */
     public void removeSelected() {
 
         for (ImageButton imageButton : selectedButtons) {
 
-            imageButton.setVisibility(View.GONE);
+            imageButton.setVisibility(View.INVISIBLE);
         }
         selectedButtons.clear();
     }
 
+    /**
+     * COMPUTER INTERACTION WITH THE GAME!
+     */
     public void sendingDataAI() {
+
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                displayTurn.setText("COMPUTER'S TURN");
+                nextTurn.setClickable(false);
+            }
+        });
+
+        //INITIALZING THE ARRAY WITH 0's.
         int[] a = new int[]{0, 0, 0, 0, 0, 0, 0};
         int size = 5;
+
+        //STORING THE NUMBER OF VISIBLE BUTTONS IN EACH ROW
         for (int i = 1; i <= size; i++) {
             for (int j = 0; j < rowMap.get(i).size(); j++) {
 
@@ -424,21 +476,45 @@ public class GameMain extends Activity implements View.OnClickListener {
         }
 
         for (int i = 1; i <= 5; i++) {
-            Log.d(LOG_TAG, "[BEFORE] igioerhgio " +  + a[i]);
+            Log.d(LOG_TAG, "[BEFORE] ROWS " +  + a[i]);
         }
 
-        playerTurn = true;
-        gameDifficulty = new DifficultyHard();
-        gameDifficulty.computerTurn(a);
+//        playerTurn = true;
+//        gameDifficulty = new DifficultyHard();
 
-        for (int i = 1; i <= 5; i++) {
-            Log.d(LOG_TAG, "[AFTER] Difference ");
+        //THIS WILL STORE THE VALUES GOT BY THE AI CODE.
+        int[] gettingStored = new int[2];
+
+        //TODO: NEEDS TO BE REMOVED.
+        gettingStored = gameDifficulty.computerTurn(a);
+
+        for (int i = 0; i < 2; i++) {
+            Log.d(LOG_TAG, "g Value: " + gettingStored[i]);
         }
 
+        //MAKING THE AI PLAY THE MOVE.
+        for (int i = 0; i < rowMap.get(gettingStored[0]+1).size(); i++) {
+            for(int j = 0; j < gettingStored[1]; j++) {
 
-
+                if(rowMap.get(gettingStored[0]+1).get(j).isShown()) {
+                    Log.d(LOG_TAG, "IS THIS WORKING?");
+                    final int[] finalGettingStored = gettingStored;
+                    final int finalJ = j;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            rowMap.get(finalGettingStored[0]+1).get(finalJ).setVisibility(View.INVISIBLE);
+                        }
+                    });
+                    break;
+                }
+            }
+        }
     }
 
+    /**
+     * THE BACKGROUND THREAD!
+     */
     private class BackgroundThread extends AsyncTask<Void, Void, Void> {
 
 
@@ -447,7 +523,20 @@ public class GameMain extends Activity implements View.OnClickListener {
 
             while(true) {
                 if (playerTurn == false) {
+                    //calling the AI.
                     sendingDataAI();
+                    //Call after the AI played!
+                    playerTurn = true;
+                }
+                else {
+                    //UI thread for changing the UI of the game.
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            displayTurn.setText("PLAYER'S TURN");
+                            nextTurn.setClickable(true);
+                        }
+                    });
                 }
             }
         }
