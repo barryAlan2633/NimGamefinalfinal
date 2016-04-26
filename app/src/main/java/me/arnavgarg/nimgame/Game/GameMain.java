@@ -493,8 +493,8 @@ public class GameMain extends Activity implements View.OnClickListener {
         }
 
         //MAKING THE AI PLAY THE MOVE.
-        for (int i = 0; i < rowMap.get(gettingStored[0]+1).size(); i++) {
-            for(int j = 0; j < gettingStored[1]; j++) {
+        for (int i = 0; i < gettingStored[1]; i++) {
+            for(int j = 0; j < rowMap.get(gettingStored[0]).size(); j++) {
 
                 if(rowMap.get(gettingStored[0]+1).get(j).isShown()) {
                     Log.d(LOG_TAG, "IS THIS WORKING?");
@@ -503,7 +503,7 @@ public class GameMain extends Activity implements View.OnClickListener {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            rowMap.get(finalGettingStored[0]+1).get(finalJ).setVisibility(View.INVISIBLE);
+                            rowMap.get(finalGettingStored[0]).get(finalJ).setVisibility(View.INVISIBLE);
                         }
                     });
                     break;
