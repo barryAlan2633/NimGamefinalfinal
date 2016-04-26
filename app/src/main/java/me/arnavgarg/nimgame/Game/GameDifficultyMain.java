@@ -5,11 +5,15 @@ package me.arnavgarg.nimgame.Game;
  */
 public abstract class GameDifficultyMain {
 
-    public int winningCondidtion(int[] a) {
+    public boolean winningCondidtion(int[] a) {
 
         int q;
         q=(a[1] ^ a[2] ^ a[3] ^ a[4]);
-        return q;
+
+        if(q == 1) {
+            return true;
+        }
+        return false;
     }
 
     public abstract void computerTurn(int[] a);

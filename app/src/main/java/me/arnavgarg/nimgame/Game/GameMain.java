@@ -411,13 +411,8 @@ public class GameMain extends Activity implements View.OnClickListener {
     }
 
     public void sendingDataAI() {
-
-        Log.d(LOG_TAG, "poop");
-
-        int[] a = new int[]{-1, -1, -1, -1, -1, -1, -1};
+        int[] a = new int[]{0, 0, 0, 0, 0, 0, 0};
         int size = 5;
-
-        Log.d(LOG_TAG, "" + rowMap.get(5).get(1).isShown());
         for (int i = 1; i <= size; i++) {
             for (int j = 0; j < rowMap.get(i).size(); j++) {
 
@@ -429,12 +424,18 @@ public class GameMain extends Activity implements View.OnClickListener {
         }
 
         for (int i = 1; i <= 5; i++) {
-            Log.d(LOG_TAG, "Row " +  + a[i]);
+            Log.d(LOG_TAG, "[BEFORE] igioerhgio " +  + a[i]);
         }
 
         playerTurn = true;
+        gameDifficulty = new DifficultyHard();
+        gameDifficulty.computerTurn(a);
 
-        //gameDifficulty.computerTurn(a);
+        for (int i = 1; i <= 5; i++) {
+            Log.d(LOG_TAG, "[AFTER] Difference ");
+        }
+
+
 
     }
 
