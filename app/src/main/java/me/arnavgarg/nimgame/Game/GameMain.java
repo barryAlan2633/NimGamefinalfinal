@@ -2,7 +2,6 @@ package me.arnavgarg.nimgame.Game;
 
 import android.app.Activity;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +10,7 @@ import android.widget.ImageButton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.TimerTask;
 
 import me.arnavgarg.nimgame.Database.GetData;
 import me.arnavgarg.nimgame.R;
@@ -46,8 +46,7 @@ public class GameMain extends Activity implements View.OnClickListener{
     private ArrayList<ImageButton> row7;
 
     private HashMap<Integer, ArrayList<ImageButton>> rowMap;
-
-
+    private boolean playerTurn;
     private Button nextTurn;
     private GetData getData;
     private ArrayList<ImageButton> selectedButtons;
@@ -152,12 +151,9 @@ public class GameMain extends Activity implements View.OnClickListener{
             }
         });
 
-        Log.d(LOG_TAG, "[MESSAGE] " + getData.getNumberOfSticks());
 
         switch(getData.getNumberOfSticks()) {
-
             case 7:
-
             case 6:
             case 2131493015:
                 rowMap.put(1, row1);
@@ -169,11 +165,39 @@ public class GameMain extends Activity implements View.OnClickListener{
                 break;
         }
 
-        if(getData.getDifficultyLevel() == 2131493008) gameDifficulty = new DifficultyHard();
+        switch(getData.getFirstTurn()) {
+            case 2131493012:
+                playerTurn = false;
+                break;
+            case 2131493011:
+                playerTurn = true;
+        }
+
+        switch(getData.getDifficultyLevel()) {
+            case 2131493008:
+                gameDifficulty = new DifficultyHard();
+                break;
+            case 0:
+                break;
+            case 1:
+                break;
+        }
+
+        Thread backgroundThread = new Thread(new TimerTask() {
+            @Override
+            public void run() {
+
+                while(TOTAL_SELECTIONS != 0) {
 
 
-        //backgroundTask.run();
+                }
+            }
+        });
+
+        backgroundThread.run();
     }
+
+
 
 
     @Override
@@ -385,18 +409,25 @@ public class GameMain extends Activity implements View.OnClickListener{
 
     public void sendingDataAI() {
 
-        btn51.setVisibility(View.INVISIBLE);
-        Log.d(LOG_TAG, "[MESSAGE] " + rowMap.get(5).get(0).getVisibility());
+        int[] a = new int[]{-1, -1, -1, -1, -1, -1, -1};
+        int size = 0;
+        if(getData.getNumberOfSticks() == 2131493015){
 
-    }
-
-    public class backgroundTask extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... params) {
-
-
-            return null;
+            size = 5;
+            a = new int[6];
         }
+
+        for(int i = 1; i <= size; i++) {
+            for(int j = 0; j < rowMap.get(i).size(); j++) {
+
+                if(rowMap.get(i).get(j).getVisibility() == View.VISIBLE) {
+
+                    a[i] += 1;
+                }
+            }
+        }
+        gameDifficulty.computerTurn(a);
+
     }
+
 }

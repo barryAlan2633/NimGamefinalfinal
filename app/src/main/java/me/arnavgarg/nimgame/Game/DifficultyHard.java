@@ -5,7 +5,7 @@ package me.arnavgarg.nimgame.Game;
  */
 public class DifficultyHard extends GameDifficultyMain {
     @Override
-    public void computerTurn() {
+    public void computerTurn(int a[]) {
 
     }
 }
