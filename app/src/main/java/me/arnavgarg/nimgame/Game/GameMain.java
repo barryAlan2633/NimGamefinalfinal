@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -13,6 +12,7 @@ import java.util.ArrayList;
 import info.hoang8f.widget.FButton;
 import me.arnavgarg.nimgame.Database.GetData;
 import me.arnavgarg.nimgame.R;
+import pl.droidsonroids.gif.GifImageButton;
 
 /**
  * Created by Arnav on 4/7/2016.
@@ -37,17 +37,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
     //For displaying whose turn it is
     private TextView displayTurn;
 
-    //Stores all the buttons in each row!
-    private ArrayList<ImageButton> row1;
-    private ArrayList<ImageButton> row2;
-    private ArrayList<ImageButton> row3;
-    private ArrayList<ImageButton> row4;
-    private ArrayList<ImageButton> row5;
-    //TODO: Assign them tasks!
-    private ArrayList<ImageButton> row6;
-    private ArrayList<ImageButton> row7;
-
-    private ArrayList<ImageButton> imageButtons;
+    private ArrayList<GifImageButton> imageButtons;
 
     private boolean playerTurn;
     private FButton nextTurn;
@@ -55,7 +45,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
     //Getting the data from the database.
     private GetData getData;
     //Buttons that have been selected by the user.
-    private ArrayList<ImageButton> selectedButtons;
+    private ArrayList<GifImageButton> selectedButtons;
     //Total selections LEFT!
     private int TOTAL_SELECTIONS = 15;
     //Selecting the game difficulty.
@@ -100,7 +90,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
      */
     public void revertPreviousSelectionRow() {
 
-        for (ImageButton imageButton : selectedButtons) {
+        for (GifImageButton imageButton : selectedButtons) {
 
             imageButton.setBackgroundResource(R.drawable.stick);
         }
@@ -112,8 +102,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
      */
     public void removeSelected() {
 
-        for (ImageButton imageButton : selectedButtons) {
-
+        for (GifImageButton imageButton : selectedButtons) {
             imageButton.setVisibility(View.INVISIBLE);
         }
         selectedButtons.clear();
@@ -186,8 +175,6 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
             Log.d(LOG_TAG, "ROW " + i + " : " + a[i]);
         }
 
-
-        
 
 
         //Just to set everything back to normal for the player..
@@ -285,41 +272,41 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         }
 
 
-        imageButtons = new ArrayList<ImageButton>();
+        imageButtons = new ArrayList<GifImageButton>();
 
 
         //It is worse than it looks :(
-        imageButtons.add((ImageButton) findViewById(R.id.ibRow1_1));
-        imageButtons.add((ImageButton) findViewById(R.id.ibRow2_1));
-        imageButtons.add((ImageButton) findViewById(R.id.ibRow2_2));
-        imageButtons.add((ImageButton) findViewById(R.id.ibRow3_1));
-        imageButtons.add((ImageButton) findViewById(R.id.ibRow3_2));
-        imageButtons.add((ImageButton) findViewById(R.id.ibRow3_3));
-        imageButtons.add((ImageButton) findViewById(R.id.ibRow4_1));
-        imageButtons.add((ImageButton) findViewById(R.id.ibRow4_2));
-        imageButtons.add((ImageButton) findViewById(R.id.ibRow4_3));
-        imageButtons.add((ImageButton) findViewById(R.id.ibRow4_4));
-        imageButtons.add((ImageButton) findViewById(R.id.ibRow5_1));
-        imageButtons.add((ImageButton) findViewById(R.id.ibRow5_2));
-        imageButtons.add((ImageButton) findViewById(R.id.ibRow5_3));
-        imageButtons.add((ImageButton) findViewById(R.id.ibRow5_4));
-        imageButtons.add((ImageButton) findViewById(R.id.ibRow5_5));
-        imageButtons.add((ImageButton) findViewById(R.id.ibRow6_1));
-        imageButtons.add((ImageButton) findViewById(R.id.ibRow6_2));
-        imageButtons.add((ImageButton) findViewById(R.id.ibRow6_3));
-        imageButtons.add((ImageButton) findViewById(R.id.ibRow6_4));
-        imageButtons.add((ImageButton) findViewById(R.id.ibRow6_5));
-        imageButtons.add((ImageButton) findViewById(R.id.ibRow6_6));
-        imageButtons.add((ImageButton) findViewById(R.id.ibRow7_1));
-        imageButtons.add((ImageButton) findViewById(R.id.ibRow7_2));
-        imageButtons.add((ImageButton) findViewById(R.id.ibRow7_3));
-        imageButtons.add((ImageButton) findViewById(R.id.ibRow7_4));
-        imageButtons.add((ImageButton) findViewById(R.id.ibRow7_5));
-        imageButtons.add((ImageButton) findViewById(R.id.ibRow7_6));
-        imageButtons.add((ImageButton) findViewById(R.id.ibRow7_7));
+        imageButtons.add((GifImageButton) findViewById(R.id.ibRow1_1));
+        imageButtons.add((GifImageButton) findViewById(R.id.ibRow2_1));
+        imageButtons.add((GifImageButton) findViewById(R.id.ibRow2_2));
+        imageButtons.add((GifImageButton) findViewById(R.id.ibRow3_1));
+        imageButtons.add((GifImageButton) findViewById(R.id.ibRow3_2));
+        imageButtons.add((GifImageButton) findViewById(R.id.ibRow3_3));
+        imageButtons.add((GifImageButton) findViewById(R.id.ibRow4_1));
+        imageButtons.add((GifImageButton) findViewById(R.id.ibRow4_2));
+        imageButtons.add((GifImageButton) findViewById(R.id.ibRow4_3));
+        imageButtons.add((GifImageButton) findViewById(R.id.ibRow4_4));
+        imageButtons.add((GifImageButton) findViewById(R.id.ibRow5_1));
+        imageButtons.add((GifImageButton) findViewById(R.id.ibRow5_2));
+        imageButtons.add((GifImageButton) findViewById(R.id.ibRow5_3));
+        imageButtons.add((GifImageButton) findViewById(R.id.ibRow5_4));
+        imageButtons.add((GifImageButton) findViewById(R.id.ibRow5_5));
+        imageButtons.add((GifImageButton) findViewById(R.id.ibRow6_1));
+        imageButtons.add((GifImageButton) findViewById(R.id.ibRow6_2));
+        imageButtons.add((GifImageButton) findViewById(R.id.ibRow6_3));
+        imageButtons.add((GifImageButton) findViewById(R.id.ibRow6_4));
+        imageButtons.add((GifImageButton) findViewById(R.id.ibRow6_5));
+        imageButtons.add((GifImageButton) findViewById(R.id.ibRow6_6));
+        imageButtons.add((GifImageButton) findViewById(R.id.ibRow7_1));
+        imageButtons.add((GifImageButton) findViewById(R.id.ibRow7_2));
+        imageButtons.add((GifImageButton) findViewById(R.id.ibRow7_3));
+        imageButtons.add((GifImageButton) findViewById(R.id.ibRow7_4));
+        imageButtons.add((GifImageButton) findViewById(R.id.ibRow7_5));
+        imageButtons.add((GifImageButton) findViewById(R.id.ibRow7_6));
+        imageButtons.add((GifImageButton) findViewById(R.id.ibRow7_7));
 
         //Initially setting all of them as invisible.
-        for (ImageButton imageButton : imageButtons) {
+        for (GifImageButton imageButton : imageButtons) {
 
             imageButton.setVisibility(View.INVISIBLE);
         }
