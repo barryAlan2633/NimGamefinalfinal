@@ -186,6 +186,11 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
             Log.d(LOG_TAG, "ROW " + i + " : " + a[i]);
         }
 
+
+        
+
+
+        //Just to set everything back to normal for the player..
         displayTurn.post(new Runnable() {
             @Override
             public void run() {
