@@ -52,10 +52,9 @@
         android:text="Play"
         android:id="@+id/buttonPlay"
         android:layout_alignWithParentIfMissing="false"
-        android:layout_above="@+id/buttonGameOptions"
-        android:layout_alignLeft="@+id/buttonGameOptions"
-        android:layout_alignStart="@+id/buttonGameOptions"
-        android:layout_marginBottom="45dp" />
+        android:layout_marginTop="41dp"
+        android:layout_below="@+id/Nims"
+        android:layout_centerHorizontal="true" />
 
     <info.hoang8f.widget.FButton
         android:layout_width="200dp"
@@ -67,17 +66,19 @@
         fbutton:cornerRadius="8dp"
         android:text="Game Options"
         android:id="@+id/buttonGameOptions"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginTop="32dp"
+        android:layout_below="@+id/buttonPlay"
+        android:layout_alignLeft="@+id/buttonPlay"
+        android:layout_alignStart="@+id/buttonPlay" />
 
     <pl.droidsonroids.gif.GifImageButton
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:background="@drawable/lburning"
+        android:layout_marginTop="36dp"
+        android:clickable="false"
         android:layout_below="@+id/buttonGameOptions"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="33dp"
-        android:clickable="false">
+        android:layout_centerHorizontal="true">
 
     </pl.droidsonroids.gif.GifImageButton>
 

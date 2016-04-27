@@ -2,14 +2,15 @@ package me.arnavgarg.nimgame.Game;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import info.hoang8f.widget.FButton;
 import me.arnavgarg.nimgame.Database.GetData;
 import me.arnavgarg.nimgame.R;
 
@@ -49,7 +50,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
     private ArrayList<ImageButton> imageButtons;
 
     private boolean playerTurn;
-    private Button nextTurn;
+    private FButton nextTurn;
 
     //Getting the data from the database.
     private GetData getData;
@@ -59,6 +60,9 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
     private int TOTAL_SELECTIONS = 15;
     //Selecting the game difficulty.
     private GameDifficultyMain gameDifficulty;
+
+    private String turnText;
+    Handler handler;
 
     /*
     ...........END HERE
@@ -79,6 +83,15 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         makeVisible();
         settingOnClickListeners();
 
+
+        //Let's start the thread. Cause this is important!
+        //....START HERE
+        Thread myThread = new Thread(this);
+        myThread.start();
+
+        //....END HERE
+
+
     }
 
 
@@ -86,8 +99,6 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
      * FOR REVERTING THE SELECTIONS IN THE PREVIOUSLY SELECTED ROW.
      */
     public void revertPreviousSelectionRow() {
-
-        Log.d(LOG_TAG, "This was called when another row was selected.");
 
         for (ImageButton imageButton : selectedButtons) {
 
@@ -108,13 +119,126 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         selectedButtons.clear();
     }
 
+
     /**
-     * COMPUTER INTERACTION WITH THE GAME!
+     * A function to make only the user selected ROWS visible to the user.
      */
-    public void sendingDataAI() {
+    public void makeVisible() {
+
+        switch (getData.getNumberOfSticks()) {
+
+            case 2131493031:
+                TOTAL_SELECTIONS = 15;
+                for (int i = 0; i < 15; i++) {
+                    imageButtons.get(i).setVisibility(View.VISIBLE);
+                }
+                break;
+            case 2131493032:
+                TOTAL_SELECTIONS = 21;
+                for (int i = 0; i < 21; i++) {
+                    imageButtons.get(i).setVisibility(View.VISIBLE);
+                }
+                break;
+            case 2131493033:
+                TOTAL_SELECTIONS = 28;
+                for (int i = 0; i < 28; i++) {
+                    imageButtons.get(i).setVisibility(View.VISIBLE);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    /*
+    Basically an algorithm for the computer to play its turn.
+     */
+    public void computersTurn() {
+
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        //Initialize the array with 0's .. cause common sense haha
+        int[] a = new int[] {0,0,0,0,0,0,0};
+        int rowIncrementer = 0;
+
+        //Storing the number of visible imagebutton in each row.. :))
+        for(int i = 0; i < 7; i++) {
+            int j = i+1;
+            while(j != 0) {
+
+                if(imageButtons.get(rowIncrementer).getVisibility() == View.VISIBLE) {
+                    a[i] += 1;
+                }
+
+                rowIncrementer += 1;
+                j -= 1;
+            }
+        }
+
+        //Just checking if the algorithm worked... just being sure
+        for(int i = 0; i < 7; i++) {
+
+            Log.d(LOG_TAG, "ROW " + i + " : " + a[i]);
+        }
+
+        displayTurn.post(new Runnable() {
+            @Override
+            public void run() {
+                displayTurn.setText("PLAYER'S TURN");
+                playerTurn = true;
+                nextTurn.setButtonColor(getResources().getColor(R.color.fbutton_color_peter_river));
+                nextTurn.setShadowColor(getResources().getColor(R.color.fbutton_color_midnight_blue));
+                nextTurn.setClickable(true);
+            }
+        });
 
     }
 
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
+
+    @Override
+    public void run() {
+
+        //The thread will run till the game is over.
+        while(TOTAL_SELECTIONS != 0) {
+
+            if(playerTurn) {
+            }
+            else {
+                computersTurn();
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
+
+    /*
+    Easy way to set an onclick listener on freaking 28 buttons :)
+     */
+    public void settingOnClickListeners() {
+
+        nextTurn.setOnClickListener(this);
+
+        for (int i = 0; i < TOTAL_SELECTIONS; i++) {
+
+            imageButtons.get(i).setOnClickListener(this);
+        }
+    }
 
     //FOR ALL THE CRAZY STUFF THAT'S HAPPENING. THIS IS WHERE I DUMP ALL THE CRAZY SHIT.
     public void initialize() {
@@ -122,6 +246,39 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         //First things first, gotta initialize the *later* used variables
         workingRow = WorkingRow.NONE;
         selectedButtons = new ArrayList<>();
+        displayTurn = (TextView) findViewById(R.id.tvTurn);
+        turnText = "";
+        nextTurn = (FButton) findViewById(R.id.btnNextTurn);
+
+
+        //Determining the first turn
+        switch(getData.getFirstTurn()) {
+
+            case 2131493027:
+                playerTurn = true;
+                displayTurn.setText("PLAYER'S TURN");
+                break;
+            default:
+                playerTurn = false;
+                displayTurn.setText("COMPUTER'S TURN");
+                break;
+        }
+
+        //Determining the game difficulty.
+        switch(getData.getDifficultyLevel()) {
+
+            case 1:
+                break;
+            case 2:
+                break;
+            case 2131493024:
+                gameDifficulty = new DifficultyHard();
+                break;
+            default:
+                gameDifficulty = new DifficultyHard();
+                break;
+        }
+
 
         imageButtons = new ArrayList<ImageButton>();
 
@@ -163,65 +320,11 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         }
     }
 
-    /**
-     * A function to make only the user selected ROWS visible to the user.
-     */
-    public void makeVisible() {
-
-        switch (getData.getNumberOfSticks()) {
-
-            case 2131493031:
-                TOTAL_SELECTIONS = 15;
-                for (int i = 0; i < 15; i++) {
-                    imageButtons.get(i).setVisibility(View.VISIBLE);
-                }
-                break;
-            case 2131493032:
-                TOTAL_SELECTIONS = 21;
-                for (int i = 0; i < 21; i++) {
-                    imageButtons.get(i).setVisibility(View.VISIBLE);
-                }
-                break;
-            case 2131493033:
-                TOTAL_SELECTIONS = 28;
-                for (int i = 0; i < 28; i++) {
-                    imageButtons.get(i).setVisibility(View.VISIBLE);
-                }
-                break;
-            default:
-                break;
-        }
-    }
-
-    /*
-    Easy way to set an onclick listener on freaking 28 buttons :)
-     */
-    public void settingOnClickListeners() {
-
-        for (int i = 0; i < TOTAL_SELECTIONS; i++) {
-
-            imageButtons.get(i).setOnClickListener(this);
-        }
-    }
-
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        finish();
-    }
-
-    @Override
-    public void run() {
-
-    }
-
 
     /*
     All the button clicks would be registered here. I'd like to keep this far away from me cause it's
     so messy. MESSY PIECE OF SHIT.
      */
-
     @Override
     public void onClick(View v) {
 
@@ -235,9 +338,20 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
          */
 
         switch (v.getId()) {
+
+            //BEFORE WE START WITH ALL THE CRAZY-NESS
+            case R.id.btnNextTurn:
+                removeSelected();
+                playerTurn = false;
+                displayTurn.setText("COMPUTER'S TURN");
+                nextTurn.setButtonColor(getResources().getColor(R.color.fbutton_color_concrete));
+                nextTurn.setShadowColor(getResources().getColor(R.color.fbutton_color_asbestos));
+                nextTurn.setClickable(false);
+                break;
+
+            //CRAZY-NESS
             case R.id.ibRow1_1:
                 if (!(workingRow.equals(WorkingRow.ROW1))) {
-                    Log.d(LOG_TAG, "1-->Row 1 element 1 was pressed.");
                     revertPreviousSelectionRow();
                     workingRow = WorkingRow.ROW1;
                 } else if (selectedButtons.contains(imageButtons.get(0))) {
@@ -245,7 +359,6 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     imageButtons.get(0).setBackgroundResource(R.drawable.stick);
                     break;
                 }
-                Log.d(LOG_TAG, "2-->Row 1 element 1 was pressed.");
                 selectedButtons.add(imageButtons.get(0));
                 imageButtons.get(0).setBackgroundResource(R.drawable.lburning);
                 break;
@@ -265,7 +378,6 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                 if (!(workingRow.equals(WorkingRow.ROW2))) {
                     revertPreviousSelectionRow();
                     workingRow = WorkingRow.ROW2;
-                    Log.d(LOG_TAG, "" + workingRow.name());
                 } else if (selectedButtons.contains(imageButtons.get(2))) {
                     selectedButtons.remove(imageButtons.get(2));
                     imageButtons.get(2).setBackgroundResource(R.drawable.stick);
@@ -290,7 +402,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                 if (!(workingRow.equals(WorkingRow.ROW3))) {
                     revertPreviousSelectionRow();
                     workingRow = WorkingRow.ROW3;
-                    Log.d(LOG_TAG, "" + workingRow.name());
+
                 } else if (selectedButtons.contains(imageButtons.get(4))) {
                     selectedButtons.remove(imageButtons.get(4));
                     imageButtons.get(4).setBackgroundResource(R.drawable.stick);
