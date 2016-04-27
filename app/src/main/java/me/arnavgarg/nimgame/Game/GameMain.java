@@ -68,151 +68,117 @@ public class GameMain extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_layout);
         //NO ROW SELECTED IN THE BEGENNING.
-        workingRow = WorkingRow.NONE;
-
-        //GETTING THE DATA FROM THE DATABASE
-        getData = new GetData(this);
-        getData.parseData();
-
-        //INITIALZING THE ARRAYLIST.
-        selectedButtons = new ArrayList<>();
-
-        displayTurn = (TextView) findViewById(R.id.tvTurn);
-
-        //Row 1
-        btn11 = (ImageButton) findViewById(R.id.ibRow1_1);
-        //Row 2
-        btn21 = (ImageButton) findViewById(R.id.ibRow2_1);
-        btn22 = (ImageButton) findViewById(R.id.ibRow2_2);
-        //Row 3
-        btn31 = (ImageButton) findViewById(R.id.ibRow3_1);
-        btn32 = (ImageButton) findViewById(R.id.ibRow3_2);
-        btn33 = (ImageButton) findViewById(R.id.ibRow3_3);
-        //Row 4
-        btn41 = (ImageButton) findViewById(R.id.ibRow4_1);
-        btn42 = (ImageButton) findViewById(R.id.ibRow4_2);
-        btn43 = (ImageButton) findViewById(R.id.ibRow4_3);
-        btn44 = (ImageButton) findViewById(R.id.ibRow4_4);
-        //Row 5
-        btn51 = (ImageButton) findViewById(R.id.ibRow5_1);
-        btn52 = (ImageButton) findViewById(R.id.ibRow5_2);
-        btn53 = (ImageButton) findViewById(R.id.ibRow5_3);
-        btn54 = (ImageButton) findViewById(R.id.ibRow5_4);
-        btn55 = (ImageButton) findViewById(R.id.ibRow5_5);
-//        //Row 6
-//        btn61 = (ImageButton) findViewById(R.id.ibRow1_1);
-//        btn62 = (ImageButton) findViewById(R.id.ibRow1_1);
-//        btn63 = (ImageButton) findViewById(R.id.ibRow1_1);
-//        btn64 = (ImageButton) findViewById(R.id.ibRow1_1);
-//        btn65 = (ImageButton) findViewById(R.id.ibRow1_1);
-//        btn66 = (ImageButton) findViewById(R.id.ibRow1_1);
-//        //Row 7
-//        btn71 = (ImageButton) findViewById(R.id.ibRow1_1);
-//        btn72 = (ImageButton) findViewById(R.id.ibRow1_1);
-//        btn73 = (ImageButton) findViewById(R.id.ibRow1_1);
-//        btn74 = (ImageButton) findViewById(R.id.ibRow1_1);
-//        btn75 = (ImageButton) findViewById(R.id.ibRow1_1);
-//        btn76 = (ImageButton) findViewById(R.id.ibRow1_1);
-//        btn77 = (ImageButton) findViewById(R.id.ibRow1_1);
-
-
-        //Assigning the rows!
-        row1 = new ArrayList<>();
-        row2 = new ArrayList<>();
-        row3 = new ArrayList<>();
-        row4 = new ArrayList<>();
-        row5 = new ArrayList<>();
-
-        rowMap = new HashMap<>();
-
-        //ArrayList of the rows!
-        row1.add(btn11);
-        row2.add(btn21);
-        row2.add(btn22);
-        row3.add(btn31);
-        row3.add(btn32);
-        row3.add(btn33);
-        row4.add(btn41);
-        row4.add(btn42);
-        row4.add(btn43);
-        row4.add(btn44);
-        row5.add(btn51);
-        row5.add(btn52);
-        row5.add(btn53);
-        row5.add(btn54);
-        row5.add(btn55);
-
-        //setting up onclicklisteners for all the buttons.
-        btn11.setOnClickListener(this);
-        btn21.setOnClickListener(this);
-        btn22.setOnClickListener(this);
-        btn31.setOnClickListener(this);
-        btn32.setOnClickListener(this);
-        btn33.setOnClickListener(this);
-        btn41.setOnClickListener(this);
-        btn42.setOnClickListener(this);
-        btn43.setOnClickListener(this);
-        btn44.setOnClickListener(this);
-        btn51.setOnClickListener(this);
-        btn52.setOnClickListener(this);
-        btn53.setOnClickListener(this);
-        btn54.setOnClickListener(this);
-        btn55.setOnClickListener(this);
-
-        nextTurn = (Button) findViewById(R.id.btnNextTurn);
-
-        //Putting the 5 rows in the map.
-        //TODO: NEED TO PUT THESE IN THE SWITCH STATEMENT
-        rowMap.put(1, row1);
-        rowMap.put(2, row2);
-        rowMap.put(3, row3);
-        rowMap.put(4, row4);
-        rowMap.put(5, row5);
-        TOTAL_SELECTIONS = 15;
-
-
-        //FOR FINDING WHOSE FIRST TURN IT IS.
-        switch (getData.getFirstTurn()) {
-            case 2131493013:
-                displayTurn.setText("COMPUTER'S TURN");
-                playerTurn = false;
-                break;
-            case 2131493012:
-                displayTurn.setText("PLAYER'S TURN");
-                playerTurn = true;
-        }
-
-        //SETTING THE BACKGROUND THREAD.
-        BackgroundThread bt = new BackgroundThread();
-        bt.execute();
-
-        //SELECTING THE DIFFICULTY LEVEL.
-        switch (getData.getDifficultyLevel()) {
-            case 2131493008:
-                gameDifficulty = new DifficultyHard();
-                break;
-            case 0:
-                break;
-            case 1:
-                break;
-        }
-
-        //ON CLICK LISTENER ON THE NEXT TURN BUTTON.
-        nextTurn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                TOTAL_SELECTIONS -= selectedButtons.size();
-                for (ImageButton imageButton : selectedButtons) {
-
-                    imageButton.setVisibility(View.INVISIBLE);
-                }
-                displayTurn.setText("COMPUTER'S TURN");
-                nextTurn.setClickable(false);
-                playerTurn = false;
-            }
-        });
-
+//        workingRow = WorkingRow.NONE;
+//
+//        //GETTING THE DATA FROM THE DATABASE
+//        getData = new GetData(this);
+//        getData.parseData();
+//
+//        //INITIALZING THE ARRAYLIST.
+//        selectedButtons = new ArrayList<>();
+//
+//        displayTurn = (TextView) findViewById(R.id.tvTurn);
+//
+//
+//
+//
+//        //Assigning the rows!
+//        row1 = new ArrayList<>();
+//        row2 = new ArrayList<>();
+//        row3 = new ArrayList<>();
+//        row4 = new ArrayList<>();
+//        row5 = new ArrayList<>();
+//
+//        rowMap = new HashMap<>();
+//
+//        //ArrayList of the rows!
+//        row1.add(btn11);
+//        row2.add(btn21);
+//        row2.add(btn22);
+//        row3.add(btn31);
+//        row3.add(btn32);
+//        row3.add(btn33);
+//        row4.add(btn41);
+//        row4.add(btn42);
+//        row4.add(btn43);
+//        row4.add(btn44);
+//        row5.add(btn51);
+//        row5.add(btn52);
+//        row5.add(btn53);
+//        row5.add(btn54);
+//        row5.add(btn55);
+//
+//        //setting up onclicklisteners for all the buttons.
+//        btn11.setOnClickListener(this);
+//        btn21.setOnClickListener(this);
+//        btn22.setOnClickListener(this);
+//        btn31.setOnClickListener(this);
+//        btn32.setOnClickListener(this);
+//        btn33.setOnClickListener(this);
+//        btn41.setOnClickListener(this);
+//        btn42.setOnClickListener(this);
+//        btn43.setOnClickListener(this);
+//        btn44.setOnClickListener(this);
+//        btn51.setOnClickListener(this);
+//        btn52.setOnClickListener(this);
+//        btn53.setOnClickListener(this);
+//        btn54.setOnClickListener(this);
+//        btn55.setOnClickListener(this);
+//
+//        nextTurn = (Button) findViewById(R.id.btnNextTurn);
+//
+//        //Putting the 5 rows in the map.
+//        //TODO: NEED TO PUT THESE IN THE SWITCH STATEMENT
+//        rowMap.put(1, row1);
+//        rowMap.put(2, row2);
+//        rowMap.put(3, row3);
+//        rowMap.put(4, row4);
+//        rowMap.put(5, row5);
+//        TOTAL_SELECTIONS = 15;
+//
+//
+//        //FOR FINDING WHOSE FIRST TURN IT IS.
+//        switch (getData.getFirstTurn()) {
+//            case 2131493013:
+//                displayTurn.setText("COMPUTER'S TURN");
+//                playerTurn = false;
+//                break;
+//            case 2131493012:
+//                displayTurn.setText("PLAYER'S TURN");
+//                playerTurn = true;
+//        }
+//
+//        //SETTING THE BACKGROUND THREAD.
+//        BackgroundThread bt = new BackgroundThread();
+//        bt.execute();
+//
+//        //SELECTING THE DIFFICULTY LEVEL.
+//        switch (getData.getDifficultyLevel()) {
+//            case 2131493008:
+//                gameDifficulty = new DifficultyHard();
+//                break;
+//            case 0:
+//                break;
+//            case 1:
+//                break;
+//        }
+//
+//        //ON CLICK LISTENER ON THE NEXT TURN BUTTON.
+//        nextTurn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                TOTAL_SELECTIONS -= selectedButtons.size();
+//                for (ImageButton imageButton : selectedButtons) {
+//
+//                    imageButton.setVisibility(View.INVISIBLE);
+//                }
+//                displayTurn.setText("COMPUTER'S TURN");
+//                nextTurn.setClickable(false);
+//                playerTurn = false;
+//            }
+//        });
+//
 
     }
 
@@ -568,6 +534,49 @@ public class GameMain extends Activity implements View.OnClickListener {
             }
         }
     }
+
+
+    //FOR ALL THE CRAZY STUFF THAT'S HAPPENING. THIS IS WHERE I DUMP ALL THE CRAZY SHIT.
+    public void initialize() {
+
+        //Row 1
+        btn11 = (ImageButton) findViewById(R.id.ibRow1_1);
+        //Row 2
+        btn21 = (ImageButton) findViewById(R.id.ibRow2_1);
+        btn22 = (ImageButton) findViewById(R.id.ibRow2_2);
+        //Row 3
+        btn31 = (ImageButton) findViewById(R.id.ibRow3_1);
+        btn32 = (ImageButton) findViewById(R.id.ibRow3_2);
+        btn33 = (ImageButton) findViewById(R.id.ibRow3_3);
+        //Row 4
+        btn41 = (ImageButton) findViewById(R.id.ibRow4_1);
+        btn42 = (ImageButton) findViewById(R.id.ibRow4_2);
+        btn43 = (ImageButton) findViewById(R.id.ibRow4_3);
+        btn44 = (ImageButton) findViewById(R.id.ibRow4_4);
+        //Row 5
+        btn51 = (ImageButton) findViewById(R.id.ibRow5_1);
+        btn52 = (ImageButton) findViewById(R.id.ibRow5_2);
+        btn53 = (ImageButton) findViewById(R.id.ibRow5_3);
+        btn54 = (ImageButton) findViewById(R.id.ibRow5_4);
+        btn55 = (ImageButton) findViewById(R.id.ibRow5_5);
+//        //Row 6
+//        btn61 = (ImageButton) findViewById(R.id.ibRow1_1);
+//        btn62 = (ImageButton) findViewById(R.id.ibRow1_1);
+//        btn63 = (ImageButton) findViewById(R.id.ibRow1_1);
+//        btn64 = (ImageButton) findViewById(R.id.ibRow1_1);
+//        btn65 = (ImageButton) findViewById(R.id.ibRow1_1);
+//        btn66 = (ImageButton) findViewById(R.id.ibRow1_1);
+//        //Row 7
+//        btn71 = (ImageButton) findViewById(R.id.ibRow1_1);
+//        btn72 = (ImageButton) findViewById(R.id.ibRow1_1);
+//        btn73 = (ImageButton) findViewById(R.id.ibRow1_1);
+//        btn74 = (ImageButton) findViewById(R.id.ibRow1_1);
+//        btn75 = (ImageButton) findViewById(R.id.ibRow1_1);
+//        btn76 = (ImageButton) findViewById(R.id.ibRow1_1);
+//        btn77 = (ImageButton) findViewById(R.id.ibRow1_1);
+
+    }
+
 
     @Override
     protected void onPause() {
