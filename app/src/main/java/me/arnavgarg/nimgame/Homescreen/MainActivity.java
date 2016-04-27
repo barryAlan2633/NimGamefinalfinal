@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         //FOR THE FONT
         TextView txtvw=(TextView)findViewById(R.id.Nims);
         Typeface typface=Typeface.createFromAsset(getAssets(),"minecraftPE.ttf");
