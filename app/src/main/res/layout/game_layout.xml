@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:fbutton="http://schemas.android.com/apk/res-auto"
     android:background="#37474F"
     android:orientation="vertical">
 
@@ -12,7 +13,8 @@
         android:gravity="center"
         android:padding="5dp"
         android:text="PLAYER'S TURN!"
-        android:textSize="25dp" />
+        android:textSize="25dp"
+        android:textColor="#ffffff"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -290,13 +292,20 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnNextTurn"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_alignParentBottom="true"
+    <info.hoang8f.widget.FButton
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        fbutton:buttonColor="@color/fbutton_color_peter_river"
+        fbutton:shadowColor="@color/fbutton_color_midnight_blue"
+        fbutton:shadowEnabled="true"
+        fbutton:shadowHeight="8dp"
+        fbutton:cornerRadius="8dp"
+        android:text="Select"
         android:layout_gravity="center"
-        android:layout_margin="20dp"
-        android:text="Next Turn" />
+        android:id="@+id/btnNextTurn"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"/>
+
 
 </LinearLayout>
