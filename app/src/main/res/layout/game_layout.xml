@@ -307,5 +307,4 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="20dp"/>
 
-
 </LinearLayout>

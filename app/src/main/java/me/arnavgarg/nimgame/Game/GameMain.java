@@ -29,7 +29,6 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
     START HERE..............
      */
 
-
     private static final String LOG_TAG = GameMain.class.getSimpleName();
 
     //For knowing which row we are working on
@@ -73,14 +72,9 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         makeVisible();
         settingOnClickListeners();
 
-
         //Let's start the thread. Cause this is important!
-        //....START HERE
         Thread myThread = new Thread(this);
         myThread.start();
-
-        //....END HERE
-
 
     }
 
@@ -102,8 +96,19 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
      */
     public void removeSelected() {
 
-        for (GifImageButton imageButton : selectedButtons) {
-            imageButton.setVisibility(View.INVISIBLE);
+        for (final GifImageButton imageButton : selectedButtons) {
+
+            imageButton.setBackgroundResource(R.drawable.lburndown);
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d(LOG_TAG, "DELAYED RAN!");
+                    imageButton.setVisibility(View.INVISIBLE);
+                }
+            }, 2500);
+
+
         }
         selectedButtons.clear();
     }
@@ -152,15 +157,15 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         }
 
         //Initialize the array with 0's .. cause common sense haha
-        int[] a = new int[] {0,0,0,0,0,0,0};
+        int[] a = new int[]{0, 0, 0, 0, 0, 0, 0};
         int rowIncrementer = 0;
 
         //Storing the number of visible imagebutton in each row.. :))
-        for(int i = 0; i < 7; i++) {
-            int j = i+1;
-            while(j != 0) {
+        for (int i = 0; i < 7; i++) {
+            int j = i + 1;
+            while (j != 0) {
 
-                if(imageButtons.get(rowIncrementer).getVisibility() == View.VISIBLE) {
+                if (imageButtons.get(rowIncrementer).getVisibility() == View.VISIBLE) {
                     a[i] += 1;
                 }
 
@@ -169,12 +174,15 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
             }
         }
 
+
+        gameDifficulty = new DifficultyHard();
+        gameDifficulty.computerTurn(a);
+
         //Just checking if the algorithm worked... just being sure
-        for(int i = 0; i < 7; i++) {
+        for (int i = 0; i < 7; i++) {
 
             Log.d(LOG_TAG, "ROW " + i + " : " + a[i]);
         }
-
 
 
         //Just to set everything back to normal for the player..
@@ -202,11 +210,10 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
     public void run() {
 
         //The thread will run till the game is over.
-        while(TOTAL_SELECTIONS != 0) {
+        while (TOTAL_SELECTIONS != 0) {
 
-            if(playerTurn) {
-            }
-            else {
+            if (playerTurn) {
+            } else {
                 computersTurn();
                 try {
                     Thread.sleep(2000);
@@ -244,7 +251,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
 
 
         //Determining the first turn
-        switch(getData.getFirstTurn()) {
+        switch (getData.getFirstTurn()) {
 
             case 2131493027:
                 playerTurn = true;
@@ -257,7 +264,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         }
 
         //Determining the game difficulty.
-        switch(getData.getDifficultyLevel()) {
+        switch (getData.getDifficultyLevel()) {
 
             case 1:
                 break;
