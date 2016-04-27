@@ -11,7 +11,20 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Homescreen.MainActivity"
-    tools:showIn="@layout/activity_main">
+    tools:showIn="@layout/activity_main"
+    android:background="#334B7A">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="30dp"
+        android:textSize="50dp"
+        android:text="NIMS"
+        android:id="@+id/Nims"
+        android:textColor="#ffffff"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
 
 
@@ -39,10 +52,10 @@
         android:text="Play"
         android:id="@+id/buttonPlay"
         android:layout_alignWithParentIfMissing="false"
-        android:layout_marginTop="128dp"
-        android:layout_alignParentTop="true"
+        android:layout_above="@+id/buttonGameOptions"
         android:layout_alignLeft="@+id/buttonGameOptions"
-        android:layout_alignStart="@+id/buttonGameOptions" />
+        android:layout_alignStart="@+id/buttonGameOptions"
+        android:layout_marginBottom="45dp" />
 
     <info.hoang8f.widget.FButton
         android:layout_width="200dp"
@@ -54,9 +67,20 @@
         fbutton:cornerRadius="8dp"
         android:text="Game Options"
         android:id="@+id/buttonGameOptions"
-        android:layout_below="@+id/buttonPlay"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <pl.droidsonroids.gif.GifImageButton
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@drawable/lburning"
+        android:layout_below="@+id/buttonGameOptions"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp" />
+        android:layout_marginTop="33dp"
+        android:clickable="false">
+
+    </pl.droidsonroids.gif.GifImageButton>
+
 
 
 
