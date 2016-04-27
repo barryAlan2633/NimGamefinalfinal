@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -235,6 +236,8 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
 
         for (int i = 0; i < TOTAL_SELECTIONS; i++) {
 
+            //TODO: MAKE IT HAVE A SEPERATE PLACE IN THE CODE!
+            imageButtons.get(i).setLayoutParams(new LinearLayout.LayoutParams(200, 250));
             imageButtons.get(i).setOnClickListener(this);
         }
     }
