@@ -3,9 +3,10 @@
     xmlns:fbutton="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="20dp"
-    android:background="#339975">
+    android:background="#900E33">
 
     <TextView
         android:id="@+id/gameSettings"
@@ -15,7 +16,8 @@
         android:text="Settings"
         android:textSize="30dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:textColor="#ffffff"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,7 +35,8 @@
             android:layout_gravity="center"
             android:gravity="center_vertical|center_horizontal"
             android:text="Difficulty"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#ffffff"/>
 
         <RadioGroup
             android:id="@+id/rgDifficulty"
@@ -44,19 +47,22 @@
                 android:id="@+id/rDiffEasy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Easy" />
+                android:text="Easy"
+                android:textColor="#ffffff"/>
 
             <RadioButton
                 android:id="@+id/rDiffIntermediate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Intermediate" />
+                android:text="Intermediate"
+                android:textColor="#ffffff"/>
 
             <RadioButton
                 android:id="@+id/rDiffDifficult"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Difficult"/>
+                android:text="Difficult"
+                android:textColor="#ffffff"/>
 
         </RadioGroup>
     </LinearLayout>
@@ -77,6 +83,7 @@
             android:layout_gravity="center"
             android:gravity="center_vertical|center_horizontal"
             android:text="First Turn"
+            android:textColor="#ffffff"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <RadioGroup
@@ -88,13 +95,15 @@
                 android:id="@+id/rUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="User" />
+                android:text="User"
+                android:textColor="#ffffff"/>
 
             <RadioButton
                 android:id="@+id/rComputer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Computer"/>
+                android:text="Computer"
+                android:textColor="#ffffff"/>
 
 
         </RadioGroup>
@@ -104,7 +113,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:textColor="#ffffff">
 
         <TextView
             android:id="@+id/textView4"
@@ -113,6 +123,7 @@
             android:layout_gravity="center"
             android:gravity="center_vertical|center_horizontal"
             android:text="Number of Sticks"
+            android:textColor="#ffffff"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <RadioGroup
@@ -125,20 +136,23 @@
                 android:id="@+id/rFive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="5" />
+                android:text="5"
+                android:textColor="#ffffff"/>
 
 
             <RadioButton
                 android:id="@+id/rSix"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="6" />
+                android:text="6"
+                android:textColor="#ffffff"/>
 
             <RadioButton
                 android:id="@+id/rSeven"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="7"/>
+                android:text="7"
+                android:textColor="#ffffff"/>
 
         </RadioGroup>
     </LinearLayout>
@@ -150,10 +164,10 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:text="Done"
-        fbutton:buttonColor="@color/fbutton_color_carrot"
+        fbutton:shadowHeight="10dp"
         fbutton:cornerRadius="8dp"
-        fbutton:shadowColor="@color/fbutton_color_alizarin"
-        fbutton:shadowEnabled="true"
-        fbutton:shadowHeight="8dp" />
+        app:buttonColor="@color/fbutton_color_pomegranate"
+        android:shadowColor="@color/fbutton_color_peter_river"
+        fbutton:shadowEnabled="true" />
 
 </LinearLayout>

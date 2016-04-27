@@ -171,15 +171,6 @@ public class GameMain extends Activity implements View.OnClickListener {
         TOTAL_SELECTIONS = 15;
 
 
-        //TODO: NEED TO MAKE IT WORK
-//        switch (getData.getNumberOfSticks()) {
-//            case 7:
-//            case 6:
-//            case 2131493016:
-//
-//                break;
-//        }
-
         //FOR FINDING WHOSE FIRST TURN IT IS.
         switch (getData.getFirstTurn()) {
             case 2131493013:
@@ -190,6 +181,10 @@ public class GameMain extends Activity implements View.OnClickListener {
                 displayTurn.setText("PLAYER'S TURN");
                 playerTurn = true;
         }
+
+        //SETTING THE BACKGROUND THREAD.
+        BackgroundThread bt = new BackgroundThread();
+        bt.execute();
 
         //SELECTING THE DIFFICULTY LEVEL.
         switch (getData.getDifficultyLevel()) {
@@ -218,9 +213,7 @@ public class GameMain extends Activity implements View.OnClickListener {
             }
         });
 
-        //SETTING THE BACKGROUND THREAD.
-        BackgroundThread bt = new BackgroundThread();
-        bt.execute();
+
     }
 
     @Override
@@ -451,6 +444,11 @@ public class GameMain extends Activity implements View.OnClickListener {
     public void sendingDataAI() {
 
 
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -460,6 +458,10 @@ public class GameMain extends Activity implements View.OnClickListener {
             }
         });
 
+
+        Log.d(LOG_TAG, String.valueOf(rowMap.get(1).get(0).getVisibility()));
+
+
         //INITIALZING THE ARRAY WITH 0's.
         int[] a = new int[]{0, 0, 0, 0, 0, 0, 0};
         int size = 5;
@@ -468,19 +470,19 @@ public class GameMain extends Activity implements View.OnClickListener {
         for (int i = 1; i <= size; i++) {
             for (int j = 0; j < rowMap.get(i).size(); j++) {
 
-                if (rowMap.get(i).get(j).isShown()) {
+                if (rowMap.get(i).get(j).getVisibility() == View.VISIBLE) {
 
-                    a[i] += 1;
+                    a[i-1] += 1;
                 }
             }
         }
 
         for (int i = 1; i <= 5; i++) {
-            Log.d(LOG_TAG, "[BEFORE] ROWS " +  + a[i]);
+            Log.d(LOG_TAG, "ROWS " +  + a[i]);
         }
 
 //        playerTurn = true;
-//        gameDifficulty = new DifficultyHard();
+        gameDifficulty = new DifficultyHard();
 
         //THIS WILL STORE THE VALUES GOT BY THE AI CODE.
         int[] gettingStored = new int[2];
@@ -488,28 +490,53 @@ public class GameMain extends Activity implements View.OnClickListener {
         //TODO: NEEDS TO BE REMOVED.
         gettingStored = gameDifficulty.computerTurn(a);
 
-        for (int i = 0; i < 2; i++) {
-            Log.d(LOG_TAG, "g Value: " + gettingStored[i]);
+//        for (int i = 0; i < 2; i++) {
+//            Log.d(LOG_TAG, "gettingStoredValue! Value: " + gettingStored[i]);
+//        }
+
+        for(int i = 1; i <= rowMap.size(); i++) {
+            for(int j = 0; j < rowMap.get(i).size(); j++) {
+
+                Log.d(LOG_TAG, "Row: "
+                        + i
+                        + " Element: "
+                        + j
+                        + " VISIBILITY: "
+                        + String.valueOf(rowMap.get(i).get(j).getVisibility())
+                );
+
+            }
         }
 
-        //MAKING THE AI PLAY THE MOVE.
+//        MAKING THE AI PLAY THE MOVE.
         for (int i = 0; i < gettingStored[1]; i++) {
-            for(int j = 0; j < rowMap.get(gettingStored[0]).size(); j++) {
+            for(int j = 0; j < rowMap.get(gettingStored[0]+1).size(); j++) {
 
-                if(rowMap.get(gettingStored[0]+1).get(j).isShown()) {
-                    Log.d(LOG_TAG, "IS THIS WORKING?");
-                    final int[] finalGettingStored = gettingStored;
-                    final int finalJ = j;
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            rowMap.get(finalGettingStored[0]).get(finalJ).setVisibility(View.INVISIBLE);
-                        }
-                    });
+
+                if(String.valueOf(rowMap.get(gettingStored[0]+1).get(j).getVisibility()) == "0") {
+//                    Log.d(LOG_TAG, "RUNNING INSIDE " + j);
+//                    final int[] finalGettingStored = gettingStored;
+//                    final int finalJ = j;
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            rowMap.get(finalGettingStored[0]+1).get(finalJ).setVisibility(View.INVISIBLE);
+//                        }
+//                    });
+
+                    selectedButtons.add(rowMap.get(gettingStored[0]+1).get(j));
                     break;
                 }
             }
         }
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                removeSelected();
+            }
+        });
     }
 
     /**
@@ -542,4 +569,9 @@ public class GameMain extends Activity implements View.OnClickListener {
         }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
 }

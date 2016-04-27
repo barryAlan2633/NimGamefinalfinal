@@ -2,11 +2,13 @@ package me.arnavgarg.nimgame.settings;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import me.arnavgarg.nimgame.Database.GameDatabase;
 import me.arnavgarg.nimgame.Homescreen.MainActivity;
@@ -27,8 +29,16 @@ public class GameSettings extends Activity implements RadioGroup.OnCheckedChange
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_settings);
+
+        //FOR THE FONT
+        TextView txtvw=(TextView)findViewById(R.id.gameSettings);
+        Typeface typface=Typeface.createFromAsset(getAssets(),"minecraftPE.ttf");
+        txtvw.setTypeface(typface);
+
+
         btnDone = (Button) findViewById(R.id.btnDone);
         difficultyGroup = (RadioGroup) findViewById(R.id.rgDifficulty);
         turnGroup = (RadioGroup) findViewById(R.id.rgFirstTurn);

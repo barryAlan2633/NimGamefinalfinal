@@ -9,7 +9,14 @@ public class DifficultyHard extends GameDifficultyMain {
 
     @Override
     public boolean winningCondidtion(int[] a) {
-        return super.winningCondidtion(a);
+
+        int q;
+        q=(a[1] ^ a[2] ^ a[3] ^ a[4]);
+
+        if(q == 0) {
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -19,7 +26,13 @@ public class DifficultyHard extends GameDifficultyMain {
         int counter = 0;
         int i;
 
+//        for(i = 0; i < a.length; i++) {
+//
+//            Log.d("asdfg", " " + a[i]);
+//        }
+
         if(winningCondidtion(a)) {
+            Log.d("asdfg", "WORK!");
             for(i = 0; i < 4; i++) {
 
                 int storeRowValue = a[i];
@@ -52,7 +65,7 @@ public class DifficultyHard extends GameDifficultyMain {
             }
         }
 
-        Log.d("DifficultyHard", "" + counter);
+        Log.d("asdfg", "i: " + i + "counter: " + counter);
         storeValue[0] = i;
         storeValue[1] = counter;
         return storeValue;

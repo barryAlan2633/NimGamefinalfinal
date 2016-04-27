@@ -2,6 +2,7 @@ package me.arnavgarg.nimgame.Homescreen;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -11,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.Types.BoomType;
@@ -36,6 +38,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //FOR THE FONT
+        TextView txtvw=(TextView)findViewById(R.id.Nims);
+        Typeface typface=Typeface.createFromAsset(getAssets(),"minecraftPE.ttf");
+        txtvw.setTypeface(typface);
 
         buttonPlay = (Button) findViewById(R.id.buttonPlay);
         buttonGameOptions = (Button) findViewById(R.id.buttonGameOptions);
