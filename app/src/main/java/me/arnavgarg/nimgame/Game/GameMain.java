@@ -108,8 +108,6 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     imageButton.setVisibility(View.INVISIBLE);
                 }
             }, 2500);
-
-
         }
         selectedButtons.clear();
     }
@@ -175,15 +173,17 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
             }
         }
 
-
-        gameDifficulty = new DifficultyHard();
-        gameDifficulty.computerTurn(a);
-
         //Just checking if the algorithm worked... just being sure
         for (int i = 0; i < 7; i++) {
 
             Log.d(LOG_TAG, "ROW " + i + " : " + a[i]);
         }
+
+
+        gameDifficulty = new DifficultyHard();
+        gameDifficulty.computerTurn(a);
+
+
 
 
         //Just to set everything back to normal for the player..
@@ -215,12 +215,12 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
 
             if (playerTurn) {
             } else {
-                computersTurn();
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(3000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                computersTurn();
             }
         }
 
@@ -318,7 +318,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         //Initially setting all of them as invisible.
         for (GifImageButton imageButton : imageButtons) {
 
-            imageButton.setVisibility(View.INVISIBLE);
+            imageButton.setVisibility(View.GONE);
         }
     }
 
