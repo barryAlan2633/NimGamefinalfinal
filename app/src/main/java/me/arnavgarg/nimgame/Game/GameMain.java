@@ -1,8 +1,6 @@
 package me.arnavgarg.nimgame.Game;
 
 import android.app.Activity;
-import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,7 +9,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import me.arnavgarg.nimgame.Database.GetData;
 import me.arnavgarg.nimgame.R;
@@ -24,18 +21,18 @@ enum WorkingRow {
     NONE, ROW1, ROW2, ROW3, ROW4, ROW5, ROW6, ROW7
 }
 
-public class GameMain extends Activity implements View.OnClickListener {
+public class GameMain extends Activity implements View.OnClickListener, Runnable {
+
+
+    /*
+    START HERE..............
+     */
+
 
     private static final String LOG_TAG = GameMain.class.getSimpleName();
 
     //For knowing which row we are working on
     private WorkingRow workingRow;
-    //Link to all the buttons in the xml file
-    private ImageButton btn11, btn21, btn22, btn31, btn32, btn33, btn41, btn42, btn43, btn44;
-    private ImageButton btn51, btn52, btn53, btn54, btn55;
-    //TODO: Assign then tasks!
-    private ImageButton btn61, btn62, btn63, btn64, btn65, btn66;
-    private ImageButton btn71, btn72, btn73, btn74, btn75, btn76, btn77;
     //For displaying whose turn it is
     private TextView displayTurn;
 
@@ -49,8 +46,8 @@ public class GameMain extends Activity implements View.OnClickListener {
     private ArrayList<ImageButton> row6;
     private ArrayList<ImageButton> row7;
 
-    //For storing all the buttons on the screen based on rows
-    private HashMap<Integer, ArrayList<ImageButton>> rowMap;
+    private ArrayList<ImageButton> imageButtons;
+
     private boolean playerTurn;
     private Button nextTurn;
 
@@ -63,331 +60,38 @@ public class GameMain extends Activity implements View.OnClickListener {
     //Selecting the game difficulty.
     private GameDifficultyMain gameDifficulty;
 
+    /*
+    ...........END HERE
+     */
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_layout);
-        //NO ROW SELECTED IN THE BEGENNING.
-//        workingRow = WorkingRow.NONE;
-//
-//        //GETTING THE DATA FROM THE DATABASE
-//        getData = new GetData(this);
-//        getData.parseData();
-//
-//        //INITIALZING THE ARRAYLIST.
-//        selectedButtons = new ArrayList<>();
-//
-//        displayTurn = (TextView) findViewById(R.id.tvTurn);
-//
-//
-//
-//
-//        //Assigning the rows!
-//        row1 = new ArrayList<>();
-//        row2 = new ArrayList<>();
-//        row3 = new ArrayList<>();
-//        row4 = new ArrayList<>();
-//        row5 = new ArrayList<>();
-//
-//        rowMap = new HashMap<>();
-//
-//        //ArrayList of the rows!
-//        row1.add(btn11);
-//        row2.add(btn21);
-//        row2.add(btn22);
-//        row3.add(btn31);
-//        row3.add(btn32);
-//        row3.add(btn33);
-//        row4.add(btn41);
-//        row4.add(btn42);
-//        row4.add(btn43);
-//        row4.add(btn44);
-//        row5.add(btn51);
-//        row5.add(btn52);
-//        row5.add(btn53);
-//        row5.add(btn54);
-//        row5.add(btn55);
-//
-//        //setting up onclicklisteners for all the buttons.
-//        btn11.setOnClickListener(this);
-//        btn21.setOnClickListener(this);
-//        btn22.setOnClickListener(this);
-//        btn31.setOnClickListener(this);
-//        btn32.setOnClickListener(this);
-//        btn33.setOnClickListener(this);
-//        btn41.setOnClickListener(this);
-//        btn42.setOnClickListener(this);
-//        btn43.setOnClickListener(this);
-//        btn44.setOnClickListener(this);
-//        btn51.setOnClickListener(this);
-//        btn52.setOnClickListener(this);
-//        btn53.setOnClickListener(this);
-//        btn54.setOnClickListener(this);
-//        btn55.setOnClickListener(this);
-//
-//        nextTurn = (Button) findViewById(R.id.btnNextTurn);
-//
-//        //Putting the 5 rows in the map.
-//        //TODO: NEED TO PUT THESE IN THE SWITCH STATEMENT
-//        rowMap.put(1, row1);
-//        rowMap.put(2, row2);
-//        rowMap.put(3, row3);
-//        rowMap.put(4, row4);
-//        rowMap.put(5, row5);
-//        TOTAL_SELECTIONS = 15;
-//
-//
-//        //FOR FINDING WHOSE FIRST TURN IT IS.
-//        switch (getData.getFirstTurn()) {
-//            case 2131493013:
-//                displayTurn.setText("COMPUTER'S TURN");
-//                playerTurn = false;
-//                break;
-//            case 2131493012:
-//                displayTurn.setText("PLAYER'S TURN");
-//                playerTurn = true;
-//        }
-//
-//        //SETTING THE BACKGROUND THREAD.
-//        BackgroundThread bt = new BackgroundThread();
-//        bt.execute();
-//
-//        //SELECTING THE DIFFICULTY LEVEL.
-//        switch (getData.getDifficultyLevel()) {
-//            case 2131493008:
-//                gameDifficulty = new DifficultyHard();
-//                break;
-//            case 0:
-//                break;
-//            case 1:
-//                break;
-//        }
-//
-//        //ON CLICK LISTENER ON THE NEXT TURN BUTTON.
-//        nextTurn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                TOTAL_SELECTIONS -= selectedButtons.size();
-//                for (ImageButton imageButton : selectedButtons) {
-//
-//                    imageButton.setVisibility(View.INVISIBLE);
-//                }
-//                displayTurn.setText("COMPUTER'S TURN");
-//                nextTurn.setClickable(false);
-//                playerTurn = false;
-//            }
-//        });
-//
+
+        //Initializing the database and calling the parser.
+        getData = new GetData(this);
+        getData.parseData();
+
+        //Does all the dirty work..keeps my onCreate clean.
+        initialize();
+        makeVisible();
+        settingOnClickListeners();
 
     }
 
-    @Override
-    public void onClick(View v) {
-
-        /**
-         * 1) We check which button is pressed.
-         * 2) We check if the working row is the right one.. if not then revert the perviously selected
-         *    row and making the current row active.
-         * 3) if the selected button is selected again. then remove it from the selectedButton arraylist.
-         *    and then break out of switch!
-         * 4) Selected buttons will be added to the selectedButtons arraylist!
-         */
-
-        switch (v.getId()) {
-            case R.id.ibRow1_1:
-                if (!(workingRow.equals(WorkingRow.ROW1))) {
-                    revertPreviousSelectionRow();
-                    workingRow = WorkingRow.ROW1;
-                } else if (selectedButtons.contains(row1.get(0))) {
-                    selectedButtons.remove(row1.get(0));
-                    row1.get(0).setBackgroundColor(Color.parseColor("#b00125"));
-                    break;
-                }
-                selectedButtons.add(row1.get(0));
-                row1.get(0).setBackgroundColor(Color.parseColor("#5ab1ff"));
-                break;
-            case R.id.ibRow2_1:
-                if (!(workingRow.equals(WorkingRow.ROW2))) {
-                    revertPreviousSelectionRow();
-                    workingRow = WorkingRow.ROW2;
-                    Log.d(LOG_TAG, "" + workingRow.name());
-                } else if (selectedButtons.contains(row2.get(0))) {
-                    selectedButtons.remove(row2.get(0));
-                    row2.get(0).setBackgroundColor(Color.parseColor("#b00125"));
-                    break;
-                }
-                selectedButtons.add(row2.get(0));
-                btn21.setBackgroundColor(Color.parseColor("#5ab1ff"));
-                break;
-            case R.id.ibRow2_2:
-                if (!(workingRow.equals(WorkingRow.ROW2))) {
-                    revertPreviousSelectionRow();
-                    workingRow = WorkingRow.ROW2;
-                } else if (selectedButtons.contains(row2.get(1))) {
-                    selectedButtons.remove(row2.get(1));
-                    row2.get(1).setBackgroundColor(Color.parseColor("#b00125"));
-                    break;
-                }
-                selectedButtons.add(row2.get(1));
-                row2.get(1).setBackgroundColor(Color.parseColor("#5ab1ff"));
-                break;
-            case R.id.ibRow3_1:
-                if (!(workingRow.equals(WorkingRow.ROW3))) {
-                    revertPreviousSelectionRow();
-                    workingRow = WorkingRow.ROW3;
-                } else if (selectedButtons.contains(row3.get(0))) {
-                    selectedButtons.remove(row3.get(0));
-                    row3.get(0).setBackgroundColor(Color.parseColor("#b00125"));
-                    break;
-                }
-                selectedButtons.add(row3.get(0));
-                row3.get(0).setBackgroundColor(Color.parseColor("#5ab1ff"));
-                break;
-            case R.id.ibRow3_2:
-                if (!(workingRow.equals(WorkingRow.ROW3))) {
-                    revertPreviousSelectionRow();
-                    workingRow = WorkingRow.ROW3;
-                } else if (selectedButtons.contains(row3.get(1))) {
-                    selectedButtons.remove(row3.get(1));
-                    row3.get(1).setBackgroundColor(Color.parseColor("#b00125"));
-                    break;
-                }
-                selectedButtons.add(row3.get(1));
-                row3.get(1).setBackgroundColor(Color.parseColor("#5ab1ff"));
-                break;
-            case R.id.ibRow3_3:
-                if (!(workingRow.equals(WorkingRow.ROW3))) {
-                    revertPreviousSelectionRow();
-                    workingRow = WorkingRow.ROW3;
-                } else if (selectedButtons.contains(row3.get(2))) {
-                    selectedButtons.remove(row3.get(2));
-                    row3.get(2).setBackgroundColor(Color.parseColor("#b00125"));
-                    break;
-                }
-                selectedButtons.add(row3.get(2));
-                row3.get(2).setBackgroundColor(Color.parseColor("#5ab1ff"));
-                break;
-            case R.id.ibRow4_1:
-                if (!(workingRow.equals(WorkingRow.ROW4))) {
-                    revertPreviousSelectionRow();
-                    workingRow = WorkingRow.ROW4;
-                } else if (selectedButtons.contains(row4.get(0))) {
-                    selectedButtons.remove(row4.get(0));
-                    row4.get(0).setBackgroundColor(Color.parseColor("#b00125"));
-                    break;
-                }
-                selectedButtons.add(row4.get(0));
-                row4.get(0).setBackgroundColor(Color.parseColor("#5ab1ff"));
-                break;
-            case R.id.ibRow4_2:
-                if (!(workingRow.equals(WorkingRow.ROW4))) {
-                    revertPreviousSelectionRow();
-                    workingRow = WorkingRow.ROW4;
-                } else if (selectedButtons.contains(row4.get(1))) {
-                    selectedButtons.remove(row4.get(1));
-                    row4.get(1).setBackgroundColor(Color.parseColor("#b00125"));
-                    break;
-                }
-                selectedButtons.add(row4.get(1));
-                row4.get(1).setBackgroundColor(Color.parseColor("#5ab1ff"));
-                break;
-            case R.id.ibRow4_3:
-                if (!(workingRow.equals(WorkingRow.ROW4))) {
-                    revertPreviousSelectionRow();
-                    workingRow = WorkingRow.ROW4;
-                } else if (selectedButtons.contains(row4.get(2))) {
-                    selectedButtons.remove(row4.get(2));
-                    row4.get(2).setBackgroundColor(Color.parseColor("#b00125"));
-                    break;
-                }
-                selectedButtons.add(row4.get(2));
-                row4.get(2).setBackgroundColor(Color.parseColor("#5ab1ff"));
-                break;
-            case R.id.ibRow4_4:
-                if (!(workingRow.equals(WorkingRow.ROW4))) {
-                    revertPreviousSelectionRow();
-                    workingRow = WorkingRow.ROW4;
-                } else if (selectedButtons.contains(row4.get(3))) {
-                    selectedButtons.remove(row4.get(3));
-                    btn44.setBackgroundColor(Color.parseColor("#b00125"));
-                    break;
-                }
-                selectedButtons.add(row4.get(3));
-                row4.get(3).setBackgroundColor(Color.parseColor("#5ab1ff"));
-                break;
-            case R.id.ibRow5_1:
-                if (!(workingRow.equals(WorkingRow.ROW5))) {
-                    revertPreviousSelectionRow();
-                    workingRow = WorkingRow.ROW5;
-                } else if (selectedButtons.contains(row5.get(0))) {
-                    selectedButtons.remove(row5.get(0));
-                    btn51.setBackgroundColor(Color.parseColor("#b00125"));
-                    break;
-                }
-                selectedButtons.add(row5.get(0));
-                row5.get(0).setBackgroundColor(Color.parseColor("#5ab1ff"));
-                break;
-            case R.id.ibRow5_2:
-                if (!(workingRow.equals(WorkingRow.ROW5))) {
-                    revertPreviousSelectionRow();
-                    workingRow = WorkingRow.ROW5;
-                } else if (selectedButtons.contains(row5.get(1))) {
-                    selectedButtons.remove(row5.get(1));
-                    row5.get(1).setBackgroundColor(Color.parseColor("#b00125"));
-                    break;
-                }
-                selectedButtons.add(row5.get(1));
-                row5.get(1).setBackgroundColor(Color.parseColor("#5ab1ff"));
-                break;
-            case R.id.ibRow5_3:
-                if (!(workingRow.equals(WorkingRow.ROW5))) {
-                    revertPreviousSelectionRow();
-                    workingRow = WorkingRow.ROW5;
-                } else if (selectedButtons.contains(row5.get(2))) {
-                    selectedButtons.remove(row5.get(2));
-                    row5.get(2).setBackgroundColor(Color.parseColor("#b00125"));
-                    break;
-                }
-                selectedButtons.add(row5.get(2));
-                row5.get(2).setBackgroundColor(Color.parseColor("#5ab1ff"));
-                break;
-            case R.id.ibRow5_4:
-                if (!(workingRow.equals(WorkingRow.ROW5))) {
-                    revertPreviousSelectionRow();
-                    workingRow = WorkingRow.ROW5;
-                } else if (selectedButtons.contains(row5.get(3))) {
-                    selectedButtons.remove(row5.get(3));
-                    row5.get(3).setBackgroundColor(Color.parseColor("#b00125"));
-                    break;
-                }
-                selectedButtons.add(row5.get(3));
-                row5.get(3).setBackgroundColor(Color.parseColor("#5ab1ff"));
-                break;
-            case R.id.ibRow5_5:
-                if (!(workingRow.equals(WorkingRow.ROW5))) {
-                    revertPreviousSelectionRow();
-                    workingRow = WorkingRow.ROW5;
-                } else if (selectedButtons.contains(row5.get(4))) {
-                    Log.d(LOG_TAG, "This is clicked again");
-                    row5.get(4).setBackgroundColor(Color.parseColor("#b00125"));
-                    selectedButtons.remove(row5.get(4));
-                    break;
-                }
-                selectedButtons.add(row5.get(4));
-                row5.get(4).setBackgroundColor(Color.parseColor("#5ab1ff"));
-                break;
-        }
-    }
 
     /**
      * FOR REVERTING THE SELECTIONS IN THE PREVIOUSLY SELECTED ROW.
      */
     public void revertPreviousSelectionRow() {
 
+        Log.d(LOG_TAG, "This was called when another row was selected.");
+
         for (ImageButton imageButton : selectedButtons) {
 
-            imageButton.setBackgroundColor(Color.parseColor("#b00125"));
+            imageButton.setBackgroundResource(R.drawable.stick);
         }
         selectedButtons.clear();
     }
@@ -409,172 +113,95 @@ public class GameMain extends Activity implements View.OnClickListener {
      */
     public void sendingDataAI() {
 
-
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-
-                displayTurn.setText("COMPUTER'S TURN");
-                nextTurn.setClickable(false);
-            }
-        });
-
-
-        Log.d(LOG_TAG, String.valueOf(rowMap.get(1).get(0).getVisibility()));
-
-
-        //INITIALZING THE ARRAY WITH 0's.
-        int[] a = new int[]{0, 0, 0, 0, 0, 0, 0};
-        int size = 5;
-
-        //STORING THE NUMBER OF VISIBLE BUTTONS IN EACH ROW
-        for (int i = 1; i <= size; i++) {
-            for (int j = 0; j < rowMap.get(i).size(); j++) {
-
-                if (rowMap.get(i).get(j).getVisibility() == View.VISIBLE) {
-
-                    a[i-1] += 1;
-                }
-            }
-        }
-
-        for (int i = 1; i <= 5; i++) {
-            Log.d(LOG_TAG, "ROWS " +  + a[i]);
-        }
-
-//        playerTurn = true;
-        gameDifficulty = new DifficultyHard();
-
-        //THIS WILL STORE THE VALUES GOT BY THE AI CODE.
-        int[] gettingStored = new int[2];
-
-        //TODO: NEEDS TO BE REMOVED.
-        gettingStored = gameDifficulty.computerTurn(a);
-
-//        for (int i = 0; i < 2; i++) {
-//            Log.d(LOG_TAG, "gettingStoredValue! Value: " + gettingStored[i]);
-//        }
-
-        for(int i = 1; i <= rowMap.size(); i++) {
-            for(int j = 0; j < rowMap.get(i).size(); j++) {
-
-                Log.d(LOG_TAG, "Row: "
-                        + i
-                        + " Element: "
-                        + j
-                        + " VISIBILITY: "
-                        + String.valueOf(rowMap.get(i).get(j).getVisibility())
-                );
-
-            }
-        }
-
-//        MAKING THE AI PLAY THE MOVE.
-        for (int i = 0; i < gettingStored[1]; i++) {
-            for(int j = 0; j < rowMap.get(gettingStored[0]+1).size(); j++) {
-
-
-                if(String.valueOf(rowMap.get(gettingStored[0]+1).get(j).getVisibility()) == "0") {
-//                    Log.d(LOG_TAG, "RUNNING INSIDE " + j);
-//                    final int[] finalGettingStored = gettingStored;
-//                    final int finalJ = j;
-//                    runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            rowMap.get(finalGettingStored[0]+1).get(finalJ).setVisibility(View.INVISIBLE);
-//                        }
-//                    });
-
-                    selectedButtons.add(rowMap.get(gettingStored[0]+1).get(j));
-                    break;
-                }
-            }
-        }
-
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-
-                removeSelected();
-            }
-        });
-    }
-
-    /**
-     * THE BACKGROUND THREAD!
-     */
-    private class BackgroundThread extends AsyncTask<Void, Void, Void> {
-
-
-        @Override
-        protected Void doInBackground(Void... params) {
-
-            while(true) {
-                if (playerTurn == false) {
-                    //calling the AI.
-                    sendingDataAI();
-                    //Call after the AI played!
-                    playerTurn = true;
-                }
-                else {
-                    //UI thread for changing the UI of the game.
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            displayTurn.setText("PLAYER'S TURN");
-                            nextTurn.setClickable(true);
-                        }
-                    });
-                }
-            }
-        }
     }
 
 
     //FOR ALL THE CRAZY STUFF THAT'S HAPPENING. THIS IS WHERE I DUMP ALL THE CRAZY SHIT.
     public void initialize() {
 
-        //Row 1
-        btn11 = (ImageButton) findViewById(R.id.ibRow1_1);
-        //Row 2
-        btn21 = (ImageButton) findViewById(R.id.ibRow2_1);
-        btn22 = (ImageButton) findViewById(R.id.ibRow2_2);
-        //Row 3
-        btn31 = (ImageButton) findViewById(R.id.ibRow3_1);
-        btn32 = (ImageButton) findViewById(R.id.ibRow3_2);
-        btn33 = (ImageButton) findViewById(R.id.ibRow3_3);
-        //Row 4
-        btn41 = (ImageButton) findViewById(R.id.ibRow4_1);
-        btn42 = (ImageButton) findViewById(R.id.ibRow4_2);
-        btn43 = (ImageButton) findViewById(R.id.ibRow4_3);
-        btn44 = (ImageButton) findViewById(R.id.ibRow4_4);
-        //Row 5
-        btn51 = (ImageButton) findViewById(R.id.ibRow5_1);
-        btn52 = (ImageButton) findViewById(R.id.ibRow5_2);
-        btn53 = (ImageButton) findViewById(R.id.ibRow5_3);
-        btn54 = (ImageButton) findViewById(R.id.ibRow5_4);
-        btn55 = (ImageButton) findViewById(R.id.ibRow5_5);
-//        //Row 6
-//        btn61 = (ImageButton) findViewById(R.id.ibRow1_1);
-//        btn62 = (ImageButton) findViewById(R.id.ibRow1_1);
-//        btn63 = (ImageButton) findViewById(R.id.ibRow1_1);
-//        btn64 = (ImageButton) findViewById(R.id.ibRow1_1);
-//        btn65 = (ImageButton) findViewById(R.id.ibRow1_1);
-//        btn66 = (ImageButton) findViewById(R.id.ibRow1_1);
-//        //Row 7
-//        btn71 = (ImageButton) findViewById(R.id.ibRow1_1);
-//        btn72 = (ImageButton) findViewById(R.id.ibRow1_1);
-//        btn73 = (ImageButton) findViewById(R.id.ibRow1_1);
-//        btn74 = (ImageButton) findViewById(R.id.ibRow1_1);
-//        btn75 = (ImageButton) findViewById(R.id.ibRow1_1);
-//        btn76 = (ImageButton) findViewById(R.id.ibRow1_1);
-//        btn77 = (ImageButton) findViewById(R.id.ibRow1_1);
+        //First things first, gotta initialize the *later* used variables
+        workingRow = WorkingRow.NONE;
+        selectedButtons = new ArrayList<>();
 
+        imageButtons = new ArrayList<ImageButton>();
+
+
+        //It is worse than it looks :(
+        imageButtons.add((ImageButton) findViewById(R.id.ibRow1_1));
+        imageButtons.add((ImageButton) findViewById(R.id.ibRow2_1));
+        imageButtons.add((ImageButton) findViewById(R.id.ibRow2_2));
+        imageButtons.add((ImageButton) findViewById(R.id.ibRow3_1));
+        imageButtons.add((ImageButton) findViewById(R.id.ibRow3_2));
+        imageButtons.add((ImageButton) findViewById(R.id.ibRow3_3));
+        imageButtons.add((ImageButton) findViewById(R.id.ibRow4_1));
+        imageButtons.add((ImageButton) findViewById(R.id.ibRow4_2));
+        imageButtons.add((ImageButton) findViewById(R.id.ibRow4_3));
+        imageButtons.add((ImageButton) findViewById(R.id.ibRow4_4));
+        imageButtons.add((ImageButton) findViewById(R.id.ibRow5_1));
+        imageButtons.add((ImageButton) findViewById(R.id.ibRow5_2));
+        imageButtons.add((ImageButton) findViewById(R.id.ibRow5_3));
+        imageButtons.add((ImageButton) findViewById(R.id.ibRow5_4));
+        imageButtons.add((ImageButton) findViewById(R.id.ibRow5_5));
+        imageButtons.add((ImageButton) findViewById(R.id.ibRow6_1));
+        imageButtons.add((ImageButton) findViewById(R.id.ibRow6_2));
+        imageButtons.add((ImageButton) findViewById(R.id.ibRow6_3));
+        imageButtons.add((ImageButton) findViewById(R.id.ibRow6_4));
+        imageButtons.add((ImageButton) findViewById(R.id.ibRow6_5));
+        imageButtons.add((ImageButton) findViewById(R.id.ibRow6_6));
+        imageButtons.add((ImageButton) findViewById(R.id.ibRow7_1));
+        imageButtons.add((ImageButton) findViewById(R.id.ibRow7_2));
+        imageButtons.add((ImageButton) findViewById(R.id.ibRow7_3));
+        imageButtons.add((ImageButton) findViewById(R.id.ibRow7_4));
+        imageButtons.add((ImageButton) findViewById(R.id.ibRow7_5));
+        imageButtons.add((ImageButton) findViewById(R.id.ibRow7_6));
+        imageButtons.add((ImageButton) findViewById(R.id.ibRow7_7));
+
+        //Initially setting all of them as invisible.
+        for (ImageButton imageButton : imageButtons) {
+
+            imageButton.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    /**
+     * A function to make only the user selected ROWS visible to the user.
+     */
+    public void makeVisible() {
+
+        switch (getData.getNumberOfSticks()) {
+
+            case 2131493031:
+                TOTAL_SELECTIONS = 15;
+                for (int i = 0; i < 15; i++) {
+                    imageButtons.get(i).setVisibility(View.VISIBLE);
+                }
+                break;
+            case 2131493032:
+                TOTAL_SELECTIONS = 21;
+                for (int i = 0; i < 21; i++) {
+                    imageButtons.get(i).setVisibility(View.VISIBLE);
+                }
+                break;
+            case 2131493033:
+                TOTAL_SELECTIONS = 28;
+                for (int i = 0; i < 28; i++) {
+                    imageButtons.get(i).setVisibility(View.VISIBLE);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    /*
+    Easy way to set an onclick listener on freaking 28 buttons :)
+     */
+    public void settingOnClickListeners() {
+
+        for (int i = 0; i < TOTAL_SELECTIONS; i++) {
+
+            imageButtons.get(i).setOnClickListener(this);
+        }
     }
 
 
@@ -583,4 +210,372 @@ public class GameMain extends Activity implements View.OnClickListener {
         super.onPause();
         finish();
     }
+
+    @Override
+    public void run() {
+
+    }
+
+
+    /*
+    All the button clicks would be registered here. I'd like to keep this far away from me cause it's
+    so messy. MESSY PIECE OF SHIT.
+     */
+
+    @Override
+    public void onClick(View v) {
+
+        /**
+         * 1) We check which button is pressed.
+         * 2) We check if the working row is the right one.. if not then revert the perviously selected
+         *    row and making the current row active.
+         * 3) if the selected button is selected again. then remove it from the selectedButton arraylist.
+         *    and then break out of switch!
+         * 4) Selected buttons will be added to the selectedButtons arraylist!
+         */
+
+        switch (v.getId()) {
+            case R.id.ibRow1_1:
+                if (!(workingRow.equals(WorkingRow.ROW1))) {
+                    Log.d(LOG_TAG, "1-->Row 1 element 1 was pressed.");
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW1;
+                } else if (selectedButtons.contains(imageButtons.get(0))) {
+                    selectedButtons.remove(imageButtons.get(0));
+                    imageButtons.get(0).setBackgroundResource(R.drawable.stick);
+                    break;
+                }
+                Log.d(LOG_TAG, "2-->Row 1 element 1 was pressed.");
+                selectedButtons.add(imageButtons.get(0));
+                imageButtons.get(0).setBackgroundResource(R.drawable.lburning);
+                break;
+            case R.id.ibRow2_1:
+                if (!(workingRow.equals(WorkingRow.ROW2))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW2;
+                } else if (selectedButtons.contains(imageButtons.get(1))) {
+                    selectedButtons.remove(imageButtons.get(1));
+                    imageButtons.get(1).setBackgroundResource(R.drawable.stick);
+                    break;
+                }
+                selectedButtons.add(imageButtons.get(1));
+                imageButtons.get(1).setBackgroundResource(R.drawable.lburning);
+                break;
+            case R.id.ibRow2_2:
+                if (!(workingRow.equals(WorkingRow.ROW2))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW2;
+                    Log.d(LOG_TAG, "" + workingRow.name());
+                } else if (selectedButtons.contains(imageButtons.get(2))) {
+                    selectedButtons.remove(imageButtons.get(2));
+                    imageButtons.get(2).setBackgroundResource(R.drawable.stick);
+                    break;
+                }
+                selectedButtons.add(imageButtons.get(2));
+                imageButtons.get(2).setBackgroundResource(R.drawable.lburning);
+                break;
+            case R.id.ibRow3_1:
+                if (!(workingRow.equals(WorkingRow.ROW3))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW3;
+                } else if (selectedButtons.contains(imageButtons.get(3))) {
+                    selectedButtons.remove(imageButtons.get(3));
+                    imageButtons.get(3).setBackgroundResource(R.drawable.stick);
+                    break;
+                }
+                selectedButtons.add(imageButtons.get(3));
+                imageButtons.get(3).setBackgroundResource(R.drawable.lburning);
+                break;
+            case R.id.ibRow3_2:
+                if (!(workingRow.equals(WorkingRow.ROW3))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW3;
+                    Log.d(LOG_TAG, "" + workingRow.name());
+                } else if (selectedButtons.contains(imageButtons.get(4))) {
+                    selectedButtons.remove(imageButtons.get(4));
+                    imageButtons.get(4).setBackgroundResource(R.drawable.stick);
+                    break;
+                }
+                selectedButtons.add(imageButtons.get(4));
+                imageButtons.get(4).setBackgroundResource(R.drawable.lburning);
+                break;
+            case R.id.ibRow3_3:
+                if (!(workingRow.equals(WorkingRow.ROW3))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW3;
+                } else if (selectedButtons.contains(imageButtons.get(5))) {
+                    selectedButtons.remove(imageButtons.get(5));
+                    imageButtons.get(5).setBackgroundResource(R.drawable.stick);
+                    break;
+                }
+                selectedButtons.add(imageButtons.get(5));
+                imageButtons.get(5).setBackgroundResource(R.drawable.lburning);
+                break;
+            case R.id.ibRow4_1:
+                if (!(workingRow.equals(WorkingRow.ROW4))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW4;
+                } else if (selectedButtons.contains(imageButtons.get(6))) {
+                    selectedButtons.remove(imageButtons.get(6));
+                    imageButtons.get(6).setBackgroundResource(R.drawable.stick);
+                    break;
+                }
+                selectedButtons.add(imageButtons.get(6));
+                imageButtons.get(6).setBackgroundResource(R.drawable.lburning);
+                break;
+            case R.id.ibRow4_2:
+                if (!(workingRow.equals(WorkingRow.ROW4))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW4;
+                } else if (selectedButtons.contains(imageButtons.get(7))) {
+                    selectedButtons.remove(imageButtons.get(7));
+                    imageButtons.get(7).setBackgroundResource(R.drawable.stick);
+                    break;
+                }
+                selectedButtons.add(imageButtons.get(7));
+                imageButtons.get(7).setBackgroundResource(R.drawable.lburning);
+                break;
+            case R.id.ibRow4_3:
+                if (!(workingRow.equals(WorkingRow.ROW4))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW4;
+                } else if (selectedButtons.contains(imageButtons.get(8))) {
+                    selectedButtons.remove(imageButtons.get(8));
+                    imageButtons.get(8).setBackgroundResource(R.drawable.stick);
+                    break;
+                }
+                selectedButtons.add(imageButtons.get(8));
+                imageButtons.get(8).setBackgroundResource(R.drawable.lburning);
+                break;
+            case R.id.ibRow4_4:
+                if (!(workingRow.equals(WorkingRow.ROW4))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW4;
+                } else if (selectedButtons.contains(imageButtons.get(9))) {
+                    selectedButtons.remove(imageButtons.get(9));
+                    imageButtons.get(9).setBackgroundResource(R.drawable.stick);
+                    break;
+                }
+                selectedButtons.add(imageButtons.get(9));
+                imageButtons.get(9).setBackgroundResource(R.drawable.lburning);
+                break;
+            case R.id.ibRow5_1:
+                if (!(workingRow.equals(WorkingRow.ROW5))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW5;
+                } else if (selectedButtons.contains(imageButtons.get(10))) {
+                    selectedButtons.remove(imageButtons.get(10));
+                    imageButtons.get(10).setBackgroundResource(R.drawable.stick);
+                    break;
+                }
+                selectedButtons.add(imageButtons.get(10));
+                imageButtons.get(10).setBackgroundResource(R.drawable.lburning);
+                break;
+            case R.id.ibRow5_2:
+                if (!(workingRow.equals(WorkingRow.ROW5))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW5;
+                } else if (selectedButtons.contains(imageButtons.get(11))) {
+                    selectedButtons.remove(imageButtons.get(11));
+                    imageButtons.get(11).setBackgroundResource(R.drawable.stick);
+                    break;
+                }
+                selectedButtons.add(imageButtons.get(11));
+                imageButtons.get(11).setBackgroundResource(R.drawable.lburning);
+                break;
+            case R.id.ibRow5_3:
+                if (!(workingRow.equals(WorkingRow.ROW5))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW5;
+                } else if (selectedButtons.contains(imageButtons.get(12))) {
+                    selectedButtons.remove(imageButtons.get(12));
+                    imageButtons.get(12).setBackgroundResource(R.drawable.stick);
+                    break;
+                }
+                selectedButtons.add(imageButtons.get(12));
+                imageButtons.get(12).setBackgroundResource(R.drawable.lburning);
+                break;
+            case R.id.ibRow5_4:
+                if (!(workingRow.equals(WorkingRow.ROW5))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW5;
+                } else if (selectedButtons.contains(imageButtons.get(13))) {
+                    selectedButtons.remove(imageButtons.get(13));
+                    imageButtons.get(13).setBackgroundResource(R.drawable.stick);
+                    break;
+                }
+                selectedButtons.add(imageButtons.get(13));
+                imageButtons.get(13).setBackgroundResource(R.drawable.lburning);
+                break;
+            case R.id.ibRow5_5:
+                if (!(workingRow.equals(WorkingRow.ROW5))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW5;
+                } else if (selectedButtons.contains(imageButtons.get(14))) {
+                    selectedButtons.remove(imageButtons.get(14));
+                    imageButtons.get(14).setBackgroundResource(R.drawable.stick);
+                    break;
+                }
+                selectedButtons.add(imageButtons.get(14));
+                imageButtons.get(14).setBackgroundResource(R.drawable.lburning);
+                break;
+            case R.id.ibRow6_1:
+                if (!(workingRow.equals(WorkingRow.ROW6))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW6;
+                } else if (selectedButtons.contains(imageButtons.get(15))) {
+                    selectedButtons.remove(imageButtons.get(15));
+                    imageButtons.get(15).setBackgroundResource(R.drawable.stick);
+                    break;
+                }
+                selectedButtons.add(imageButtons.get(15));
+                imageButtons.get(15).setBackgroundResource(R.drawable.lburning);
+                break;
+            case R.id.ibRow6_2:
+                if (!(workingRow.equals(WorkingRow.ROW6))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW6;
+                } else if (selectedButtons.contains(imageButtons.get(16))) {
+                    selectedButtons.remove(imageButtons.get(16));
+                    imageButtons.get(16).setBackgroundResource(R.drawable.stick);
+                    break;
+                }
+                selectedButtons.add(imageButtons.get(16));
+                imageButtons.get(16).setBackgroundResource(R.drawable.lburning);
+                break;
+            case R.id.ibRow6_3:
+                if (!(workingRow.equals(WorkingRow.ROW6))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW6;
+                } else if (selectedButtons.contains(imageButtons.get(17))) {
+                    selectedButtons.remove(imageButtons.get(17));
+                    imageButtons.get(17).setBackgroundResource(R.drawable.stick);
+                    break;
+                }
+                selectedButtons.add(imageButtons.get(17));
+                imageButtons.get(17).setBackgroundResource(R.drawable.lburning);
+                break;
+            case R.id.ibRow6_4:
+                if (!(workingRow.equals(WorkingRow.ROW6))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW6;
+                } else if (selectedButtons.contains(imageButtons.get(18))) {
+                    selectedButtons.remove(imageButtons.get(18));
+                    imageButtons.get(18).setBackgroundResource(R.drawable.stick);
+                    break;
+                }
+                selectedButtons.add(imageButtons.get(18));
+                imageButtons.get(18).setBackgroundResource(R.drawable.lburning);
+                break;
+            case R.id.ibRow6_5:
+                if (!(workingRow.equals(WorkingRow.ROW6))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW6;
+                } else if (selectedButtons.contains(imageButtons.get(19))) {
+                    selectedButtons.remove(imageButtons.get(19));
+                    imageButtons.get(19).setBackgroundResource(R.drawable.stick);
+                    break;
+                }
+                selectedButtons.add(imageButtons.get(19));
+                imageButtons.get(19).setBackgroundResource(R.drawable.lburning);
+                break;
+            case R.id.ibRow6_6:
+                if (!(workingRow.equals(WorkingRow.ROW6))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW6;
+                } else if (selectedButtons.contains(imageButtons.get(20))) {
+                    selectedButtons.remove(imageButtons.get(20));
+                    imageButtons.get(20).setBackgroundResource(R.drawable.stick);
+                    break;
+                }
+                selectedButtons.add(imageButtons.get(20));
+                imageButtons.get(20).setBackgroundResource(R.drawable.lburning);
+                break;
+            case R.id.ibRow7_1:
+                if (!(workingRow.equals(WorkingRow.ROW7))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW7;
+                } else if (selectedButtons.contains(imageButtons.get(21))) {
+                    selectedButtons.remove(imageButtons.get(21));
+                    imageButtons.get(21).setBackgroundResource(R.drawable.stick);
+                    break;
+                }
+                selectedButtons.add(imageButtons.get(21));
+                imageButtons.get(21).setBackgroundResource(R.drawable.lburning);
+                break;
+            case R.id.ibRow7_2:
+                if (!(workingRow.equals(WorkingRow.ROW7))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW7;
+                } else if (selectedButtons.contains(imageButtons.get(22))) {
+                    selectedButtons.remove(imageButtons.get(22));
+                    imageButtons.get(22).setBackgroundResource(R.drawable.stick);
+                    break;
+                }
+                selectedButtons.add(imageButtons.get(22));
+                imageButtons.get(22).setBackgroundResource(R.drawable.lburning);
+                break;
+            case R.id.ibRow7_3:
+                if (!(workingRow.equals(WorkingRow.ROW7))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW7;
+                } else if (selectedButtons.contains(imageButtons.get(23))) {
+                    selectedButtons.remove(imageButtons.get(23));
+                    imageButtons.get(23).setBackgroundResource(R.drawable.stick);
+                    break;
+                }
+                selectedButtons.add(imageButtons.get(23));
+                imageButtons.get(23).setBackgroundResource(R.drawable.lburning);
+                break;
+            case R.id.ibRow7_4:
+                if (!(workingRow.equals(WorkingRow.ROW7))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW7;
+                } else if (selectedButtons.contains(imageButtons.get(24))) {
+                    selectedButtons.remove(imageButtons.get(24));
+                    imageButtons.get(24).setBackgroundResource(R.drawable.stick);
+                    break;
+                }
+                selectedButtons.add(imageButtons.get(24));
+                imageButtons.get(24).setBackgroundResource(R.drawable.lburning);
+                break;
+            case R.id.ibRow7_5:
+                if (!(workingRow.equals(WorkingRow.ROW7))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW7;
+                } else if (selectedButtons.contains(imageButtons.get(25))) {
+                    selectedButtons.remove(imageButtons.get(25));
+                    imageButtons.get(25).setBackgroundResource(R.drawable.stick);
+                    break;
+                }
+                selectedButtons.add(imageButtons.get(25));
+                imageButtons.get(25).setBackgroundResource(R.drawable.lburning);
+                break;
+            case R.id.ibRow7_6:
+                if (!(workingRow.equals(WorkingRow.ROW7))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW7;
+                } else if (selectedButtons.contains(imageButtons.get(26))) {
+                    selectedButtons.remove(imageButtons.get(26));
+                    imageButtons.get(26).setBackgroundResource(R.drawable.stick);
+                    break;
+                }
+                selectedButtons.add(imageButtons.get(26));
+                imageButtons.get(26).setBackgroundResource(R.drawable.lburning);
+                break;
+            case R.id.ibRow7_7:
+                if (!(workingRow.equals(WorkingRow.ROW7))) {
+                    revertPreviousSelectionRow();
+                    workingRow = WorkingRow.ROW7;
+                } else if (selectedButtons.contains(imageButtons.get(27))) {
+                    selectedButtons.remove(imageButtons.get(27));
+                    imageButtons.get(27).setBackgroundResource(R.drawable.stick);
+                    break;
+                }
+                selectedButtons.add(imageButtons.get(27));
+                imageButtons.get(27).setBackgroundResource(R.drawable.lburning);
+                break;
+        }
+    }
+
 }
