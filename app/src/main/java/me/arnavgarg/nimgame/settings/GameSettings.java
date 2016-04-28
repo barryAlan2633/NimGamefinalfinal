@@ -62,9 +62,41 @@ public class GameSettings extends Activity implements RadioGroup.OnCheckedChange
                     + "\nNumber of Sticks: " + numberOfSticks);
         }
 
-        difficultyGroup.check(difficultyLevel);
-        turnGroup.check(firstTurn);
-        sticksGroup.check(numberOfSticks);
+        switch (difficultyLevel) {
+
+            case 0:
+                difficultyGroup.check(R.id.rDiffEasy);
+                break;
+            case 1:
+                difficultyGroup.check(R.id.rDiffIntermediate);
+                break;
+            case 2:
+                difficultyGroup.check(R.id.rDiffDifficult);
+                break;
+        }
+
+        switch (firstTurn) {
+
+            case 0:
+                turnGroup.check(R.id.rUser);
+                break;
+            case 1:
+                turnGroup.check(R.id.rComputer);
+                break;
+        }
+
+        switch (numberOfSticks) {
+
+            case 0:
+                sticksGroup.check(R.id.rFive);
+                break;
+            case 1:
+                sticksGroup.check(R.id.rSix);
+                break;
+            case 2:
+                sticksGroup.check(R.id.rSeven);
+                break;
+        }
 
         gameDatabase.close();
 
@@ -98,19 +130,21 @@ public class GameSettings extends Activity implements RadioGroup.OnCheckedChange
 
             case R.id.rgDifficulty:
 
-                Log.d(LOG_TAG, "Difficulty Level: " + difficultyLevel);
-                difficultyLevel = group.getCheckedRadioButtonId();
-
+                if(checkedId == R.id.rDiffEasy) difficultyLevel = 0;
+                else if(checkedId == R.id.rDiffIntermediate) difficultyLevel = 1;
+                else if(checkedId == R.id.rDiffDifficult) difficultyLevel = 2;
                 break;
 
             case R.id.rgFirstTurn:
-                Log.d(LOG_TAG,"\nFirst Turn: " + firstTurn);
-                firstTurn = group.getCheckedRadioButtonId();
+
+                if(checkedId == R.id.rUser) firstTurn = 0;
+                else if(checkedId == R.id.rComputer) firstTurn = 1;
                 break;
 
             case R.id.rgSticks:
-                Log.d(LOG_TAG, "\nNumber of Sticks: " + numberOfSticks);
-                numberOfSticks = group.getCheckedRadioButtonId();
+                if(checkedId == R.id.rFive) numberOfSticks = 0;
+                else if(checkedId == R.id.rSix) numberOfSticks = 1;
+                else if(checkedId == R.id.rSeven) numberOfSticks = 2;
                 break;
         }
     }
