@@ -1,10 +1,15 @@
 package me.arnavgarg.nimgame.Game;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -12,6 +17,7 @@ import java.util.ArrayList;
 
 import info.hoang8f.widget.FButton;
 import me.arnavgarg.nimgame.Database.GetData;
+import me.arnavgarg.nimgame.Homescreen.MainActivity;
 import me.arnavgarg.nimgame.R;
 import pl.droidsonroids.gif.GifImageButton;
 
@@ -78,8 +84,6 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         myThread.start();
 
     }
-
-
     /**
      * FOR REVERTING THE SELECTIONS IN THE PREVIOUSLY SELECTED ROW.
      */
@@ -96,6 +100,8 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
      * REMOVE THE SELECTED BUTTONS FROM THE SCREEN!
      */
     public void removeSelected() {
+
+        TOTAL_SELECTIONS -= selectedButtons.size();
 
         for (final GifImageButton imageButton : selectedButtons) {
 
@@ -147,13 +153,6 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
      */
     public void computersTurn() {
 
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         //Initialize the array with 0's .. cause common sense haha
         int[] a = new int[]{0, 0, 0, 0, 0, 0, 0};
         int rowIncrementer = 0;
@@ -184,7 +183,9 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         gameDifficulty = new DifficultyHard();
         int sum = gameDifficulty.computerTurn(a);
 
-        Log.d(LOG_TAG, "" + sum);
+        TOTAL_SELECTIONS -= sum;
+
+//        Log.d(LOG_TAG, "" + sum);
 
         /**
          * 0 | 0
@@ -196,23 +197,23 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
          */
 
         //TODO: Fix the error->within the while loop, we cannot have get(i).. it doesn't make sense.
-        for(int i = 0; i < a.length; i++) {
-            Log.d(LOG_TAG, "value of a: " + a[i] + " value of sum: " + sum);
+        for (int i = 0; i < a.length; i++) {
+//            Log.d(LOG_TAG, "value of a: " + a[i] + " value of sum: " + sum);
             rowIncrementer += i;
-            if(a[i] >= sum) {
+            if (a[i] >= sum) {
                 int j = rowIncrementer;
                 int tempi = i;
-                while(sum != 0) {
-                    if(imageButtons.get(j).getVisibility() == View.VISIBLE) {
+                while (sum != 0) {
+                    if (imageButtons.get(j).getVisibility() == View.VISIBLE) {
                         selectedButtons.add(imageButtons.get(j));
                         sum -= 1;
                     }
-                    if(tempi-- != 0) j++;
+                    if (tempi-- != 0) j++;
                 }
             }
         }
 
-        Log.d(LOG_TAG, "Is Empty?" + selectedButtons.isEmpty());
+//        Log.d(LOG_TAG, "Is Empty?" + selectedButtons.isEmpty());
 
         runOnUiThread(new Runnable() {
             @Override
@@ -226,6 +227,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
             public void run() {
                 displayTurn.setText("PLAYER'S TURN");
                 playerTurn = true;
+                enableAllButton();
                 nextTurn.setButtonColor(getResources().getColor(R.color.fbutton_color_peter_river));
                 nextTurn.setShadowColor(getResources().getColor(R.color.fbutton_color_midnight_blue));
                 nextTurn.setClickable(true);
@@ -247,12 +249,47 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         finish();
     }
 
+    /*
+    For calculating the number of visible buttons on the screen.
+     */
+    public int numberOfVisibleButton() {
+
+        int sum = 0;
+        for(GifImageButton gifImageButton : imageButtons) {
+
+            if(gifImageButton.getVisibility() == View.VISIBLE) sum++;
+        }
+
+        return sum;
+    }
+
+
+    public void disableAllButton() {
+
+        for(GifImageButton imageButton : imageButtons) {
+
+            imageButton.setClickable(false);
+        }
+    }
+
+    public void enableAllButton() {
+
+        for(GifImageButton imageButton : imageButtons) {
+
+            imageButton.setClickable(true);
+        }
+    }
+
+
+    //Thread starts
     @Override
     public void run() {
 
         //The thread will run till the game is over.
-        while (TOTAL_SELECTIONS != 0) {
-
+        while (true) {
+            if(numberOfVisibleButton() == 0) {
+                break;
+            }
             if (playerTurn) {
             } else {
                 try {
@@ -260,12 +297,45 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                disableAllButton();
                 computersTurn();
             }
         }
 
-    }
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                nextTurn.setVisibility(View.INVISIBLE);
+                displayTurn.setText("");
+                Dialog resultDialog = new Dialog(GameMain.this);
+                resultDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                resultDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                resultDialog.setContentView(R.layout.result_dialog);
 
+                Button exit = (Button) resultDialog.findViewById(R.id.btnExit);
+                Button playAgain = (Button) resultDialog.findViewById(R.id.btnPlayAgain);
+
+                exit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent intent = new Intent(GameMain.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                });
+
+                playAgain.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(GameMain.this, GameMain.class);
+                        startActivity(intent);
+                    }
+                });
+                resultDialog.show();
+            }
+        });
+
+    }
 
     /*
     Easy way to set an onclick listener on freaking 28 buttons :)
@@ -731,5 +801,4 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                 break;
         }
     }
-
 }

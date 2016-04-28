@@ -57,7 +57,9 @@ public class DifficultyHard extends GameDifficultyMain {
         }
 
 
-        if(sum > max || sum == 0) {
+        Log.d(LOG_TAG, "MAX: " + max);
+
+        if((sum > max || sum == 0) && max != 0) {
 
             Random random = new Random();
             sum = random.nextInt(max) + 1;
