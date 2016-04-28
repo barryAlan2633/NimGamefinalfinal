@@ -88,7 +88,7 @@
     <pl.droidsonroids.gif.GifImageButton
         android:layout_width="130dp"
         android:layout_height="130dp"
-        android:background="@drawable/lburning"
+        android:background="@drawable/splashhomepage"
         android:layout_marginTop="36dp"
         android:clickable="false"
         android:layout_below="@+id/buttonGameOptions"

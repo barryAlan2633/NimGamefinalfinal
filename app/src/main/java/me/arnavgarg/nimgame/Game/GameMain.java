@@ -43,7 +43,8 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
     //For knowing which row we are working on
     private WorkingRow workingRow;
     //For displaying whose turn it is
-    private TextView displayTurn;
+    private TextView tvPlayerTurn;
+    private TextView tvComputerTurn;
 
     private ArrayList<GifImageButton> imageButtons;
 
@@ -87,7 +88,8 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         settingOnClickListeners();
 
         Typeface typface=Typeface.createFromAsset(getAssets(),"minecraftPE.ttf");
-        displayTurn.setTypeface(typface);
+        tvPlayerTurn.setTypeface(typface);
+        tvComputerTurn.setTypeface(typface);
 
         //Let's start the thread. Cause this is important!
         Thread myThread = new Thread(this);
@@ -205,8 +207,6 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
          * 4 | 7  8  9  10
          * 5 | 11 12 13 14 15
          */
-
-        //TODO: Fix the error->within the while loop, we cannot have get(i).. it doesn't make sense.
         for (int i = 0; i < a.length; i++) {
 //            Log.d(LOG_TAG, "value of a: " + a[i] + " value of sum: " + sum);
             rowIncrementer += i;
@@ -238,15 +238,12 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
             e.printStackTrace();
         }
 
-        if(numberOfVisibleButton() == 0) {
-            return;
-        }
-
         //Just to set everything back to normal for the player..
-        displayTurn.post(new Runnable() {
+        runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                displayTurn.setText("PLAYER'S TURN");
+                tvPlayerTurn.setTextColor(Color.GREEN);
+                tvComputerTurn.setTextColor(Color.RED);
                 playerTurn = true;
                 enableAllButton();
                 nextTurn.setButtonColor(getResources().getColor(R.color.fbutton_color_peter_river));
@@ -254,6 +251,10 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                 nextTurn.setClickable(true);
             }
         });
+
+        if(numberOfVisibleButton() == 0) {
+            return;
+        }
 
         try {
             Thread.sleep(1000);
@@ -327,7 +328,6 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
             public void run() {
 
                 nextTurn.setVisibility(View.INVISIBLE);
-                displayTurn.setText("");
                 if(!(GameMain.this).isFinishing()) {
                     Dialog resultDialog = new Dialog(GameMain.this);
                     resultDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -402,7 +402,8 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         //First things first, gotta initialize the *later* used variables
         workingRow = WorkingRow.NONE;
         selectedButtons = new ArrayList<>();
-        displayTurn = (TextView) findViewById(R.id.tvTurn);
+        tvPlayerTurn = (TextView) findViewById(R.id.tvPlayer);
+        tvComputerTurn = (TextView) findViewById(R.id.tvComputer);
         turnText = "";
         nextTurn = (FButton) findViewById(R.id.btnNextTurn);
 
@@ -412,7 +413,8 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
 
             case 0:
                 playerTurn = true;
-                displayTurn.setText("PLAYER'S TURN");
+                tvPlayerTurn.setTextColor(Color.GREEN);
+                tvComputerTurn.setTextColor(Color.RED);
                 break;
             case 1:
                 playerTurn = false;
@@ -424,7 +426,8 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                         nextTurn.setClickable(false);
                     }
                 });
-                displayTurn.setText("COMPUTER'S TURN");
+                tvPlayerTurn.setTextColor(Color.RED);
+                tvComputerTurn.setTextColor(Color.GREEN);
                 break;
         }
 
@@ -503,8 +506,10 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
             //BEFORE WE START WITH ALL THE CRAZY-NESS
             case R.id.btnNextTurn:
                 removeSelected();
+                disableAllButton();
                 playerTurn = false;
-                displayTurn.setText("COMPUTER'S TURN");
+                tvPlayerTurn.setTextColor(Color.RED);
+                tvComputerTurn.setTextColor(Color.GREEN);
                 nextTurn.setButtonColor(getResources().getColor(R.color.fbutton_color_concrete));
                 nextTurn.setShadowColor(getResources().getColor(R.color.fbutton_color_asbestos));
                 nextTurn.setClickable(false);
