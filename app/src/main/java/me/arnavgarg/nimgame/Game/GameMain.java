@@ -13,7 +13,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -136,19 +135,19 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
 
         switch (getData.getNumberOfSticks()) {
 
-            case 2131493031:
+            case 0:
                 TOTAL_SELECTIONS = 15;
                 for (int i = 0; i < 15; i++) {
                     imageButtons.get(i).setVisibility(View.VISIBLE);
                 }
                 break;
-            case 2131493032:
+            case 1:
                 TOTAL_SELECTIONS = 21;
                 for (int i = 0; i < 21; i++) {
                     imageButtons.get(i).setVisibility(View.VISIBLE);
                 }
                 break;
-            case 2131493033:
+            case 2:
                 TOTAL_SELECTIONS = 28;
                 for (int i = 0; i < 28; i++) {
                     imageButtons.get(i).setVisibility(View.VISIBLE);
@@ -326,43 +325,45 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+
                 nextTurn.setVisibility(View.INVISIBLE);
                 displayTurn.setText("");
-                Dialog resultDialog = new Dialog(GameMain.this);
-                resultDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                resultDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                resultDialog.setContentView(R.layout.result_dialog);
+                if(!(GameMain.this).isFinishing()) {
+                    Dialog resultDialog = new Dialog(GameMain.this);
+                    resultDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    resultDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    resultDialog.setContentView(R.layout.result_dialog);
 
-                resultDialog.setCanceledOnTouchOutside(false);
-                ImageView resultImage = (ImageView) resultDialog.findViewById(R.id.resultImage);
+                    resultDialog.setCanceledOnTouchOutside(false);
+                    ImageView resultImage = (ImageView) resultDialog.findViewById(R.id.resultImage);
 
-                if(playerTurn) {
-                    resultImage.setImageResource(R.drawable.gameovercomputerwon);
-                }
-                else {
-                    resultImage.setImageResource(R.drawable.gameoveryouwon);
-                }
-
-                Button exit = (Button) resultDialog.findViewById(R.id.btnExit);
-                Button playAgain = (Button) resultDialog.findViewById(R.id.btnPlayAgain);
-
-                exit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        Intent intent = new Intent(GameMain.this, MainActivity.class);
-                        startActivity(intent);
+                    if (playerTurn) {
+                        resultImage.setImageResource(R.drawable.gameovercomputerwon);
+                    } else {
+                        resultImage.setImageResource(R.drawable.gameoveryouwon);
                     }
-                });
 
-                playAgain.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(GameMain.this, GameMain.class);
-                        startActivity(intent);
-                    }
-                });
-                resultDialog.show();
+                    Button exit = (Button) resultDialog.findViewById(R.id.btnExit);
+                    Button playAgain = (Button) resultDialog.findViewById(R.id.btnPlayAgain);
+
+                    exit.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            Intent intent = new Intent(GameMain.this, MainActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+
+                    playAgain.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(GameMain.this, GameMain.class);
+                            startActivity(intent);
+                        }
+                    });
+                    resultDialog.show();
+                }
             }
         });
 
@@ -373,24 +374,24 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
      */
     public void settingOnClickListeners() {
 
-        int width, height;
-
-        if(TOTAL_SELECTIONS == 15) {
-            width = 250; height = 300;
-        }
-        else if(TOTAL_SELECTIONS == 21) {
-            width =220; height = 270;
-        }
-        else {
-            width = 200; height = 250;
-        }
+//        int width, height;
+//
+//        if(TOTAL_SELECTIONS == 15) {
+//            width = 250; height = 300;
+//        }
+//        else if(TOTAL_SELECTIONS == 21) {
+//            width =220; height = 270;
+//        }
+//        else {
+//            width = 200; height = 250;
+//        }
 
         nextTurn.setOnClickListener(this);
 
         for (int i = 0; i < TOTAL_SELECTIONS; i++) {
 
             //TODO: MAKE IT HAVE A SEPERATE PLACE IN THE CODE!
-            imageButtons.get(i).setLayoutParams(new LinearLayout.LayoutParams(width, height));
+//            imageButtons.get(i).setLayoutParams(new LinearLayout.LayoutParams(width, height));
             imageButtons.get(i).setOnClickListener(this);
         }
     }
@@ -409,11 +410,11 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         //Determining the first turn
         switch (getData.getFirstTurn()) {
 
-            case 2131493027:
+            case 0:
                 playerTurn = true;
                 displayTurn.setText("PLAYER'S TURN");
                 break;
-            default:
+            case 1:
                 playerTurn = false;
                 runOnUiThread(new Runnable() {
                     @Override
@@ -430,14 +431,11 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         //Determining the game difficulty.
         switch (getData.getDifficultyLevel()) {
 
+            case 0:
+                break;
             case 1:
                 break;
             case 2:
-                break;
-            case 2131493024:
-                gameDifficulty = new DifficultyHard();
-                break;
-            default:
                 gameDifficulty = new DifficultyHard();
                 break;
         }
