@@ -190,7 +190,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
 //        }
 //
 
-        gameDifficulty = new DifficultyHard();
+        gameDifficulty = new Hard();
         int sum = gameDifficulty.computerTurn(a);
 
         TOTAL_SELECTIONS -= sum;
@@ -436,7 +436,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
             case 1:
                 break;
             case 2:
-                gameDifficulty = new DifficultyHard();
+                gameDifficulty = new Hard();
                 break;
         }
 

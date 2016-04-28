@@ -7,9 +7,9 @@ import java.util.Random;
 /**
  * Created by Arnav on 4/24/2016.
  */
-public class DifficultyHard extends GameDifficultyMain {
+public class Hard extends GameDifficultyMain {
 
-    private final static String LOG_TAG = DifficultyHard.class.getSimpleName();
+    private final static String LOG_TAG = Hard.class.getSimpleName();
 
     @Override
     public int computerTurn(int a[]) {
