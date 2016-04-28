@@ -1,0 +1,133 @@
+/*
+
+=============================================
+ALL CONFIGS REGARDING THE MAIN PAGE & NAV BAR
+=============================================
+
+*/
+body {
+    width: 100%;
+    height: 100%;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+@media(min-width:767px) {
+    .navbar {
+        padding: 20px 0;
+        -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        transition: background .5s ease-in-out,padding .5s ease-in-out;
+    }
+
+    .top-nav-collapse {
+        padding: 0;
+    }
+}
+/*
+
+============================================
+ALL CONFIGS REGARDING THE DIFFERENT SECTIONS
+============================================
+
+*/
+.intro-section {
+    height: 100%;
+    padding-top: 150px;
+    text-align: center;
+    background: #fff;
+}
+
+.assumptions-section {
+    height: 100%;
+    padding-top: 50px;
+    text-align: left;
+    background: #eee;
+}
+
+.assumptions-section-h1{
+    margin-bottom: 30px;
+}
+
+.contstraints-section-h1{
+    margin-bottom: 30px;
+}
+
+.business-objectives {
+    height: 100%;
+    padding-top: 50px;
+    text-align: left;
+    background: #fff;
+}
+
+.system-objectives {
+    height: 100%;
+    padding-top: 50px;
+    text-align: left;
+    background: #eee;
+}
+
+.context-diagram {
+    height: 100%;
+    padding-top: 50px;
+    text-align: left;
+    background: #fff;
+}
+
+.uml-state{
+    height: 100%;
+    padding-top: 50px;
+    text-align: left;
+    background: #eee;      
+}
+/*
+
+==============================
+ALL CONFIGS REGARDING PICTURES
+==============================
+
+*/
+.nims-logo{
+    padding-top: 50px;
+}
+
+.context-diagram-picture{
+    text-align: center;
+}
+
+.uml-state-machine-picture{
+    text-align: center;
+}
+/*
+
+=================================
+ALL CONGIFS REGARDING THE BUTTONS
+=================================
+
+*/
+.first-button{
+    margin-top: 30px;
+}
+
+.second-button{
+    text-align: center;
+    margin-top: 30px;
+}
+
+.third-button{
+    text-align: center;
+    margin-top: 30px;
+}
+
+.fourth-button{
+    text-align: center;
+    margin-top: 30px;
+}
+
+.fifth-button{
+    text-align: center;
+    margin-top: 30px;
+}
