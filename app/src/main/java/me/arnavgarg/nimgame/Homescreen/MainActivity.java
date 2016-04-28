@@ -24,6 +24,7 @@ import me.arnavgarg.nimgame.Database.GameDatabase;
 import me.arnavgarg.nimgame.Game.GameMain;
 import me.arnavgarg.nimgame.R;
 import me.arnavgarg.nimgame.settings.GameSettings;
+import me.arnavgarg.nimgame.settings.GeneralSettings;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -170,6 +171,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     null,               // Ease type to rotate the sub buttons when dismissing.
                     null                // Rotation degree.
             );
+
+            boomMenuButton.setOnSubButtonClickListener(new BoomMenuButton.OnSubButtonClickListener() {
+                @Override
+                public void onClick(int buttonIndex) {
+
+                    Intent intent = null;
+                    switch (buttonIndex) {
+
+                        case 0:
+                            intent = new Intent(MainActivity.this, GeneralSettings.class);
+                            startActivity(intent);
+                            break;
+                        case 1:
+                            break;
+                        case 2:
+                            break;
+                    }
+                }
+            });
         }
 
         public void pause() {
