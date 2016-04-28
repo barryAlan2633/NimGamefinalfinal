@@ -7,9 +7,10 @@ import android.util.Log;
  */
 public class DifficultyHard extends GameDifficultyMain {
 
+    private final static String LOG_TAG = DifficultyHard.class.getSimpleName();
 
     @Override
-    public void computerTurn(int a[]) {
+    public int computerTurn(int a[]) {
 
         String[] bits = new String[a.length];
 
@@ -17,16 +18,14 @@ public class DifficultyHard extends GameDifficultyMain {
         for(int i = 0; i < a.length; i++) {
             bits[i] = String.format("%3s", Integer.toBinaryString(a[i])).replace(' ', '0');
         }
+        Log.d(LOG_TAG, "" + bits[0] + " " + bits[1] + " " + bits[2]);
 
-        for(int i = 0; i < a.length; i++) {
-            Log.d("difficulty", " " + bits[i]);
-        }
 
-        int[] answerBit = new int[bits.length];
+        //for addition of the bits.
+        int[] answerBit = new int[3];
         int sum = 0;
         for(int i = 2; i >= 0; i--) {
             for(int j = 0; j < bits.length; j++) {
-                Log.d("difficulty", "" + j);
                 answerBit[i] += bits[j].charAt(i);
             }
 
@@ -37,17 +36,17 @@ public class DifficultyHard extends GameDifficultyMain {
             }
         }
 
-        for(int i = 0; i < answerBit.length; i++) {
+        Log.d(LOG_TAG, "" + answerBit[0] + " " + answerBit[1] + " " + answerBit[2]);
 
-            Log.d("difficulty", "Row " + i + " : " + answerBit[i]);
+        //calculation the "NIM SUM"
+        for(int i = 0; i <= answerBit.length-1; i++) {
+
+            Log.d(LOG_TAG, " " + answerBit[i]*Math.pow(2, answerBit.length-1-i));
+            sum += (int) (answerBit[i]*Math.pow(2, answerBit.length-1-i));
         }
 
-        for(int i = 0; i < answerBit.length-1; i++) {
 
-            sum += (int) (answerBit[i]*Math.pow(2, i));
-        }
-
-        Log.d("difficulty", "" + sum);
+        return sum;
 
     }
 

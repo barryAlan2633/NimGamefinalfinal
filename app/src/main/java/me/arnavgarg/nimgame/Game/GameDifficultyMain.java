@@ -5,5 +5,5 @@ package me.arnavgarg.nimgame.Game;
  */
 public abstract class GameDifficultyMain {
 
-    public abstract void computerTurn(int[] a);
+    public abstract int computerTurn(int[] a);
 }

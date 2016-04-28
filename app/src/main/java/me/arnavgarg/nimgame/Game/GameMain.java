@@ -104,7 +104,6 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Log.d(LOG_TAG, "DELAYED RAN!");
                     imageButton.setVisibility(View.INVISIBLE);
                 }
             }, 2500);
@@ -173,19 +172,54 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
             }
         }
 
-        //Just checking if the algorithm worked... just being sure
-        for (int i = 0; i < 7; i++) {
-
-            Log.d(LOG_TAG, "ROW " + i + " : " + a[i]);
-        }
-
+        //for later use!
+        rowIncrementer = 0;
+//
+//        //Just checking if the algorithm worked... just being sure
+//        for (int i = 0; i < 7; i++) {
+//            Log.d(LOG_TAG, "ROW " + i + " : " + a[i]);
+//        }
+//
 
         gameDifficulty = new DifficultyHard();
-        gameDifficulty.computerTurn(a);
+        int sum = gameDifficulty.computerTurn(a);
 
+        Log.d(LOG_TAG, "" + sum);
 
+        /**
+         * 0 | 0
+         * 1 | 1  2
+         * 2 | 3  4  5
+         * 3 | 4  5  6
+         * 4 | 7  8  9  10
+         * 5 | 11 12 13 14 15
+         */
 
+        //TODO: Fix the error->within the while loop, we cannot have get(i).. it doesn't make sense.
+        for(int i = 0; i < a.length; i++) {
+            Log.d(LOG_TAG, "value of a: " + a[i] + " value of sum: " + sum);
+            rowIncrementer += i;
+            if(a[i] >= sum) {
+                int j = rowIncrementer;
+                int tempi = i;
+                while(sum != 0) {
+                    if(imageButtons.get(j).getVisibility() == View.VISIBLE) {
+                        selectedButtons.add(imageButtons.get(j));
+                        sum -= 1;
+                    }
+                    if(tempi-- != 0) j++;
+                }
+            }
+        }
 
+        Log.d(LOG_TAG, "Is Empty?" + selectedButtons.isEmpty());
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                removeSelected();
+            }
+        });
         //Just to set everything back to normal for the player..
         displayTurn.post(new Runnable() {
             @Override
@@ -197,6 +231,12 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                 nextTurn.setClickable(true);
             }
         });
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 
