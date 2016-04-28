@@ -2,6 +2,8 @@ package me.arnavgarg.nimgame.Game;
 
 import android.util.Log;
 
+import java.util.Random;
+
 /**
  * Created by Arnav on 4/24/2016.
  */
@@ -13,6 +15,15 @@ public class DifficultyHard extends GameDifficultyMain {
     public int computerTurn(int a[]) {
 
         String[] bits = new String[a.length];
+
+        int max = a[0];
+
+        for(int i = 1; i < a.length; i++) {
+
+            if(a[i] > max) {
+                max = a[i];
+            }
+        }
 
         //Storing the binary in string form.
         for(int i = 0; i < a.length; i++) {
@@ -45,6 +56,12 @@ public class DifficultyHard extends GameDifficultyMain {
             sum += (int) (answerBit[i]*Math.pow(2, answerBit.length-1-i));
         }
 
+
+        if(sum > max || sum == 0) {
+
+            Random random = new Random();
+            sum = random.nextInt(max) + 1;
+        }
 
         return sum;
 
