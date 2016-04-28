@@ -2,7 +2,6 @@ package me.arnavgarg.nimgame.Homescreen;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -11,8 +10,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.Types.BoomType;
@@ -36,14 +36,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        //FOR THE FONT
-        TextView txtvw=(TextView)findViewById(R.id.Nims);
-        Typeface typface=Typeface.createFromAsset(getAssets(),"minecraftPE.ttf");
-        txtvw.setTypeface(typface);
 
         buttonPlay = (Button) findViewById(R.id.buttonPlay);
         buttonGameOptions = (Button) findViewById(R.id.buttonGameOptions);
@@ -136,8 +136,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             Drawable[] drawables = new Drawable[3];
             int[] drawablesResource = new int[]{
-                    R.drawable.ic_launcher,
-                    R.drawable.ic_launcher,
+                    R.drawable.settings,
+                    R.drawable.howtoplay,
                     R.drawable.ic_launcher
             };
             for (int i = 0; i < 3; i++)

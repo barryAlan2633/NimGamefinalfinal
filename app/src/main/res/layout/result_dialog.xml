@@ -11,7 +11,8 @@
         android:contentDescription="@string/app_name"
         android:scaleType="center"
         android:padding="30dp"
-        android:src="@drawable/gameover" />
+        android:src="@drawable/gameover"
+        android:id="@+id/resultImage"/>
 
     <TextView
         android:id="@+id/highscoreText"

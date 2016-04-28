@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -67,6 +70,11 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_layout);
 
@@ -78,6 +86,9 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         initialize();
         makeVisible();
         settingOnClickListeners();
+
+        Typeface typface=Typeface.createFromAsset(getAssets(),"minecraftPE.ttf");
+        displayTurn.setTypeface(typface);
 
         //Let's start the thread. Cause this is important!
         Thread myThread = new Thread(this);
@@ -221,6 +232,17 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                 removeSelected();
             }
         });
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if(numberOfVisibleButton() == 0) {
+            return;
+        }
+
         //Just to set everything back to normal for the player..
         displayTurn.post(new Runnable() {
             @Override
@@ -290,8 +312,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
             if(numberOfVisibleButton() == 0) {
                 break;
             }
-            if (playerTurn) {
-            } else {
+            if (!playerTurn) {
                 try {
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
@@ -311,6 +332,16 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                 resultDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 resultDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 resultDialog.setContentView(R.layout.result_dialog);
+
+                resultDialog.setCanceledOnTouchOutside(false);
+                ImageView resultImage = (ImageView) resultDialog.findViewById(R.id.resultImage);
+
+                if(playerTurn) {
+                    resultImage.setImageResource(R.drawable.gameovercomputerwon);
+                }
+                else {
+                    resultImage.setImageResource(R.drawable.gameoveryouwon);
+                }
 
                 Button exit = (Button) resultDialog.findViewById(R.id.btnExit);
                 Button playAgain = (Button) resultDialog.findViewById(R.id.btnPlayAgain);
@@ -342,12 +373,24 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
      */
     public void settingOnClickListeners() {
 
+        int width, height;
+
+        if(TOTAL_SELECTIONS == 15) {
+            width = 250; height = 300;
+        }
+        else if(TOTAL_SELECTIONS == 21) {
+            width =220; height = 270;
+        }
+        else {
+            width = 200; height = 250;
+        }
+
         nextTurn.setOnClickListener(this);
 
         for (int i = 0; i < TOTAL_SELECTIONS; i++) {
 
             //TODO: MAKE IT HAVE A SEPERATE PLACE IN THE CODE!
-            imageButtons.get(i).setLayoutParams(new LinearLayout.LayoutParams(200, 250));
+            imageButtons.get(i).setLayoutParams(new LinearLayout.LayoutParams(width, height));
             imageButtons.get(i).setOnClickListener(this);
         }
     }
@@ -372,6 +415,14 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                 break;
             default:
                 playerTurn = false;
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        nextTurn.setButtonColor(getResources().getColor(R.color.fbutton_color_concrete));
+                        nextTurn.setShadowColor(getResources().getColor(R.color.fbutton_color_asbestos));
+                        nextTurn.setClickable(false);
+                    }
+                });
                 displayTurn.setText("COMPUTER'S TURN");
                 break;
         }
