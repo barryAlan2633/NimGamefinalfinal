@@ -31,16 +31,18 @@
             android:layout_weight="1"
             android:textColor="#ffffff"/>
 
-        <TextView
-            android:id="@+id/tvTime"
+
+        <Chronometer
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/chronometer"
             android:gravity="center"
             android:padding="10dp"
-            android:text="TIME"
             android:textSize="25dp"
-            android:layout_weight="1"
-            android:textColor="#ffffff"/>
+            android:textColor="#fff"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"/>
+
 
         <TextView
             android:id="@+id/tvComputer"

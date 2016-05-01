@@ -3,18 +3,23 @@ package me.arnavgarg.nimgame.Game;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import info.hoang8f.widget.FButton;
@@ -63,6 +68,14 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
     //Selecting the game difficulty.
     private GameDifficultyMain gameDifficulty;
 
+    //For keeping track of the time
+    private Chronometer chronometer;
+
+    //Storing the highscore values
+    private SharedPreferences sharedPreferences;
+    private String max = "";
+
+
     /*
     ...........END HERE
      */
@@ -89,9 +102,21 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         settingOnClickListeners();
 
         //setting the font type..needs to be done after initialization
-        Typeface typface=Typeface.createFromAsset(getAssets(),"minecraftPE.ttf");
+        Typeface typface = Typeface.createFromAsset(getAssets(), "minecraftPE.ttf");
         tvPlayerTurn.setTypeface(typface);
         tvComputerTurn.setTypeface(typface);
+
+        //Time for the base.
+        chronometer = (Chronometer) findViewById(R.id.chronometer);
+        chronometer.setBase(SystemClock.elapsedRealtime());
+        chronometer.start();
+
+        //working on shared pregerences to store the high score values
+        sharedPreferences = getSharedPreferences("highscore", this.MODE_PRIVATE);
+        max =sharedPreferences.getString("hs", null);
+        if(max == null) {
+            max = "";
+        }
 
         //Let's start the thread. Cause this is important!
         loop = true;
@@ -99,6 +124,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         myThread.start();
 
     }
+
     /**
      * FOR REVERTING THE SELECTIONS IN THE PREVIOUSLY SELECTED ROW.
      */
@@ -168,7 +194,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
      */
     public void computersTurn() {
 
-        if(numberOfVisibleButton() == 0) {
+        if (numberOfVisibleButton() == 0) {
 //            loop = false;
             return;
         }
@@ -199,7 +225,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         int sum = gameDifficulty.computerTurn(a);
 
         TOTAL_SELECTIONS -= sum;
-        int[] mapArray = new int[] {0,0,0,0,0,0,0};
+        int[] mapArray = new int[]{0, 0, 0, 0, 0, 0, 0};
 
 
         for (int i = 0; i < a.length; i++) {
@@ -246,35 +272,35 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
     }
 
     /**
-    For calculating the number of visible buttons on the screen.
+     * For calculating the number of visible buttons on the screen.
      */
     public int numberOfVisibleButton() {
 
         int sum = 0;
-        for(GifImageButton gifImageButton : imageButtons) {
+        for (GifImageButton gifImageButton : imageButtons) {
 
-            if(gifImageButton.getVisibility() == View.VISIBLE) sum++;
+            if (gifImageButton.getVisibility() == View.VISIBLE) sum++;
         }
         return sum;
     }
 
     /**
-    Disable all the buttons
+     * Disable all the buttons
      */
     public void disableAllButton() {
 
-        for(GifImageButton imageButton : imageButtons) {
+        for (GifImageButton imageButton : imageButtons) {
 
             imageButton.setClickable(false);
         }
     }
 
     /**
-    Enable all the buttons
+     * Enable all the buttons
      */
     public void enableAllButton() {
 
-        for(GifImageButton imageButton : imageButtons) {
+        for (GifImageButton imageButton : imageButtons) {
 
             imageButton.setClickable(true);
         }
@@ -290,9 +316,11 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         //The thread will run till the game is over.
         while (true) {
 
-            if(numberOfVisibleButton() == 0) {
+            if (numberOfVisibleButton() == 0) {
+                chronometer.stop();
                 break;
             }
+
             if (playerTurn) {
                 enableAllButton();
                 runOnUiThread(new Runnable() {
@@ -312,8 +340,8 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-            }
-            else {
+            } else {
+                disableAllButton();
                 try {
                     Thread.sleep(2500);
                 } catch (InterruptedException e) {
@@ -323,26 +351,45 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
             }
         }
 
+
         /*
         For the Dialog box.
          */
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-
                 nextTurn.setVisibility(View.INVISIBLE);
-                if(!(GameMain.this).isFinishing()) {
+                if (!(GameMain.this).isFinishing()) {
                     Dialog resultDialog = new Dialog(GameMain.this);
                     resultDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     resultDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     resultDialog.setContentView(R.layout.result_dialog);
 
                     resultDialog.setCanceledOnTouchOutside(false);
+                    TextView userScore = (TextView) resultDialog.findViewById(R.id.ustext);
+                    TextView highScore = (TextView) resultDialog.findViewById(R.id.hstext);
                     ImageView resultImage = (ImageView) resultDialog.findViewById(R.id.resultImage);
 
                     if (playerTurn) {
+                        userScore.setVisibility(View.INVISIBLE);
+                        highScore.setText("HIGHSCORE: " + max);
                         resultImage.setImageResource(R.drawable.gameovercomputerwon);
                     } else {
+
+                        try {
+                            if(checkUserTime((String) chronometer.getText(), max)) {
+                                Log.d(LOG_TAG, "THIS RAAAAAAAAAAN");
+                                max = (String) chronometer.getText();
+                                SharedPreferences.Editor edit = sharedPreferences.edit();
+                                edit.putString("hs", max);
+                                edit.commit();
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        highScore.setText("HIGHSCORE: " + max);
+                        userScore.setText("SCORE: " + chronometer.getText());
+
                         resultImage.setImageResource(R.drawable.gameoveryouwon);
                     }
 
@@ -370,6 +417,33 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
             }
         });
 
+    }
+
+
+    public boolean checkUserTime(String userTime, String hsTime) throws ParseException {
+
+        if(hsTime == "") {
+            return true;
+        }
+        Log.d(LOG_TAG, "--------->" + userTime);
+        Log.d(LOG_TAG, "--------->" + hsTime);
+
+        String userSeconds = userTime.substring(3);
+        String userMinutes = userTime.substring(0,2);
+
+        String hsSeconds = userTime.substring(3);
+        String hsMinutes = userTime.substring(0,2);
+
+        if(Integer.parseInt(hsMinutes) >= Integer.parseInt(userMinutes)) {
+            if(Integer.parseInt(hsMinutes) == Integer.parseInt(userMinutes)
+            && Integer.parseInt(hsSeconds) < Integer.parseInt(userSeconds)){
+                return true;
+            }
+            return false;
+        }else if(Integer.parseInt(hsMinutes) < Integer.parseInt(userMinutes)){
+            return true;
+        }
+        return true;
     }
 
     /*
@@ -407,7 +481,6 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         tvPlayerTurn = (TextView) findViewById(R.id.tvPlayer);
         tvComputerTurn = (TextView) findViewById(R.id.tvComputer);
         nextTurn = (FButton) findViewById(R.id.btnNextTurn);
-
 
         //Determining the first turn
         switch (getData.getFirstTurn()) {
@@ -509,7 +582,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                 playerTurn = false;
                 tvPlayerTurn.setTextColor(Color.RED);
                 tvComputerTurn.setTextColor(Color.GREEN);
-                if(numberOfVisibleButton() == 0) {
+                if (numberOfVisibleButton() == 0) {
                     loop = false;
                 }
                 try {

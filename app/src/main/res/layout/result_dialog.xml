@@ -15,7 +15,7 @@
         android:id="@+id/resultImage"/>
 
     <TextView
-        android:id="@+id/highscoreText"
+        android:id="@+id/hstext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
@@ -24,7 +24,7 @@
         />
 
     <TextView
-        android:id="@+id/userScore"
+        android:id="@+id/ustext"
         android:padding="10dp"
         android:textColor="#ffffff"
         android:layout_width="match_parent"
