@@ -63,7 +63,7 @@
         fbutton:shadowEnabled="true"
         fbutton:shadowHeight="8dp"
         fbutton:cornerRadius="8dp"
-        android:text="Play"
+        android:text="Vs COMPUTER"
         android:id="@+id/buttonPlay"
         android:layout_alignWithParentIfMissing="false"
         android:layout_marginTop="41dp"
@@ -78,8 +78,8 @@
         fbutton:shadowEnabled="true"
         fbutton:shadowHeight="8dp"
         fbutton:cornerRadius="8dp"
-        android:text="Game Options"
-        android:id="@+id/buttonGameOptions"
+        android:text="Vs Player"
+        android:id="@+id/buttonPVP"
         android:layout_marginTop="32dp"
         android:layout_below="@+id/buttonPlay"
         android:layout_alignLeft="@+id/buttonPlay"
@@ -91,7 +91,7 @@
         android:background="@drawable/splashhomepage"
         android:layout_marginTop="36dp"
         android:clickable="false"
-        android:layout_below="@+id/buttonGameOptions"
+        android:layout_below="@+id/buttonPVP"
         android:layout_centerHorizontal="true">
 
     </pl.droidsonroids.gif.GifImageButton>

@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,14 +23,14 @@ import me.arnavgarg.nimgame.Database.GameDatabase;
 import me.arnavgarg.nimgame.Game.GameMain;
 import me.arnavgarg.nimgame.R;
 import me.arnavgarg.nimgame.settings.GameSettings;
-import me.arnavgarg.nimgame.settings.GeneralSettings;
+import me.arnavgarg.nimgame.settings.HowToPlay;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
     BoomMenuButton boomMenuButton;
-    Button buttonPlay, buttonGameOptions;
+    Button buttonPlay, buttonPVP;
     Context mContext;
     GameDatabase gameDatabase;
 
@@ -47,11 +46,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         buttonPlay = (Button) findViewById(R.id.buttonPlay);
-        buttonGameOptions = (Button) findViewById(R.id.buttonGameOptions);
+        buttonPVP = (Button) findViewById(R.id.buttonPVP);
         mContext = this;
         boomMenuButton = (BoomMenuButton) findViewById(R.id.boom);
         buttonPlay.setOnClickListener(this);
-        buttonGameOptions.setOnClickListener(this);
+        buttonPVP.setOnClickListener(this);
         gameDatabase = new GameDatabase(this);
 
         //Default settings for the game.
@@ -116,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent = new Intent(MainActivity.this, GameMain.class);
                 startActivity(intent);
                 break;
-            case R.id.buttonGameOptions:
+            case R.id.buttonPVP:
                 intent = new Intent(MainActivity.this, GameSettings.class);
                 startActivity(intent);
                 break;
@@ -134,19 +133,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 e.printStackTrace();
             }
 
-            Log.d("MainActivityLog", "Working");
-
-            Drawable[] drawables = new Drawable[3];
+            Drawable[] drawables = new Drawable[2];
             int[] drawablesResource = new int[]{
                     R.drawable.settings,
                     R.drawable.howtoplay,
-                    R.drawable.ic_launcher
             };
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 2; i++)
                 drawables[i] = ContextCompat.getDrawable(mContext, drawablesResource[i]);
 
-            int[][] colors = new int[3][2];
-            for (int i = 0; i < 3; i++) {
+            int[][] colors = new int[2][2];
+            for (int i = 0; i < 2; i++) {
                 colors[i][1] = ContextCompat.getColor(mContext, R.color.colorPrimary);
                 colors[i][0] = Util.getInstance().getPressedColor(colors[i][1]);
             }
@@ -154,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String[] text = {
                     "Settings",
                     "How To Play",
-                    "About The Developer"
+                    ""
             };
 
             boomMenuButton.init(
@@ -181,12 +177,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     switch (buttonIndex) {
 
                         case 0:
-                            intent = new Intent(MainActivity.this, GeneralSettings.class);
+                            intent = new Intent(MainActivity.this, GameSettings.class);
                             startActivity(intent);
                             break;
                         case 1:
-                            break;
-                        case 2:
+                            intent = new Intent(MainActivity.this, HowToPlay.class);
+                            startActivity(intent);
                             break;
                     }
                 }

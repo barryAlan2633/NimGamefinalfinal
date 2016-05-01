@@ -53,24 +53,25 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
 
     //Getting the data from the database.
     private GetData getData;
+
     //Buttons that have been selected by the user.
     private ArrayList<GifImageButton> selectedButtons;
+
     //Total selections LEFT!
     private int TOTAL_SELECTIONS = 15;
+
     //Selecting the game difficulty.
     private GameDifficultyMain gameDifficulty;
-
-    private String turnText;
-    Handler handler;
 
     /*
     ...........END HERE
      */
-
+    private boolean loop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        //Making it full screen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -87,11 +88,13 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         makeVisible();
         settingOnClickListeners();
 
+        //setting the font type..needs to be done after initialization
         Typeface typface=Typeface.createFromAsset(getAssets(),"minecraftPE.ttf");
         tvPlayerTurn.setTypeface(typface);
         tvComputerTurn.setTypeface(typface);
 
         //Let's start the thread. Cause this is important!
+        loop = true;
         Thread myThread = new Thread(this);
         myThread.start();
 
@@ -122,13 +125,13 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
+
                     imageButton.setVisibility(View.INVISIBLE);
                 }
             }, 2500);
         }
         selectedButtons.clear();
     }
-
 
     /**
      * A function to make only the user selected ROWS visible to the user.
@@ -165,6 +168,11 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
      */
     public void computersTurn() {
 
+        if(numberOfVisibleButton() == 0) {
+//            loop = false;
+            return;
+        }
+
         //Initialize the array with 0's .. cause common sense haha
         int[] a = new int[]{0, 0, 0, 0, 0, 0, 0};
         int rowIncrementer = 0;
@@ -185,30 +193,16 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
 
         //for later use!
         rowIncrementer = 0;
-//
-//        //Just checking if the algorithm worked... just being sure
-//        for (int i = 0; i < 7; i++) {
-//            Log.d(LOG_TAG, "ROW " + i + " : " + a[i]);
-//        }
-//
 
+        //TODO: REMOVE THIS!
         gameDifficulty = new Hard();
         int sum = gameDifficulty.computerTurn(a);
 
         TOTAL_SELECTIONS -= sum;
+        int[] mapArray = new int[] {0,0,0,0,0,0,0};
 
-//        Log.d(LOG_TAG, "" + sum);
 
-        /**
-         * 0 | 0
-         * 1 | 1  2
-         * 2 | 3  4  5
-         * 3 | 4  5  6
-         * 4 | 7  8  9  10
-         * 5 | 11 12 13 14 15
-         */
         for (int i = 0; i < a.length; i++) {
-//            Log.d(LOG_TAG, "value of a: " + a[i] + " value of sum: " + sum);
             rowIncrementer += i;
             if (a[i] >= sum) {
                 int j = rowIncrementer;
@@ -223,8 +217,6 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
             }
         }
 
-//        Log.d(LOG_TAG, "Is Empty?" + selectedButtons.isEmpty());
-
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -232,46 +224,28 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
             }
         });
 
+        //for maintaining the FPS
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        //Just to set everything back to normal for the player..
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                tvPlayerTurn.setTextColor(Color.GREEN);
-                tvComputerTurn.setTextColor(Color.RED);
-                playerTurn = true;
-                enableAllButton();
-                nextTurn.setButtonColor(getResources().getColor(R.color.fbutton_color_peter_river));
-                nextTurn.setShadowColor(getResources().getColor(R.color.fbutton_color_midnight_blue));
-                nextTurn.setClickable(true);
-            }
-        });
+        //changing the turn.
+        playerTurn = true;
 
-        if(numberOfVisibleButton() == 0) {
-            return;
-        }
-
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
+        //checking for end of game.
     }
 
 
+    //this is for killing the game if the user decides to minimize the game.
     @Override
     protected void onPause() {
         super.onPause();
         finish();
     }
 
-    /*
+    /**
     For calculating the number of visible buttons on the screen.
      */
     public int numberOfVisibleButton() {
@@ -281,11 +255,12 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
 
             if(gifImageButton.getVisibility() == View.VISIBLE) sum++;
         }
-
         return sum;
     }
 
-
+    /**
+    Disable all the buttons
+     */
     public void disableAllButton() {
 
         for(GifImageButton imageButton : imageButtons) {
@@ -294,6 +269,9 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         }
     }
 
+    /**
+    Enable all the buttons
+     */
     public void enableAllButton() {
 
         for(GifImageButton imageButton : imageButtons) {
@@ -303,26 +281,51 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
     }
 
 
-    //Thread starts
+    /**
+     * THREAD STARTS!!
+     */
     @Override
     public void run() {
 
         //The thread will run till the game is over.
         while (true) {
+
             if(numberOfVisibleButton() == 0) {
                 break;
             }
-            if (!playerTurn) {
+            if (playerTurn) {
+                enableAllButton();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tvPlayerTurn.setTextColor(Color.GREEN);
+                        tvComputerTurn.setTextColor(Color.RED);
+                        enableAllButton();
+                        nextTurn.setButtonColor(getResources().getColor(R.color.fbutton_color_peter_river));
+                        nextTurn.setShadowColor(getResources().getColor(R.color.fbutton_color_midnight_blue));
+                        nextTurn.setClickable(true);
+                    }
+                });
+
                 try {
-                    Thread.sleep(3000);
+                    Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                disableAllButton();
+            }
+            else {
+                try {
+                    Thread.sleep(2500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 computersTurn();
             }
         }
 
+        /*
+        For the Dialog box.
+         */
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -372,6 +375,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
     /*
     Easy way to set an onclick listener on freaking 28 buttons :)
      */
+
     public void settingOnClickListeners() {
 
 //        int width, height;
@@ -389,8 +393,6 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         nextTurn.setOnClickListener(this);
 
         for (int i = 0; i < TOTAL_SELECTIONS; i++) {
-
-            //TODO: MAKE IT HAVE A SEPERATE PLACE IN THE CODE!
 //            imageButtons.get(i).setLayoutParams(new LinearLayout.LayoutParams(width, height));
             imageButtons.get(i).setOnClickListener(this);
         }
@@ -404,7 +406,6 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         selectedButtons = new ArrayList<>();
         tvPlayerTurn = (TextView) findViewById(R.id.tvPlayer);
         tvComputerTurn = (TextView) findViewById(R.id.tvComputer);
-        turnText = "";
         nextTurn = (FButton) findViewById(R.id.btnNextTurn);
 
 
@@ -413,8 +414,6 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
 
             case 0:
                 playerTurn = true;
-                tvPlayerTurn.setTextColor(Color.GREEN);
-                tvComputerTurn.setTextColor(Color.RED);
                 break;
             case 1:
                 playerTurn = false;
@@ -510,9 +509,14 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                 playerTurn = false;
                 tvPlayerTurn.setTextColor(Color.RED);
                 tvComputerTurn.setTextColor(Color.GREEN);
-                nextTurn.setButtonColor(getResources().getColor(R.color.fbutton_color_concrete));
-                nextTurn.setShadowColor(getResources().getColor(R.color.fbutton_color_asbestos));
-                nextTurn.setClickable(false);
+                if(numberOfVisibleButton() == 0) {
+                    loop = false;
+                }
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 break;
 
             //CRAZY-NESS

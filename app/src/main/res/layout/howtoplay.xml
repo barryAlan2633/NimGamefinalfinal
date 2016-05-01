@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E65100"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:padding="40dp"
+        android:text="HOW TO PLAY?"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="35dp"
+        android:textStyle="bold"/>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="In one move, you can remove any number of matches but only from one row. Choose any matches from a particular row and click it to REMOVE matches. After each move click 'Next Turn' to make the computer play. You win if you take the last matchstick in the game."
+            android:textSize="25dp"
+            android:textStyle="bold"/>
+
+
+    </ScrollView>
+</LinearLayout>
