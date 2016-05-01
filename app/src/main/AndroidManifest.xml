@@ -43,9 +43,13 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
-
         <activity
             android:name=".settings.HowToPlay"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity
+            android:name=".Game.GamePVP"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 

@@ -21,6 +21,7 @@ import com.nightonke.boommenu.Util;
 
 import me.arnavgarg.nimgame.Database.GameDatabase;
 import me.arnavgarg.nimgame.Game.GameMain;
+import me.arnavgarg.nimgame.Game.GamePVP;
 import me.arnavgarg.nimgame.R;
 import me.arnavgarg.nimgame.settings.GameSettings;
 import me.arnavgarg.nimgame.settings.HowToPlay;
@@ -116,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
             case R.id.buttonPVP:
-                intent = new Intent(MainActivity.this, GameSettings.class);
+                intent = new Intent(MainActivity.this, GamePVP.class);
                 startActivity(intent);
                 break;
         }
