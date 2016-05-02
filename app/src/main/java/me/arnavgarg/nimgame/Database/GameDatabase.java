@@ -12,6 +12,7 @@ import android.util.Log;
  */
 public class GameDatabase {
 
+    //START HERE........
     public static final String KEY_ROWID = "_id";
     public static final String KEY_DIFFICULTY = "difficulty_level";
     public static final String KEY_FIRST_TURN = "first_turn";
@@ -25,11 +26,16 @@ public class GameDatabase {
     private final Context context;
     private DBHelper dbHelper;
     private SQLiteDatabase sqLiteDatabase;
+    //.........END HERE
 
+
+
+    //To get the context of the calling function
     public GameDatabase(Context context) {
         this.context = context;
     }
 
+    //opening the database before use.
     public GameDatabase open() {
 
         dbHelper = new DBHelper(context);
@@ -37,6 +43,7 @@ public class GameDatabase {
         return this;
     }
 
+    //to create an entry in the database.
     public long createEntry(int difficultyLevel, int firstTurn, int numberOfSticks) {
 
         ContentValues contentValues = new ContentValues();
@@ -46,6 +53,7 @@ public class GameDatabase {
         return sqLiteDatabase.insert(DATABASE_TABLE, null, contentValues);
     }
 
+    //To get the data from the database.
     public String getData() {
 
         String[] columns = new String[]{KEY_ROWID, KEY_DIFFICULTY, KEY_FIRST_TURN, KEY_NUMBER_OF_STICKS};
@@ -71,6 +79,7 @@ public class GameDatabase {
         return null;
     }
 
+    //To check if the data is empty just for exception handling.
     public boolean checkEmpty() {
 
         Log.d(LOG_TAG, "CHECKING");
@@ -85,16 +94,21 @@ public class GameDatabase {
 
         return false;
     }
+
+    //Need this to store the new user value and discarding the old one.
+    //It was just easier to delete the entire data from the database rather than deleting one row.
     public void deleteAll() {
         sqLiteDatabase.delete(DATABASE_TABLE, null, null);
     }
 
 
+    //closing the database.
     public void close() {
 
         dbHelper.close();
     }
 
+    //The class to create the database. I am creating a SQLite database.
     private static class DBHelper extends SQLiteOpenHelper {
 
 

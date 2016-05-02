@@ -34,11 +34,11 @@ public class GamePVP extends Activity implements View.OnClickListener, Runnable{
     /*
     START HERE..............
      */
-
     private static final String LOG_TAG = GameMain.class.getSimpleName();
 
     //For knowing which row we are working on
     private WorkingRow workingRow;
+
     //For displaying whose turn it is
     private TextView tvPlayerTurn;
     private TextView tvComputerTurn;
@@ -62,7 +62,6 @@ public class GamePVP extends Activity implements View.OnClickListener, Runnable{
 
     //For keeping track of the time
     private Chronometer chronometer;
-
     /*
     ...........END HERE
      */
@@ -189,7 +188,7 @@ public class GamePVP extends Activity implements View.OnClickListener, Runnable{
         imageButtons = new ArrayList<GifImageButton>();
 
 
-        //It is worse than it looks :(
+        //initializing all the buttons.
         imageButtons.add((GifImageButton) findViewById(R.id.ibRow1_1));
         imageButtons.add((GifImageButton) findViewById(R.id.ibRow2_1));
         imageButtons.add((GifImageButton) findViewById(R.id.ibRow2_2));
@@ -226,7 +225,7 @@ public class GamePVP extends Activity implements View.OnClickListener, Runnable{
         }
     }
 
-    /**
+    /*
      * FOR REVERTING THE SELECTIONS IN THE PREVIOUSLY SELECTED ROW.
      */
     public void revertPreviousSelectionRow() {
@@ -239,7 +238,7 @@ public class GamePVP extends Activity implements View.OnClickListener, Runnable{
     }
 
 
-    /**
+    /*
      * REMOVE THE SELECTED BUTTONS FROM THE SCREEN!
      */
     public void removeSelected() {
@@ -261,7 +260,7 @@ public class GamePVP extends Activity implements View.OnClickListener, Runnable{
 
         selectedButtons.clear();
     }
-    /**
+    /*
      * For calculating the number of visible buttons on the screen.
      */
     public int numberOfVisibleButton() {

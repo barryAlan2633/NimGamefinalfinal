@@ -7,6 +7,11 @@ import android.content.Context;
  */
 public class GetData {
 
+    /**
+     * Created this to basically parse the data from the database and store it in variables which can
+     * be called using getters later. Makes my life easier.
+     */
+
     private int difficultyLevel;
     private int firstTurn;
     private int numberOfSticks;
@@ -16,6 +21,7 @@ public class GetData {
         gameDatabase = new GameDatabase(context);
     }
 
+    //Getting the data from the database and parsing it and storing it in the variables.
     public void parseData() {
 
         gameDatabase.open();
@@ -35,6 +41,9 @@ public class GetData {
         gameDatabase.close();
     }
 
+    /*
+    Getters...
+     */
     public int getDifficultyLevel() {
         return difficultyLevel;
     }

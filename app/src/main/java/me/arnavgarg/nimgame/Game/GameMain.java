@@ -43,7 +43,6 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
     /*
     START HERE..............
      */
-
     private static final String LOG_TAG = GameMain.class.getSimpleName();
 
     //For knowing which row we are working on
@@ -80,7 +79,6 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
     /*
     ...........END HERE
      */
-    private boolean loop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,13 +118,12 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         }
 
         //Let's start the thread. Cause this is important!
-        loop = true;
         Thread myThread = new Thread(this);
         myThread.start();
 
     }
 
-    /**
+    /*
      * FOR REVERTING THE SELECTIONS IN THE PREVIOUSLY SELECTED ROW.
      */
     public void revertPreviousSelectionRow() {
@@ -138,7 +135,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         selectedButtons.clear();
     }
 
-    /**
+    /*
      * REMOVE THE SELECTED BUTTONS FROM THE SCREEN!
      */
     public void removeSelected() {
@@ -160,7 +157,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         selectedButtons.clear();
     }
 
-    /**
+    /*
      * A function to make only the user selected ROWS visible to the user.
      */
     public void makeVisible() {
@@ -196,7 +193,6 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
     public void computersTurn() {
 
         if (numberOfVisibleButton() == 0) {
-//            loop = false;
             return;
         }
 
@@ -243,25 +239,6 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
             }
         }
 
-//        TOTAL_SELECTIONS -= sum;
-//        int[] mapArray = new int[]{0, 0, 0, 0, 0, 0, 0};
-//
-//
-//        for (int i = 0; i < a.length; i++) {
-//            rowIncrementer += i;
-//            if (a[i] >= sum) {
-//                int j = rowIncrementer;
-//                int tempi = i;
-//                while (sum != 0) {
-//                    if (imageButtons.get(j).getVisibility() == View.VISIBLE) {
-//                        selectedButtons.add(imageButtons.get(j));
-//                        sum -= 1;
-//                    }
-//                    if (tempi-- != 0) j++;
-//                }
-//            }
-//        }
-
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -269,7 +246,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
             }
         });
 
-        //for maintaining the FPS
+        //for maintaining the FPS of the game!
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
@@ -278,8 +255,6 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
 
         //changing the turn.
         playerTurn = true;
-
-        //checking for end of game.
     }
 
 
@@ -290,7 +265,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         finish();
     }
 
-    /**
+    /*
      * For calculating the number of visible buttons on the screen.
      */
     public int numberOfVisibleButton() {
@@ -303,7 +278,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         return sum;
     }
 
-    /**
+    /*
      * Disable all the buttons
      */
     public void disableAllButton() {
@@ -314,7 +289,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         }
     }
 
-    /**
+    /*
      * Enable all the buttons
      */
     public void enableAllButton() {
@@ -326,7 +301,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
     }
 
 
-    /**
+    /*
      * THREAD STARTS!!
      */
     @Override
@@ -335,11 +310,13 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         //The thread will run till the game is over.
         while (true) {
 
+            //exit condition.
             if (numberOfVisibleButton() == 0) {
                 chronometer.stop();
                 break;
             }
 
+            //if the player turn is on, make the following changes to the game.
             if (playerTurn) {
                 enableAllButton();
                 runOnUiThread(new Runnable() {
@@ -353,7 +330,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                         nextTurn.setClickable(true);
                     }
                 });
-
+                //maintaining the FPS.
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
@@ -440,14 +417,13 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
 
     }
 
-
+    //Used for comparing the user time with the highscore time! :))
     public boolean checkUserTime(String userTime, String hsTime) throws ParseException {
 
+        //if the user won for the first time. Kudos to him, that is his highscore!
         if (hsTime == "") {
             return true;
         }
-        Log.d(LOG_TAG, "--------->" + userTime);
-        Log.d(LOG_TAG, "--------->" + hsTime);
 
         String userSeconds = userTime.substring(3);
         String userMinutes = userTime.substring(0, 2);
@@ -470,11 +446,11 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
     /*
     Easy way to set an onclick listener on freaking 28 buttons :)
      */
-
     public void settingOnClickListeners() {
 
         int width, height;
 
+        //Easy way to expand the match sticks on the screen
         if (TOTAL_SELECTIONS == 15) {
             width = 200;
             height = 250;
@@ -547,7 +523,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         imageButtons = new ArrayList<GifImageButton>();
 
 
-        //It is worse than it looks :(
+        //Initializing all the buttons!
         imageButtons.add((GifImageButton) findViewById(R.id.ibRow1_1));
         imageButtons.add((GifImageButton) findViewById(R.id.ibRow2_1));
         imageButtons.add((GifImageButton) findViewById(R.id.ibRow2_2));
@@ -587,7 +563,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
 
     /*
     All the button clicks would be registered here. I'd like to keep this far away from me cause it's
-    so messy. MESSY PIECE OF SHIT.
+    so messy.
      */
     @Override
     public void onClick(View v) {
@@ -610,9 +586,6 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                 playerTurn = false;
                 tvPlayerTurn.setTextColor(Color.RED);
                 tvComputerTurn.setTextColor(Color.GREEN);
-                if (numberOfVisibleButton() == 0) {
-                    loop = false;
-                }
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {

@@ -5,5 +5,7 @@ package me.arnavgarg.nimgame.Game;
  */
 public abstract class GameDifficultyMain {
 
+    //An abstract method to parent all the three difficulty levels! :)
+
     public abstract int[] computerTurn(int[] a);
 }
