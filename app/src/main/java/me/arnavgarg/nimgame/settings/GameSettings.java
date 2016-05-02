@@ -21,6 +21,10 @@ import me.arnavgarg.nimgame.R;
  */
 public class GameSettings extends Activity implements RadioGroup.OnCheckedChangeListener{
 
+    /**
+     * Summary: Taking values from the radio boxes and storing in the SQLite database!
+     */
+
 
     private static final String LOG_TAG = GameSettings.class.getSimpleName();
     Button btnDone;

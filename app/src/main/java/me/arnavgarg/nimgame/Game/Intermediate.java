@@ -7,7 +7,7 @@ import java.util.Random;
  */
 public class Intermediate extends GameDifficultyMain{
 
-
+//Basically we are randomly choosing a move from hard and random
     @Override
     public int[] computerTurn(int[] a) {
 

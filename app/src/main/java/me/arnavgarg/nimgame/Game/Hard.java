@@ -14,10 +14,12 @@ public class Hard extends GameDifficultyMain {
     @Override
     public int[] computerTurn(int a[]) {
 
+        //storing the bit values of the number of matchsticks in each row :)
         String[] bits = new String[a.length];
 
         int max = 0;
 
+        //finding the max value cause we will subtract from that!
         for (int i = 0; i < a.length; i++) {
 
             if (a[i] > a[max]) {
@@ -29,7 +31,6 @@ public class Hard extends GameDifficultyMain {
         for (int i = 0; i < a.length; i++) {
             bits[i] = String.format("%3s", Integer.toBinaryString(a[i])).replace(' ', '0');
         }
-        Log.d(LOG_TAG, "" + bits[0] + " " + bits[1] + " " + bits[2] + " " + bits[3] + " " + bits[4]);
 
 
         //for addition of the bits.
@@ -70,22 +71,19 @@ public class Hard extends GameDifficultyMain {
             }
         }
 
-        Log.d(LOG_TAG, "CHECKING: " + changedBit[0] + " " + changedBit[1] + " "+ changedBit[2]);
+        Log.d(LOG_TAG, "CHECKING: " + changedBit[0] + " " + changedBit[1] + " " + changedBit[2]);
         //Manually calculating the sum difference like an idiot.
-        //Should have used a for loop.
-        int sumDiff = (Integer.parseInt(String.valueOf(bits[max].charAt(0)))*4
-                + Integer.parseInt(String.valueOf(bits[max].charAt(1)))*2
+        //Should have used a for loop. Oh well....
+        int sumDiff = (Integer.parseInt(String.valueOf(bits[max].charAt(0))) * 4
+                + Integer.parseInt(String.valueOf(bits[max].charAt(1))) * 2
                 + Integer.parseInt(String.valueOf(bits[max].charAt(2))))
-                     - (changedBit[0]*4 + changedBit[1]*2 + changedBit[2]);
+                - (changedBit[0] * 4 + changedBit[1] * 2 + changedBit[2]);
 
-        if(sumDiff == 0) {
-
+        //we need to make a move even if the user is winning.
+        if (sumDiff == 0) {
             Random random = new Random();
-            sumDiff = random.nextInt(a[max])+1;
+            sumDiff = random.nextInt(a[max]) + 1;
         }
-
-
-        Log.d(LOG_TAG, "Row: " + max + " Number: " + sumDiff);
 
         //returning the row and the sum that needs to be removed.
         return new int[]{max, sumDiff};
