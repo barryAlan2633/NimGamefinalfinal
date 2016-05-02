@@ -114,8 +114,8 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
 
         //working on shared pregerences to store the high score values
         sharedPreferences = getSharedPreferences("highscore", this.MODE_PRIVATE);
-        max =sharedPreferences.getString("hs", null);
-        if(max == null) {
+        max = sharedPreferences.getString("hs", null);
+        if (max == null) {
             max = "";
         }
 
@@ -223,26 +223,46 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
 
         //TODO: REMOVE THIS!
         gameDifficulty = new Hard();
-        int sum = gameDifficulty.computerTurn(a);
+        int[] returnValues;
+        returnValues = gameDifficulty.computerTurn(a);
 
-        TOTAL_SELECTIONS -= sum;
-        int[] mapArray = new int[]{0, 0, 0, 0, 0, 0, 0};
 
+        Log.d(LOG_TAG, "ROW: " + returnValues[0] + " Value: " + returnValues[1]);
 
         for (int i = 0; i < a.length; i++) {
+
+            int j = i + 1;
             rowIncrementer += i;
-            if (a[i] >= sum) {
-                int j = rowIncrementer;
-                int tempi = i;
-                while (sum != 0) {
-                    if (imageButtons.get(j).getVisibility() == View.VISIBLE) {
-                        selectedButtons.add(imageButtons.get(j));
-                        sum -= 1;
+            if (i == returnValues[0]) {
+                while(j != 0 && returnValues[1] != 0) {
+                    if(imageButtons.get(rowIncrementer).getVisibility() == View.VISIBLE) {
+                        selectedButtons.add(imageButtons.get(rowIncrementer));
+                        returnValues[1]--;
                     }
-                    if (tempi-- != 0) j++;
+                    rowIncrementer++;
+                    j--;
                 }
             }
         }
+
+//        TOTAL_SELECTIONS -= sum;
+//        int[] mapArray = new int[]{0, 0, 0, 0, 0, 0, 0};
+//
+//
+//        for (int i = 0; i < a.length; i++) {
+//            rowIncrementer += i;
+//            if (a[i] >= sum) {
+//                int j = rowIncrementer;
+//                int tempi = i;
+//                while (sum != 0) {
+//                    if (imageButtons.get(j).getVisibility() == View.VISIBLE) {
+//                        selectedButtons.add(imageButtons.get(j));
+//                        sum -= 1;
+//                    }
+//                    if (tempi-- != 0) j++;
+//                }
+//            }
+//        }
 
         runOnUiThread(new Runnable() {
             @Override
@@ -378,7 +398,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     } else {
 
                         try {
-                            if(checkUserTime((String) chronometer.getText(), max)) {
+                            if (checkUserTime((String) chronometer.getText(), max)) {
                                 Log.d(LOG_TAG, "THIS RAAAAAAAAAAN");
                                 max = (String) chronometer.getText();
                                 SharedPreferences.Editor edit = sharedPreferences.edit();
@@ -425,25 +445,25 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
 
     public boolean checkUserTime(String userTime, String hsTime) throws ParseException {
 
-        if(hsTime == "") {
+        if (hsTime == "") {
             return true;
         }
         Log.d(LOG_TAG, "--------->" + userTime);
         Log.d(LOG_TAG, "--------->" + hsTime);
 
         String userSeconds = userTime.substring(3);
-        String userMinutes = userTime.substring(0,2);
+        String userMinutes = userTime.substring(0, 2);
 
         String hsSeconds = userTime.substring(3);
-        String hsMinutes = userTime.substring(0,2);
+        String hsMinutes = userTime.substring(0, 2);
 
-        if(Integer.parseInt(hsMinutes) >= Integer.parseInt(userMinutes)) {
-            if(Integer.parseInt(hsMinutes) == Integer.parseInt(userMinutes)
-            && Integer.parseInt(hsSeconds) < Integer.parseInt(userSeconds)){
+        if (Integer.parseInt(hsMinutes) <= Integer.parseInt(userMinutes)) {
+            if (Integer.parseInt(hsMinutes) == Integer.parseInt(userMinutes)
+                    && Integer.parseInt(hsSeconds) < Integer.parseInt(userSeconds)) {
                 return true;
             }
             return false;
-        }else if(Integer.parseInt(hsMinutes) < Integer.parseInt(userMinutes)){
+        } else if (Integer.parseInt(hsMinutes) > Integer.parseInt(userMinutes)) {
             return true;
         }
         return true;
@@ -457,14 +477,15 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
 
         int width, height;
 
-        if(TOTAL_SELECTIONS == 15) {
-            width = 200; height = 250;
-        }
-        else if(TOTAL_SELECTIONS == 21) {
-            width =170; height = 220;
-        }
-        else {
-            width = 140; height = 190;
+        if (TOTAL_SELECTIONS == 15) {
+            width = 200;
+            height = 250;
+        } else if (TOTAL_SELECTIONS == 21) {
+            width = 170;
+            height = 220;
+        } else {
+            width = 140;
+            height = 190;
         }
 
         nextTurn.setOnClickListener(this);

@@ -277,6 +277,13 @@ public class GamePVP extends Activity implements View.OnClickListener, Runnable{
     @Override
     public void run() {
 
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
         while(true) {
             if(numberOfVisibleButton() == 0) {
                 break;
