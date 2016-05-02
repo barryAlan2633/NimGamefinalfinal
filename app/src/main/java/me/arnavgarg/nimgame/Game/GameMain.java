@@ -221,8 +221,6 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         //for later use!
         rowIncrementer = 0;
 
-        //TODO: REMOVE THIS!
-        gameDifficulty = new Hard();
         int[] returnValues;
         returnValues = gameDifficulty.computerTurn(a);
 
@@ -535,8 +533,10 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         switch (getData.getDifficultyLevel()) {
 
             case 0:
+                gameDifficulty = new Easy();
                 break;
             case 1:
+                gameDifficulty = new Intermediate();
                 break;
             case 2:
                 gameDifficulty = new Hard();

@@ -2,6 +2,8 @@ package me.arnavgarg.nimgame.Game;
 
 import android.util.Log;
 
+import java.util.Random;
+
 /**
  * Created by Arnav on 4/24/2016.
  */
@@ -76,6 +78,11 @@ public class Hard extends GameDifficultyMain {
                 + Integer.parseInt(String.valueOf(bits[max].charAt(2))))
                      - (changedBit[0]*4 + changedBit[1]*2 + changedBit[2]);
 
+        if(sumDiff == 0) {
+
+            Random random = new Random();
+            sumDiff = random.nextInt(a[max])+1;
+        }
 
 
         Log.d(LOG_TAG, "Row: " + max + " Number: " + sumDiff);
