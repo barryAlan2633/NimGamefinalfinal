@@ -18,7 +18,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="0dp"
-        android:background="@drawable/lose"
+        android:background="@drawable/girdance"
         android:clickable="false"></pl.droidsonroids.gif.GifImageButton>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -82,7 +82,7 @@
                 android:gravity="center">
 
                 <pl.droidsonroids.gif.GifImageButton
-                    android:id="@+id/girRow1_1"
+                    android:id="@+id/girrow1_1"
                     android:layout_width="40dp"
                     android:layout_height="55dp"
                     android:background="@drawable/gir">
@@ -97,13 +97,13 @@
                 android:orientation="horizontal">
 
                 <pl.droidsonroids.gif.GifImageButton
-                    android:id="@+id/girRow2_1"
+                    android:id="@+id/girrow2_1"
                     android:layout_width="40dp"
                     android:layout_height="55dp"
                     android:background="@drawable/gir" />
 
                 <pl.droidsonroids.gif.GifImageButton
-                    android:id="@+id/girRow2_2"
+                    android:id="@+id/girrow2_2"
                     android:layout_width="40dp"
                     android:layout_height="55dp"
                     android:background="@drawable/gir"></pl.droidsonroids.gif.GifImageButton>
@@ -116,13 +116,13 @@
                 android:gravity="center">
 
                 <pl.droidsonroids.gif.GifImageButton
-                    android:id="@+id/girRow3_1"
+                    android:id="@+id/gir3_1"
                     android:layout_width="40dp"
                     android:layout_height="55dp"
                     android:background="@drawable/gir" />
 
                 <pl.droidsonroids.gif.GifImageButton
-                    android:id="@+id/girRow3_2"
+                    android:id="@+id/girrow3_2"
                     android:layout_width="40dp"
                     android:layout_height="55dp"
                     android:background="@drawable/gir">
@@ -130,7 +130,46 @@
                 </pl.droidsonroids.gif.GifImageButton>
 
                 <pl.droidsonroids.gif.GifImageButton
-                    android:id="@+id/girRow3_3"
+                    android:id="@+id/girrow3_3"
+                    android:layout_width="40dp"
+                    android:layout_height="55dp"
+                      android:background="@drawable/gir">
+
+                </pl.droidsonroids.gif.GifImageButton>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <pl.droidsonroids.gif.GifImageButton
+                    android:id="@+id/girrow4_1"
+                    android:layout_width="40dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/gir">
+
+                </pl.droidsonroids.gif.GifImageButton>
+
+                <pl.droidsonroids.gif.GifImageButton
+                    android:id="@+id/girrow4_2"
+                    android:layout_width="40dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/gir">
+
+                </pl.droidsonroids.gif.GifImageButton>
+
+                <pl.droidsonroids.gif.GifImageButton
+                    android:id="@+id/girrow4_3"
+                    android:layout_width="40dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/gir">
+
+                </pl.droidsonroids.gif.GifImageButton>
+
+                <pl.droidsonroids.gif.GifImageButton
+                    android:id="@+id/girrow4_4"
                     android:layout_width="40dp"
                     android:layout_height="55dp"
                     android:background="@drawable/gir">
@@ -145,7 +184,7 @@
                 android:gravity="center">
 
                 <pl.droidsonroids.gif.GifImageButton
-                    android:id="@+id/girRow4_1"
+                    android:id="@+id/girrow5_1"
                     android:layout_width="40dp"
                     android:layout_height="55dp"
                     android:background="@drawable/gir">
@@ -153,7 +192,7 @@
                 </pl.droidsonroids.gif.GifImageButton>
 
                 <pl.droidsonroids.gif.GifImageButton
-                    android:id="@+id/girRow4_2"
+                    android:id="@+id/girrow5_2"
                     android:layout_width="40dp"
                     android:layout_height="55dp"
                     android:background="@drawable/gir">
@@ -161,7 +200,7 @@
                 </pl.droidsonroids.gif.GifImageButton>
 
                 <pl.droidsonroids.gif.GifImageButton
-                    android:id="@+id/girRow4_3"
+                    android:id="@+id/girrow5_3"
                     android:layout_width="40dp"
                     android:layout_height="55dp"
                     android:background="@drawable/gir">
@@ -169,22 +208,7 @@
                 </pl.droidsonroids.gif.GifImageButton>
 
                 <pl.droidsonroids.gif.GifImageButton
-                    android:id="@+id/girRow4_4"
-                    android:layout_width="40dp"
-                    android:layout_height="55dp"
-                    android:background="@drawable/gir">
-
-                </pl.droidsonroids.gif.GifImageButton>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center">
-
-                <pl.droidsonroids.gif.GifImageButton
-                    android:id="@+id/girRow5_1"
+                    android:id="@+id/girrow5_4"
                     android:layout_width="40dp"
                     android:layout_height="55dp"
                     android:background="@drawable/gir">
@@ -192,31 +216,7 @@
                 </pl.droidsonroids.gif.GifImageButton>
 
                 <pl.droidsonroids.gif.GifImageButton
-                    android:id="@+id/girRow5_2"
-                    android:layout_width="40dp"
-                    android:layout_height="55dp"
-                    android:background="@drawable/gir">
-
-                </pl.droidsonroids.gif.GifImageButton>
-
-                <pl.droidsonroids.gif.GifImageButton
-                    android:id="@+id/girRow5_3"
-                    android:layout_width="40dp"
-                    android:layout_height="55dp"
-                    android:background="@drawable/gir">
-
-                </pl.droidsonroids.gif.GifImageButton>
-
-                <pl.droidsonroids.gif.GifImageButton
-                    android:id="@+id/girRow5_4"
-                    android:layout_width="40dp"
-                    android:layout_height="55dp"
-                    android:background="@drawable/gir">
-
-                </pl.droidsonroids.gif.GifImageButton>
-
-                <pl.droidsonroids.gif.GifImageButton
-                    android:id="@+id/girRow5_5"
+                    android:id="@+id/girrow5_5"
                     android:layout_width="40dp"
                     android:layout_height="55dp"
                     android:background="@drawable/gir">
@@ -231,7 +231,7 @@
                 android:gravity="center">
 
                 <pl.droidsonroids.gif.GifImageButton
-                    android:id="@+id/girRow6_1"
+                    android:id="@+id/girrow6_1"
                     android:layout_width="40dp"
                     android:layout_height="55dp"
                     android:background="@drawable/gir">
@@ -239,7 +239,7 @@
                 </pl.droidsonroids.gif.GifImageButton>
 
                 <pl.droidsonroids.gif.GifImageButton
-                    android:id="@+id/girRow6_2"
+                    android:id="@+id/girrow6_2"
                     android:layout_width="40dp"
                     android:layout_height="55dp"
                     android:background="@drawable/gir">
@@ -247,7 +247,7 @@
                 </pl.droidsonroids.gif.GifImageButton>
 
                 <pl.droidsonroids.gif.GifImageButton
-                    android:id="@+id/girRow6_3"
+                    android:id="@+id/girrow6_3"
                     android:layout_width="40dp"
                     android:layout_height="55dp"
                     android:background="@drawable/gir">
@@ -255,7 +255,7 @@
                 </pl.droidsonroids.gif.GifImageButton>
 
                 <pl.droidsonroids.gif.GifImageButton
-                    android:id="@+id/girRow6_4"
+                    android:id="@+id/girrow6_4"
                     android:layout_width="40dp"
                     android:layout_height="55dp"
                     android:background="@drawable/gir">
@@ -263,7 +263,7 @@
                 </pl.droidsonroids.gif.GifImageButton>
 
                 <pl.droidsonroids.gif.GifImageButton
-                    android:id="@+id/girRow6_5"
+                    android:id="@+id/girrow6_5"
                     android:layout_width="40dp"
                     android:layout_height="55dp"
                     android:background="@drawable/gir">
@@ -271,7 +271,7 @@
                 </pl.droidsonroids.gif.GifImageButton>
 
                 <pl.droidsonroids.gif.GifImageButton
-                    android:id="@+id/girRow6_6"
+                    android:id="@+id/girrow6_6"
                     android:layout_width="40dp"
                     android:layout_height="55dp"
                     android:background="@drawable/gir">
@@ -286,7 +286,7 @@
                 android:gravity="center">
 
                 <pl.droidsonroids.gif.GifImageButton
-                    android:id="@+id/girRow7_1"
+                    android:id="@+id/girrow7_1"
                     android:layout_width="40dp"
                     android:layout_height="55dp"
                     android:background="@drawable/gir">
@@ -294,7 +294,7 @@
                 </pl.droidsonroids.gif.GifImageButton>
 
                 <pl.droidsonroids.gif.GifImageButton
-                    android:id="@+id/girRow7_2"
+                    android:id="@+id/girrow7_2"
                     android:layout_width="40dp"
                     android:layout_height="55dp"
                     android:background="@drawable/gir">
@@ -302,7 +302,7 @@
                 </pl.droidsonroids.gif.GifImageButton>
 
                 <pl.droidsonroids.gif.GifImageButton
-                    android:id="@+id/girRow7_3"
+                    android:id="@+id/girrow7_3"
                     android:layout_width="40dp"
                     android:layout_height="55dp"
                     android:background="@drawable/gir">
@@ -310,7 +310,7 @@
                 </pl.droidsonroids.gif.GifImageButton>
 
                 <pl.droidsonroids.gif.GifImageButton
-                    android:id="@+id/girRow7_4"
+                    android:id="@+id/girrow7_4"
                     android:layout_width="40dp"
                     android:layout_height="55dp"
                     android:background="@drawable/gir">
@@ -318,7 +318,7 @@
                 </pl.droidsonroids.gif.GifImageButton>
 
                 <pl.droidsonroids.gif.GifImageButton
-                    android:id="@+id/girRow7_5"
+                    android:id="@+id/girrow7_5"
                     android:layout_width="40dp"
                     android:layout_height="55dp"
                     android:background="@drawable/gir">
@@ -326,7 +326,7 @@
                 </pl.droidsonroids.gif.GifImageButton>
 
                 <pl.droidsonroids.gif.GifImageButton
-                    android:id="@+id/girRow7_6"
+                    android:id="@+id/girrow7_6"
                     android:layout_width="40dp"
                     android:layout_height="55dp"
                     android:background="@drawable/gir">
@@ -334,7 +334,7 @@
                 </pl.droidsonroids.gif.GifImageButton>
 
                 <pl.droidsonroids.gif.GifImageButton
-                    android:id="@+id/girRow7_7"
+                    android:id="@+id/girrow7_7"
                     android:layout_width="40dp"
                     android:layout_height="55dp"
                     android:background="@drawable/gir">
