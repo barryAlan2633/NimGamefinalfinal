@@ -22,7 +22,7 @@
         android:id="@+id/resultGif"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Nims"
+        android:layout_below="@+id/NimTitle"
         android:layout_centerHorizontal="true"
         android:gravity="center_vertical|center_horizontal"
         android:layout_gravity="center"
@@ -53,7 +53,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <me.arnavgarg.nimgame.widgets.FButton
+        <me.TheATeam.nimgame.widgets.FButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -63,7 +63,7 @@
             android:text="EXIT"
             android:layout_margin="5dp"/>
 
-        <me.arnavgarg.nimgame.widgets.FButton
+        <me.TheATeam.nimgame.widgets.FButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"

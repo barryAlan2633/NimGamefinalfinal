@@ -15,7 +15,7 @@
     <pl.droidsonroids.gif.GifImageButton
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/loop"
+        android:background="@drawable/lose"
         android:layout_marginTop="0dp"
         android:clickable="false"
         android:layout_alignParentTop="true"
@@ -53,7 +53,7 @@
             android:textColor="#ffffff">
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/textViewNum"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -63,13 +63,13 @@
                 android:textColor="#ffffff" />
 
             <RadioGroup
-                android:id="@+id/rgSticks"
+                android:id="@+id/rbGir"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <RadioButton
-                    android:id="@+id/rFive"
+                    android:id="@+id/rbFive"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="5"
@@ -77,14 +77,14 @@
 
 
                 <RadioButton
-                    android:id="@+id/rSix"
+                    android:id="@+id/rbSix"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="6"
                     android:textColor="#ffffff"/>
 
                 <RadioButton
-                    android:id="@+id/rSeven"
+                    android:id="@+id/rbSeven"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="7"
@@ -103,7 +103,7 @@
             android:paddingTop="30dp">
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/textViewFT"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -118,14 +118,14 @@
                 android:layout_height="wrap_content">
 
                 <RadioButton
-                    android:id="@+id/rUser"
+                    android:id="@+id/User1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="User"
                     android:textColor="#ffffff" />
 
                 <RadioButton
-                    android:id="@+id/rComputer"
+                    android:id="@+id/Computer1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Computer"
@@ -145,7 +145,7 @@
             android:paddingRight="10dp">
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/textViewDiff"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -160,21 +160,21 @@
                 android:layout_height="wrap_content">
 
                 <RadioButton
-                    android:id="@+id/rDiffEasy"
+                    android:id="@+id/easyLevel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Easy"
                     android:textColor="#ffffff"/>
 
                 <RadioButton
-                    android:id="@+id/rDiffIntermediate"
+                    android:id="@+id/IntermLevel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Intermediate"
                     android:textColor="#ffffff"/>
 
                 <RadioButton
-                    android:id="@+id/rDiffDifficult"
+                    android:id="@+id/DiffcultLevel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Difficult"

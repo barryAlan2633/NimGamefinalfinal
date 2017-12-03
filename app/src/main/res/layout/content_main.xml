@@ -21,13 +21,13 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/loop"
+        android:background="@drawable/lose"
         android:clickable="false">
 
     </pl.droidsonroids.gif.GifImageButton>
 
     <TextView
-        android:id="@+id/Nims"
+        android:id="@+id/NimTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -43,7 +43,7 @@
 
 
     <info.hoang8f.widget.FButton
-        android:id="@+id/buttonPlay"
+        android:id="@+id/playButton"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_alignWithParentIfMissing="false"
@@ -59,12 +59,12 @@
         fbutton:shadowHeight="8dp" />
 
     <info.hoang8f.widget.FButton
-        android:id="@+id/buttonSettings"
+        android:id="@+id/settings"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/buttonPlay"
-        android:layout_alignStart="@+id/buttonPlay"
-        android:layout_below="@+id/buttonPlay"
+        android:layout_alignLeft="@+id/playButton"
+        android:layout_alignStart="@+id/playButton"
+        android:layout_below="@+id/playButton"
         android:layout_marginTop="23dp"
         android:onClick="gotoSettingsActivity"
         android:text="Settings"
@@ -78,7 +78,7 @@
         android:id="@+id/gifImageButton"
         android:layout_width="130dp"
         android:layout_height="130dp"
-        android:layout_below="@+id/Nims"
+        android:layout_below="@+id/NimTitle"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="54dp"
         android:background="@drawable/splashhomepage"

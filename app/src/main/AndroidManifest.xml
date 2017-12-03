@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="me.arnavgarg.nimgame" >
+    package="me.TheATeam.nimgame" >
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -22,7 +22,7 @@
         </activity>
 
         <activity
-            android:name=".settings.GameSettings"
+            android:name=".settings.NimGameSettings"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 

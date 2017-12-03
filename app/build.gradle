@@ -5,7 +5,7 @@ android {
     buildToolsVersion '27.0.1'
 
     defaultConfig {
-        applicationId "me.arnavgarg.nimgame"
+        applicationId "me.TheATeam.nimgame"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
