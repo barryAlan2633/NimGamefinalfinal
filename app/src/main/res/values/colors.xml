@@ -27,5 +27,9 @@
     <color name="fbutton_color_silver">#bdc3c7</color>
     <color name="fbutton_color_concrete">#95a5a6</color>
     <color name="fbutton_color_asbestos">#7f8c8d</color>
+    <color name="fbutton_color_green">#00A000</color>
+    <color name="fbutton_color_greenShadow">#004000</color>
+
     <color name="fbutton_color_transparent">@android:color/transparent</color>
+
 </resources>

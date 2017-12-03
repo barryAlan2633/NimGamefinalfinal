@@ -19,7 +19,7 @@ public class Hard extends GameDifficultyMain {
 
         int max = 0;
 
-        //finding the max value cause we will subtract from that!
+        //finding the max value cause we will subtract from that! FINDS THE INDEX OF THE HIGHEST NUMBER IN THE ARRAY
         for (int i = 0; i < a.length; i++) {
 
             if (a[i] > a[max]) {
@@ -30,15 +30,16 @@ public class Hard extends GameDifficultyMain {
         //Storing the binary in string form.
         for (int i = 0; i < a.length; i++) {
             bits[i] = String.format("%3s", Integer.toBinaryString(a[i])).replace(' ', '0');
+            //Log.e("Codemaker13",a[i] +" = "+ String.format("%3s", Integer.toBinaryString(a[i])).replace(' ', '0'));
         }
 
 
         //for addition of the bits.
         int[] answerBit = new int[3];
-        for (int i = 2; i >= 0; i--) {
+        for (int i = 2; i >= 0; i--) {//iterates through 3 times
             Log.d(LOG_TAG, "____________________");
-            for (int j = 0; j < bits.length; j++) {
-                Log.d(LOG_TAG, "[BIT VALUE]: " + Integer.parseInt(String.valueOf(bits[j].charAt(i))));
+            for (int j = 0; j < bits.length; j++) { //iterates 7 times
+               // Log.d(LOG_TAG, "[BIT VALUE]: " + Integer.parseInt(String.valueOf(bits[j].charAt(i))));
                 answerBit[i] += Integer.parseInt(String.valueOf(bits[j].charAt(i)));
             }
 
@@ -60,7 +61,7 @@ public class Hard extends GameDifficultyMain {
             //This is trouble.. se we fix the max bit valued number!
             if (answerBit[i] == 1) {
 
-                Log.d(LOG_TAG, "[FUCK THIS] " + Integer.parseInt(String.valueOf(bits[max].charAt(i))));
+                //Log.d(LOG_TAG, "[FUCK THIS] " + Integer.parseInt(String.valueOf(bits[max].charAt(i))));
                 if (Integer.parseInt(String.valueOf(bits[max].charAt(i))) == 1) {
                     changedBit[i] = 0;
                 } else {
@@ -74,10 +75,8 @@ public class Hard extends GameDifficultyMain {
         Log.d(LOG_TAG, "CHECKING: " + changedBit[0] + " " + changedBit[1] + " " + changedBit[2]);
         //Manually calculating the sum difference like an idiot.
         //Should have used a for loop. Oh well....
-        int sumDiff = (Integer.parseInt(String.valueOf(bits[max].charAt(0))) * 4
-                + Integer.parseInt(String.valueOf(bits[max].charAt(1))) * 2
-                + Integer.parseInt(String.valueOf(bits[max].charAt(2))))
-                - (changedBit[0] * 4 + changedBit[1] * 2 + changedBit[2]);
+        int sumDiff = (Integer.parseInt(String.valueOf(bits[max].charAt(0))) * 4 + Integer.parseInt(String.valueOf(bits[max].charAt(1))) * 2
+                + Integer.parseInt(String.valueOf(bits[max].charAt(2)))) - (changedBit[0] * 4 + changedBit[1] * 2 + changedBit[2]);
 
         //we need to make a move even if the user is winning.
         if (sumDiff == 0) {

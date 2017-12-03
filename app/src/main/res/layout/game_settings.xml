@@ -1,14 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fbutton="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="0dp"
+    android:paddingLeft="0dp"
+    android:paddingTop="0dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Homescreen.MainActivity">
+
+    <pl.droidsonroids.gif.GifImageButton
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/loop"
+        android:layout_marginTop="0dp"
+        android:clickable="false"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+    </pl.droidsonroids.gif.GifImageButton>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fbutton="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="20dp"
-    android:background="#900E33">
+    android:padding="20dp">
 
-    <TextView
+        <TextView
         android:id="@+id/gameSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,145 +41,149 @@
         android:textStyle="bold"
         android:textColor="#ffffff"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="5dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp">
-
-        <TextView
-            android:id="@+id/textView2"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="Difficulty"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#ffffff"/>
+            android:orientation="vertical"
+            android:paddingTop="40dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
 
-        <RadioGroup
-            android:id="@+id/rgDifficulty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:textColor="#ffffff">
 
-            <RadioButton
-                android:id="@+id/rDiffEasy"
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="Number of Girs"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ffffff" />
+
+            <RadioGroup
+                android:id="@+id/rgSticks"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Easy"
-                android:textColor="#ffffff"/>
+                android:orientation="vertical">
 
-            <RadioButton
-                android:id="@+id/rDiffIntermediate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Intermediate"
-                android:textColor="#ffffff"/>
+                <RadioButton
+                    android:id="@+id/rFive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5"
+                    android:textColor="#ffffff"/>
 
-            <RadioButton
-                android:id="@+id/rDiffDifficult"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Difficult"
-                android:textColor="#ffffff"/>
 
-        </RadioGroup>
-    </LinearLayout>
+                <RadioButton
+                    android:id="@+id/rSix"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="6"
+                    android:textColor="#ffffff"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="5dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp">
+                <RadioButton
+                    android:id="@+id/rSeven"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="7"
+                    android:textColor="#ffffff"/>
 
-        <TextView
-            android:id="@+id/textView3"
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="First Turn"
-            android:textColor="#ffffff"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="30dp">
 
-        <RadioGroup
-            android:id="@+id/rgFirstTurn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <RadioButton
-                android:id="@+id/rUser"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="User"
-                android:textColor="#ffffff"/>
+                android:layout_gravity="center"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="First Turn"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ffffff" />
 
-            <RadioButton
-                android:id="@+id/rComputer"
+            <RadioGroup
+                android:id="@+id/rgFirstTurn"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Computer"
-                android:textColor="#ffffff"/>
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/rUser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="User"
+                    android:textColor="#ffffff" />
+
+                <RadioButton
+                    android:id="@+id/rComputer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Computer"
+                    android:textColor="#ffffff" />
 
 
-        </RadioGroup>
-    </LinearLayout>
+            </RadioGroup>
+        </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp"
-        android:textColor="#ffffff">
-
-        <TextView
-            android:id="@+id/textView4"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="Number of Sticks"
-            android:textColor="#ffffff"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:orientation="vertical"
+            android:paddingTop="30dp"
+            android:paddingBottom="30dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
-        <RadioGroup
-            android:id="@+id/rgSticks"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <RadioButton
-                android:id="@+id/rFive"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="5"
-                android:textColor="#ffffff"/>
+                android:layout_gravity="center"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="Difficulty"
+                android:textColor="#ffffff"
+                android:textSize="18sp" />
 
-
-            <RadioButton
-                android:id="@+id/rSix"
+            <RadioGroup
+                android:id="@+id/rgDifficulty"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="6"
-                android:textColor="#ffffff"/>
+                android:layout_height="wrap_content">
 
-            <RadioButton
-                android:id="@+id/rSeven"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="7"
-                android:textColor="#ffffff"/>
+                <RadioButton
+                    android:id="@+id/rDiffEasy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Easy"
+                    android:textColor="#ffffff"/>
 
-        </RadioGroup>
-    </LinearLayout>
+                <RadioButton
+                    android:id="@+id/rDiffIntermediate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Intermediate"
+                    android:textColor="#ffffff"/>
 
-    <info.hoang8f.widget.FButton
+                <RadioButton
+                    android:id="@+id/rDiffDifficult"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Difficult"
+                    android:textColor="#ffffff"/>
+
+            </RadioGroup>
+        </LinearLayout>
+
+        <info.hoang8f.widget.FButton
         android:id="@+id/btnDone"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
@@ -166,8 +192,10 @@
         android:text="Done"
         fbutton:shadowHeight="10dp"
         fbutton:cornerRadius="8dp"
-        app:buttonColor="@color/fbutton_color_pomegranate"
-        android:shadowColor="@color/fbutton_color_peter_river"
+        app:buttonColor="#FF0000"
+        android:shadowColor="#400000"
         fbutton:shadowEnabled="true" />
 
 </LinearLayout>
+
+</RelativeLayout>

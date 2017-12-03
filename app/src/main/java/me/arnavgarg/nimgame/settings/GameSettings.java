@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -37,16 +38,41 @@ public class GameSettings extends Activity implements RadioGroup.OnCheckedChange
     protected void onCreate(Bundle savedInstanceState) {
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_settings);
 
         //FOR THE FONT
-        TextView txtvw=(TextView)findViewById(R.id.gameSettings);
-        Typeface typface=Typeface.createFromAsset(getAssets(),"minecraftPE.ttf");
-        txtvw.setTypeface(typface);
+        TextView txtvwSettings=(TextView)findViewById(R.id.gameSettings);
+        TextView txtvwDifficulty=(TextView)findViewById(R.id.textView2);
+        TextView txtvwFirsTurn=(TextView)findViewById(R.id.textView3);
+        TextView txtvwnumberOfSticks=(TextView)findViewById(R.id.textView4);
+        RadioButton rdBtnEasy = (RadioButton) findViewById(R.id.rDiffEasy);
+        RadioButton rdBtnIntermediate = (RadioButton) findViewById(R.id.rDiffIntermediate);
+        RadioButton rdBtnDifficult = (RadioButton) findViewById(R.id.rDiffDifficult);
+        RadioButton rdBtnUser = (RadioButton) findViewById(R.id.rUser);
+        RadioButton rdBtnComputer = (RadioButton) findViewById(R.id.rComputer);
+        RadioButton rdBtn5 = (RadioButton) findViewById(R.id.rFive);
+        RadioButton rdBtn6 = (RadioButton) findViewById(R.id.rSix);
+        RadioButton rdBtn7 = (RadioButton) findViewById(R.id.rSeven);
+        Button done = (Button)findViewById(R.id.btnDone);
+
+        Typeface typface=Typeface.createFromAsset(getAssets(),"gameFont.ttf");
+        txtvwSettings.setTypeface(typface);
+        txtvwDifficulty.setTypeface(typface);
+        txtvwFirsTurn.setTypeface(typface);
+        txtvwnumberOfSticks.setTypeface(typface);
+        rdBtnEasy.setTypeface(typface);
+        rdBtnIntermediate.setTypeface(typface);
+        rdBtnDifficult.setTypeface(typface);
+        rdBtnUser.setTypeface(typface);
+        rdBtnComputer.setTypeface(typface);
+        rdBtn5.setTypeface(typface);
+        rdBtn6.setTypeface(typface);
+        rdBtn7.setTypeface(typface);
+        done.setTypeface(typface);
+
 
 
         btnDone = (Button) findViewById(R.id.btnDone);

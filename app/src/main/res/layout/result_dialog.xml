@@ -1,18 +1,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    xmlns:fbutton="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="10dp"
-    >
+    android:padding="10dp">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:contentDescription="@string/app_name"
-        android:scaleType="center"
-        android:padding="30dp"
-        android:src="@drawable/gameover"
-        android:id="@+id/resultImage"/>
+    <TextView
+        android:id="@+id/resultTitle"
+        android:layout_width="349dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:gravity="center_vertical|center_horizontal"
+        android:padding="10dp"
+        android:text="GAME OVER"
+        android:textColor="#00A000"
+        android:textSize="40sp" />
+
+    <pl.droidsonroids.gif.GifImageButton
+        android:id="@+id/resultGif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Nims"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_gravity="center"
+        android:layout_marginTop="54dp"
+        android:background="@drawable/lose"
+        android:clickable="false">
+
+    </pl.droidsonroids.gif.GifImageButton>
 
     <TextView
         android:id="@+id/hstext"
@@ -20,8 +38,7 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:textColor="#ffffff"
-        android:text="HIGHSCORE:"
-        />
+        android:text="HIGHSCORE:" />
 
     <TextView
         android:id="@+id/ustext"
@@ -29,19 +46,19 @@
         android:textColor="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SCORE: "
-        />
+        android:text="SCORE: " />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <me.arnavgarg.nimgame.widgets.FButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            fbutton:buttonColor="#00A000"
+            fbutton:shadowColor="#004000"
             android:id="@+id/btnExit"
             android:text="EXIT"
             android:layout_margin="5dp"/>
@@ -50,6 +67,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            fbutton:buttonColor="#00A000"
+            fbutton:shadowColor="#004000"
             android:id="@+id/btnPlayAgain"
             android:text="PLAY AGAIN"
             android:layout_margin="5dp"/>

@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -19,6 +20,9 @@ import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -73,7 +77,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
 
     //Storing the highscore values
     private SharedPreferences sharedPreferences;
-    private String max = "";
+    private String max = "No High Score";
 
 
     /*
@@ -85,11 +89,20 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
 
         //Making it full screen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_layout);
+
+
+        //Font of game page
+        Button select = (Button)findViewById(R.id.btnNextTurn);
+
+        Typeface typface=Typeface.createFromAsset(getAssets(),"gameFont.ttf");
+
+        select.setTypeface(typface);
+
+
 
         //Initializing the database and calling the parser.
         getData = new GetData(this);
@@ -101,7 +114,6 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         settingOnClickListeners();
 
         //setting the font type..needs to be done after initialization
-        Typeface typface = Typeface.createFromAsset(getAssets(), "minecraftPE.ttf");
         tvPlayerTurn.setTypeface(typface);
         tvComputerTurn.setTypeface(typface);
 
@@ -110,12 +122,13 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         chronometer.setBase(SystemClock.elapsedRealtime());
         chronometer.start();
 
-        //working on shared pregerences to store the high score values
+        //working on shared preferences to store the high score values
         sharedPreferences = getSharedPreferences("highscore", this.MODE_PRIVATE);
         max = sharedPreferences.getString("hs", null);
         if (max == null) {
-            max = "";
+            max = "No High Score";
         }
+
 
         //Let's start the thread. Cause this is important!
         Thread myThread = new Thread(this);
@@ -152,7 +165,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
 
                     imageButton.setVisibility(View.INVISIBLE);
                 }
-            }, 2500);
+            }, 2000);
         }
         selectedButtons.clear();
     }
@@ -191,6 +204,14 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
     Basically an algorithm for the computer to play its turn.
      */
     public void computersTurn() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                nextTurn.setButtonColor(Color.GRAY);
+                nextTurn.setShadowColor(Color.BLACK);
+                nextTurn.setClickable(false);
+            }
+        });
 
         if (numberOfVisibleButton() == 0) {
             return;
@@ -247,14 +268,24 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         });
 
         //for maintaining the FPS of the game!
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(3000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
         //changing the turn.
         playerTurn = true;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                nextTurn.setButtonColor(Color.GRAY);
+                nextTurn.setShadowColor(Color.BLACK);
+                nextTurn.setClickable(false);
+
+
+            }
+        });
     }
 
 
@@ -322,21 +353,30 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        tvPlayerTurn.setTextColor(Color.GREEN);
-                        tvComputerTurn.setTextColor(Color.RED);
+                        tvPlayerTurn.setTextColor(Color.RED);
+                        tvComputerTurn.setTextColor(Color.GRAY);
                         enableAllButton();
-                        nextTurn.setButtonColor(getResources().getColor(R.color.fbutton_color_peter_river));
-                        nextTurn.setShadowColor(getResources().getColor(R.color.fbutton_color_midnight_blue));
+                        nextTurn.setButtonColor(getResources().getColor(R.color.fbutton_color_green));
+                        nextTurn.setShadowColor(getResources().getColor(R.color.fbutton_color_greenShadow));
                         nextTurn.setClickable(true);
                     }
                 });
-                //maintaining the FPS.
+//                maintaining the FPS.
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+
             } else {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        nextTurn.setButtonColor(Color.GRAY);
+                        nextTurn.setShadowColor(Color.BLACK);
+                        nextTurn.setClickable(false);
+                    }
+                });
                 disableAllButton();
                 try {
                     Thread.sleep(2500);
@@ -364,13 +404,23 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     resultDialog.setCanceledOnTouchOutside(false);
                     TextView userScore = (TextView) resultDialog.findViewById(R.id.ustext);
                     TextView highScore = (TextView) resultDialog.findViewById(R.id.hstext);
-                    ImageView resultImage = (ImageView) resultDialog.findViewById(R.id.resultImage);
+                    TextView resultTitle = (TextView) resultDialog.findViewById(R.id.resultTitle);
+                    ImageView resultGif = (ImageView) resultDialog.findViewById(R.id.resultGif);
+
+                    Typeface typface=Typeface.createFromAsset(getAssets(),"gameFont.ttf");
+                    userScore.setTypeface(typface);
+                    highScore.setTypeface(typface);
 
                     if (playerTurn) {
                         userScore.setVisibility(View.INVISIBLE);
+                        resultGif.setVisibility(View.VISIBLE);
+                        resultTitle.setText("GAME OVER \n Computer won");
                         highScore.setText("HIGHSCORE: " + max);
-                        resultImage.setImageResource(R.drawable.gameovercomputerwon);
+
+                        resultTitle.setTypeface(typface);
                     } else {
+                        resultTitle.setText("GAME OVER \n You won!");
+                        resultGif.setVisibility(View.GONE);
 
                         try {
                             if (checkUserTime((String) chronometer.getText(), max)) {
@@ -380,17 +430,21 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                                 edit.putString("hs", max);
                                 edit.commit();
                             }
+
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
                         highScore.setText("HIGHSCORE: " + max);
                         userScore.setText("SCORE: " + chronometer.getText());
 
-                        resultImage.setImageResource(R.drawable.gameoveryouwon);
                     }
 
                     Button exit = (Button) resultDialog.findViewById(R.id.btnExit);
                     Button playAgain = (Button) resultDialog.findViewById(R.id.btnPlayAgain);
+
+                    playAgain.setTypeface(typface);
+                    exit.setTypeface(typface);
+                    resultTitle.setTypeface(typface);
 
                     exit.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -421,24 +475,38 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
     public boolean checkUserTime(String userTime, String hsTime) throws ParseException {
 
         //if the user won for the first time. Kudos to him, that is his highscore!
-        if (hsTime == "") {
+        if (hsTime == "No High Score") {
             return true;
         }
 
         String userSeconds = userTime.substring(3);
         String userMinutes = userTime.substring(0, 2);
 
-        String hsSeconds = userTime.substring(3);
-        String hsMinutes = userTime.substring(0, 2);
+        String hsSeconds = hsTime.substring(3);
+        String hsMinutes = hsTime.substring(0, 2);
 
-        if (Integer.parseInt(hsMinutes) <= Integer.parseInt(userMinutes)) {
-            if (Integer.parseInt(hsMinutes) == Integer.parseInt(userMinutes)
-                    && Integer.parseInt(hsSeconds) < Integer.parseInt(userSeconds)) {
+        if (Integer.parseInt(hsMinutes) < Integer.parseInt(userMinutes)) {
+            return false;
+        }
+        else if(Integer.parseInt(hsMinutes) > Integer.parseInt(userMinutes)){
+            return true;
+        }
+        else if(Integer.parseInt(hsMinutes) == Integer.parseInt(userMinutes)){
+            Log.e("codemaker12","amount of minutes is equal");
+
+            if (Integer.parseInt(hsSeconds) < Integer.parseInt(userSeconds)) {
+                Log.e("codemaker12","high score seconds are less");
+                return false;
+
+            }
+            else if(Integer.parseInt(hsSeconds) > Integer.parseInt(userSeconds)){
+                Log.e("codemaker12","user seconds are less");
                 return true;
             }
-            return false;
-        } else if (Integer.parseInt(hsMinutes) > Integer.parseInt(userMinutes)) {
-            return true;
+            else if(Integer.parseInt(hsSeconds) == Integer.parseInt(userSeconds)){
+                Log.e("codemaker12","amount of seconds is equal");
+                return true;
+            }
         }
         return true;
     }
@@ -495,13 +563,13 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        nextTurn.setButtonColor(getResources().getColor(R.color.fbutton_color_concrete));
-                        nextTurn.setShadowColor(getResources().getColor(R.color.fbutton_color_asbestos));
+                        nextTurn.setButtonColor(Color.GRAY);
+                        nextTurn.setShadowColor(Color.BLACK);
                         nextTurn.setClickable(false);
                     }
                 });
-                tvPlayerTurn.setTextColor(Color.RED);
-                tvComputerTurn.setTextColor(Color.GREEN);
+                tvPlayerTurn.setTextColor(Color.GRAY);
+                tvComputerTurn.setTextColor(Color.BLUE);
                 break;
         }
 
@@ -581,15 +649,29 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
 
             //BEFORE WE START WITH ALL THE CRAZY-NESS
             case R.id.btnNextTurn:
-                removeSelected();
-                disableAllButton();
-                playerTurn = false;
-                tvPlayerTurn.setTextColor(Color.RED);
-                tvComputerTurn.setTextColor(Color.GREEN);
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+
+                if(selectedButtons.size() != 0) {
+                    removeSelected();
+                    disableAllButton();
+                    playerTurn = false;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            nextTurn.setButtonColor(Color.GRAY);
+                            nextTurn.setShadowColor(Color.BLACK);
+                            nextTurn.setClickable(false);
+                        }
+                    });
+                    tvPlayerTurn.setTextColor(Color.GRAY);
+                    tvComputerTurn.setTextColor(Color.RED);
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else{
+                    Toast.makeText(this,"Please select a piece",Toast.LENGTH_SHORT).show();
                 }
                 break;
 

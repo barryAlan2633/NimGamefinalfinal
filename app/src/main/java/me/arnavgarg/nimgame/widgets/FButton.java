@@ -1,5 +1,6 @@
 package me.arnavgarg.nimgame.widgets;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -20,7 +21,7 @@ import info.hoang8f.fbutton.R;
 /**
  * Created by Arnav on 3/26/2016.
  */
-public class FButton extends Button implements View.OnTouchListener {
+public class FButton extends android.support.v7.widget.AppCompatButton implements View.OnTouchListener {
 
     //Custom values
     private boolean isShadowEnabled = true;
@@ -103,6 +104,7 @@ public class FButton extends Button implements View.OnTouchListener {
         mCornerRadius = resources.getDimensionPixelSize(R.dimen.fbutton_default_conner_radius);
     }
 
+    @SuppressLint("ResourceAsColor")
     private void parseAttrs(Context context, AttributeSet attrs) {
         //Load from custom attributes
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.FButton);

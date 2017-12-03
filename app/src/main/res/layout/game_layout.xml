@@ -1,350 +1,364 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:fbutton="http://schemas.android.com/apk/res-auto"
-    android:background="#37474F"
-    android:orientation="vertical">
+    android:paddingBottom="0dp"
+    android:paddingLeft="0dp"
+    android:paddingTop="0dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Homescreen.MainActivity">
 
-    <!--<TextView-->
-        <!--android:id="@+id/tvTurn"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:gravity="center"-->
-        <!--android:padding="15dp"-->
-        <!--android:text="PLAYER'S TURN!"-->
-        <!--android:textSize="25dp"-->
-        <!--android:textColor="#ffffff"/>-->
-
-    <TableRow
+    <pl.droidsonroids.gif.GifImageButton
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
-        <TextView
-            android:id="@+id/tvPlayer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="USER"
-            android:textSize="25dp"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:textColor="#ffffff"/>
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/loop"
+        android:clickable="false"></pl.droidsonroids.gif.GifImageButton>
 
-
-        <Chronometer
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/chronometer"
-            android:gravity="center"
-            android:padding="10dp"
-            android:textSize="25dp"
-            android:textColor="#fff"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="1"/>
-
-
-        <TextView
-            android:id="@+id/tvComputer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="AI"
-            android:textSize="25dp"
-            android:layout_weight="1"
-            android:textColor="#ffffff"/>
-    </TableRow>
-
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:fbutton="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="5dp"
-        android:id="@+id/test">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
+
+        <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:layout_gravity="center_horizontal">
 
-            <pl.droidsonroids.gif.GifImageButton
-                android:id="@+id/ibRow1_1"
-                android:layout_width="40dp"
-                android:layout_height="55dp"
-                android:background="@drawable/stick">
+            <TextView
+                android:id="@+id/tvPlayer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="USER"
+                android:textColor="#ffffff"
+                android:textSize="25dp" />
 
-            </pl.droidsonroids.gif.GifImageButton>
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
+            <Chronometer
+                android:id="@+id/chronometer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textColor="#fff"
+                android:textSize="25dp" />
 
-            <pl.droidsonroids.gif.GifImageButton
-                android:id="@+id/ibRow2_1"
-                android:layout_width="40dp"
-                android:layout_height="55dp"
-                android:background="@drawable/stick" />
 
-            <pl.droidsonroids.gif.GifImageButton
-                android:id="@+id/ibRow2_2"
-                android:layout_width="40dp"
-                android:layout_height="55dp"
-                android:background="@drawable/stick"></pl.droidsonroids.gif.GifImageButton>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-
-            <pl.droidsonroids.gif.GifImageButton
-                android:id="@+id/ibRow3_1"
-                android:layout_width="40dp"
-                android:layout_height="55dp"
-                android:background="@drawable/stick" />
-
-            <pl.droidsonroids.gif.GifImageButton
-                android:id="@+id/ibRow3_2"
-                android:layout_width="40dp"
-                android:layout_height="55dp"
-                android:background="@drawable/stick">
-
-            </pl.droidsonroids.gif.GifImageButton>
-
-            <pl.droidsonroids.gif.GifImageButton
-                android:id="@+id/ibRow3_3"
-                android:layout_width="40dp"
-                android:layout_height="55dp"
-                android:background="@drawable/stick">
-
-            </pl.droidsonroids.gif.GifImageButton>
-
-        </LinearLayout>
+            <TextView
+                android:id="@+id/tvComputer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="AI"
+                android:textColor="#ffffff"
+                android:textSize="25dp" />
+        </TableRow>
 
         <LinearLayout
+            android:id="@+id/test"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:orientation="vertical"
+            android:paddingTop="5dp">
 
-            <pl.droidsonroids.gif.GifImageButton
-                android:id="@+id/ibRow4_1"
-                android:layout_width="40dp"
-                android:layout_height="55dp"
-                android:background="@drawable/stick">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
 
-            </pl.droidsonroids.gif.GifImageButton>
+                <pl.droidsonroids.gif.GifImageButton
+                    android:id="@+id/ibRow1_1"
+                    android:layout_width="40dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/stick">
 
-            <pl.droidsonroids.gif.GifImageButton
-                android:id="@+id/ibRow4_2"
-                android:layout_width="40dp"
-                android:layout_height="55dp"
-                android:background="@drawable/stick">
+                </pl.droidsonroids.gif.GifImageButton>
+            </LinearLayout>
 
-            </pl.droidsonroids.gif.GifImageButton>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <pl.droidsonroids.gif.GifImageButton
-                android:id="@+id/ibRow4_3"
-                android:layout_width="40dp"
-                android:layout_height="55dp"
-                android:background="@drawable/stick">
+                <pl.droidsonroids.gif.GifImageButton
+                    android:id="@+id/ibRow2_1"
+                    android:layout_width="40dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/stick" />
 
-            </pl.droidsonroids.gif.GifImageButton>
+                <pl.droidsonroids.gif.GifImageButton
+                    android:id="@+id/ibRow2_2"
+                    android:layout_width="40dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/stick"></pl.droidsonroids.gif.GifImageButton>
 
-            <pl.droidsonroids.gif.GifImageButton
-                android:id="@+id/ibRow4_4"
-                android:layout_width="40dp"
-                android:layout_height="55dp"
-                android:background="@drawable/stick">
+            </LinearLayout>
 
-            </pl.droidsonroids.gif.GifImageButton>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <pl.droidsonroids.gif.GifImageButton
+                    android:id="@+id/ibRow3_1"
+                    android:layout_width="40dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/stick" />
+
+                <pl.droidsonroids.gif.GifImageButton
+                    android:id="@+id/ibRow3_2"
+                    android:layout_width="40dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/stick">
+
+                </pl.droidsonroids.gif.GifImageButton>
+
+                <pl.droidsonroids.gif.GifImageButton
+                    android:id="@+id/ibRow3_3"
+                    android:layout_width="40dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/stick">
+
+                </pl.droidsonroids.gif.GifImageButton>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <pl.droidsonroids.gif.GifImageButton
+                    android:id="@+id/ibRow4_1"
+                    android:layout_width="40dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/stick">
+
+                </pl.droidsonroids.gif.GifImageButton>
+
+                <pl.droidsonroids.gif.GifImageButton
+                    android:id="@+id/ibRow4_2"
+                    android:layout_width="40dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/stick">
+
+                </pl.droidsonroids.gif.GifImageButton>
+
+                <pl.droidsonroids.gif.GifImageButton
+                    android:id="@+id/ibRow4_3"
+                    android:layout_width="40dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/stick">
+
+                </pl.droidsonroids.gif.GifImageButton>
+
+                <pl.droidsonroids.gif.GifImageButton
+                    android:id="@+id/ibRow4_4"
+                    android:layout_width="40dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/stick">
+
+                </pl.droidsonroids.gif.GifImageButton>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <pl.droidsonroids.gif.GifImageButton
+                    android:id="@+id/ibRow5_1"
+                    android:layout_width="40dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/stick">
+
+                </pl.droidsonroids.gif.GifImageButton>
+
+                <pl.droidsonroids.gif.GifImageButton
+                    android:id="@+id/ibRow5_2"
+                    android:layout_width="40dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/stick">
+
+                </pl.droidsonroids.gif.GifImageButton>
+
+                <pl.droidsonroids.gif.GifImageButton
+                    android:id="@+id/ibRow5_3"
+                    android:layout_width="40dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/stick">
+
+                </pl.droidsonroids.gif.GifImageButton>
+
+                <pl.droidsonroids.gif.GifImageButton
+                    android:id="@+id/ibRow5_4"
+                    android:layout_width="40dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/stick">
+
+                </pl.droidsonroids.gif.GifImageButton>
+
+                <pl.droidsonroids.gif.GifImageButton
+                    android:id="@+id/ibRow5_5"
+                    android:layout_width="40dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/stick">
+
+                </pl.droidsonroids.gif.GifImageButton>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <pl.droidsonroids.gif.GifImageButton
+                    android:id="@+id/ibRow6_1"
+                    android:layout_width="40dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/stick">
+
+                </pl.droidsonroids.gif.GifImageButton>
+
+                <pl.droidsonroids.gif.GifImageButton
+                    android:id="@+id/ibRow6_2"
+                    android:layout_width="40dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/stick">
+
+                </pl.droidsonroids.gif.GifImageButton>
+
+                <pl.droidsonroids.gif.GifImageButton
+                    android:id="@+id/ibRow6_3"
+                    android:layout_width="40dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/stick">
+
+                </pl.droidsonroids.gif.GifImageButton>
+
+                <pl.droidsonroids.gif.GifImageButton
+                    android:id="@+id/ibRow6_4"
+                    android:layout_width="40dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/stick">
+
+                </pl.droidsonroids.gif.GifImageButton>
+
+                <pl.droidsonroids.gif.GifImageButton
+                    android:id="@+id/ibRow6_5"
+                    android:layout_width="40dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/stick">
+
+                </pl.droidsonroids.gif.GifImageButton>
+
+                <pl.droidsonroids.gif.GifImageButton
+                    android:id="@+id/ibRow6_6"
+                    android:layout_width="40dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/stick">
+
+                </pl.droidsonroids.gif.GifImageButton>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <pl.droidsonroids.gif.GifImageButton
+                    android:id="@+id/ibRow7_1"
+                    android:layout_width="40dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/stick">
+
+                </pl.droidsonroids.gif.GifImageButton>
+
+                <pl.droidsonroids.gif.GifImageButton
+                    android:id="@+id/ibRow7_2"
+                    android:layout_width="40dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/stick">
+
+                </pl.droidsonroids.gif.GifImageButton>
+
+                <pl.droidsonroids.gif.GifImageButton
+                    android:id="@+id/ibRow7_3"
+                    android:layout_width="40dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/stick">
+
+                </pl.droidsonroids.gif.GifImageButton>
+
+                <pl.droidsonroids.gif.GifImageButton
+                    android:id="@+id/ibRow7_4"
+                    android:layout_width="40dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/stick">
+
+                </pl.droidsonroids.gif.GifImageButton>
+
+                <pl.droidsonroids.gif.GifImageButton
+                    android:id="@+id/ibRow7_5"
+                    android:layout_width="40dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/stick">
+
+                </pl.droidsonroids.gif.GifImageButton>
+
+                <pl.droidsonroids.gif.GifImageButton
+                    android:id="@+id/ibRow7_6"
+                    android:layout_width="40dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/stick">
+
+                </pl.droidsonroids.gif.GifImageButton>
+
+                <pl.droidsonroids.gif.GifImageButton
+                    android:id="@+id/ibRow7_7"
+                    android:layout_width="40dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/stick">
+
+                </pl.droidsonroids.gif.GifImageButton>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <info.hoang8f.widget.FButton
+            android:id="@+id/btnNextTurn"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:gravity="center">
-
-            <pl.droidsonroids.gif.GifImageButton
-                android:id="@+id/ibRow5_1"
-                android:layout_width="40dp"
-                android:layout_height="55dp"
-                android:background="@drawable/stick">
-
-            </pl.droidsonroids.gif.GifImageButton>
-
-            <pl.droidsonroids.gif.GifImageButton
-                android:id="@+id/ibRow5_2"
-                android:layout_width="40dp"
-                android:layout_height="55dp"
-                android:background="@drawable/stick">
-
-            </pl.droidsonroids.gif.GifImageButton>
-
-            <pl.droidsonroids.gif.GifImageButton
-                android:id="@+id/ibRow5_3"
-                android:layout_width="40dp"
-                android:layout_height="55dp"
-                android:background="@drawable/stick">
-
-            </pl.droidsonroids.gif.GifImageButton>
-
-            <pl.droidsonroids.gif.GifImageButton
-                android:id="@+id/ibRow5_4"
-                android:layout_width="40dp"
-                android:layout_height="55dp"
-                android:background="@drawable/stick">
-
-            </pl.droidsonroids.gif.GifImageButton>
-
-            <pl.droidsonroids.gif.GifImageButton
-                android:id="@+id/ibRow5_5"
-                android:layout_width="40dp"
-                android:layout_height="55dp"
-                android:background="@drawable/stick">
-
-            </pl.droidsonroids.gif.GifImageButton>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-
-            <pl.droidsonroids.gif.GifImageButton
-                android:id="@+id/ibRow6_1"
-                android:layout_width="40dp"
-                android:layout_height="55dp"
-                android:background="@drawable/stick">
-
-            </pl.droidsonroids.gif.GifImageButton>
-
-            <pl.droidsonroids.gif.GifImageButton
-                android:id="@+id/ibRow6_2"
-                android:layout_width="40dp"
-                android:layout_height="55dp"
-                android:background="@drawable/stick">
-
-            </pl.droidsonroids.gif.GifImageButton>
-
-            <pl.droidsonroids.gif.GifImageButton
-                android:id="@+id/ibRow6_3"
-                android:layout_width="40dp"
-                android:layout_height="55dp"
-                android:background="@drawable/stick">
-
-            </pl.droidsonroids.gif.GifImageButton>
-
-            <pl.droidsonroids.gif.GifImageButton
-                android:id="@+id/ibRow6_4"
-                android:layout_width="40dp"
-                android:layout_height="55dp"
-                android:background="@drawable/stick">
-
-            </pl.droidsonroids.gif.GifImageButton>
-
-            <pl.droidsonroids.gif.GifImageButton
-                android:id="@+id/ibRow6_5"
-                android:layout_width="40dp"
-                android:layout_height="55dp"
-                android:background="@drawable/stick">
-
-            </pl.droidsonroids.gif.GifImageButton>
-
-            <pl.droidsonroids.gif.GifImageButton
-                android:id="@+id/ibRow6_6"
-                android:layout_width="40dp"
-                android:layout_height="55dp"
-                android:background="@drawable/stick">
-
-            </pl.droidsonroids.gif.GifImageButton>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-
-            <pl.droidsonroids.gif.GifImageButton
-                android:id="@+id/ibRow7_1"
-                android:layout_width="40dp"
-                android:layout_height="55dp"
-                android:background="@drawable/stick">
-
-            </pl.droidsonroids.gif.GifImageButton>
-
-            <pl.droidsonroids.gif.GifImageButton
-                android:id="@+id/ibRow7_2"
-                android:layout_width="40dp"
-                android:layout_height="55dp"
-                android:background="@drawable/stick">
-
-            </pl.droidsonroids.gif.GifImageButton>
-
-            <pl.droidsonroids.gif.GifImageButton
-                android:id="@+id/ibRow7_3"
-                android:layout_width="40dp"
-                android:layout_height="55dp"
-                android:background="@drawable/stick">
-
-            </pl.droidsonroids.gif.GifImageButton>
-
-            <pl.droidsonroids.gif.GifImageButton
-                android:id="@+id/ibRow7_4"
-                android:layout_width="40dp"
-                android:layout_height="55dp"
-                android:background="@drawable/stick">
-
-            </pl.droidsonroids.gif.GifImageButton>
-
-            <pl.droidsonroids.gif.GifImageButton
-                android:id="@+id/ibRow7_5"
-                android:layout_width="40dp"
-                android:layout_height="55dp"
-                android:background="@drawable/stick">
-
-            </pl.droidsonroids.gif.GifImageButton>
-
-            <pl.droidsonroids.gif.GifImageButton
-                android:id="@+id/ibRow7_6"
-                android:layout_width="40dp"
-                android:layout_height="55dp"
-                android:background="@drawable/stick">
-
-            </pl.droidsonroids.gif.GifImageButton>
-
-            <pl.droidsonroids.gif.GifImageButton
-                android:id="@+id/ibRow7_7"
-                android:layout_width="40dp"
-                android:layout_height="55dp"
-                android:background="@drawable/stick">
-
-            </pl.droidsonroids.gif.GifImageButton>
-
-        </LinearLayout>
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:text="Select"
+            fbutton:buttonColor="#00A000"
+            fbutton:cornerRadius="8dp"
+            fbutton:shadowColor="#004000"
+            fbutton:shadowEnabled="true"
+            fbutton:shadowHeight="8dp" />
 
     </LinearLayout>
-
-    <info.hoang8f.widget.FButton
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        fbutton:buttonColor="@color/fbutton_color_peter_river"
-        fbutton:shadowColor="@color/fbutton_color_midnight_blue"
-        fbutton:shadowEnabled="true"
-        fbutton:shadowHeight="8dp"
-        fbutton:cornerRadius="8dp"
-        android:text="Select"
-        android:layout_gravity="center"
-        android:id="@+id/btnNextTurn"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"/>
-
-</LinearLayout>
+</RelativeLayout>
