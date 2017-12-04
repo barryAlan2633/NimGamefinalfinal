@@ -4,10 +4,8 @@
     <modules>
       <module fileurl="file://C:\Users\Alexa\AndroidStudioProjects\NimGame1.0\Nim-Game.iml" filepath="C:\Users\Alexa\AndroidStudioProjects\NimGame1.0\Nim-Game.iml" />
       <module fileurl="file://$PROJECT_DIR$/NimGame1.0.iml" filepath="$PROJECT_DIR$/NimGame1.0.iml" />
-      <module fileurl="file://C:\Users\Chemo\Desktop\programs in progress\AndroidTutorials\NimGame1.0\NimGame1.0.iml" filepath="C:\Users\Chemo\Desktop\programs in progress\AndroidTutorials\NimGame1.0\NimGame1.0.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://C:\Users\Alexa\AndroidStudioProjects\NimGame1.0\app\app.iml" filepath="C:\Users\Alexa\AndroidStudioProjects\NimGame1.0\app\app.iml" />
-      <module fileurl="file://C:\Users\Chemo\Desktop\programs in progress\AndroidTutorials\NimGame1.0\app\app.iml" filepath="C:\Users\Chemo\Desktop\programs in progress\AndroidTutorials\NimGame1.0\app\app.iml" />
     </modules>
   </component>
 </project>
