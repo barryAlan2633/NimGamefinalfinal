@@ -2,6 +2,7 @@ package me.TheATeam.nimgame.settings;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -49,20 +50,20 @@ public class NimGameSettings extends Activity implements RadioGroup.OnCheckedCha
         RadioButton BtnRadio7 = (RadioButton) findViewById(R.id.rbSeven);
         Button done = (Button)findViewById(R.id.btnDone);
 
-/*        Typeface typface=Typeface.createFromAsset(getAssets(),"gameFont.ttf");
-        txtvwSettings.setTypeface(typface);
-        txtvwDifficulty.setTypeface(typface);
-        txtvwFirsTurn.setTypeface(typface);
-        txtvwnumberOfSticks.setTypeface(typface);
-        rdBtnEasy.setTypeface(typface);
-        rdBtnIntermediate.setTypeface(typface);
-        rdBtnDifficult.setTypeface(typface);
-        rdBtnUser.setTypeface(typface);
-        rdBtnComputer.setTypeface(typface);
-        rdBtn5.setTypeface(typface);
-        rdBtn6.setTypeface(typface);
-        rdBtn7.setTypeface(typface);
-        done.setTypeface(typface);*/
+        Typeface typface= Typeface.createFromAsset(getAssets(),"gameFont.ttf");
+        Settings.setTypeface(typface);
+        Difficulty.setTypeface(typface);
+        FirstTurn.setTypeface(typface);
+        numberOfGir.setTypeface(typface);
+        BtnEasy.setTypeface(typface);
+        BtnIntermediate.setTypeface(typface);
+        BtnDifficult.setTypeface(typface);
+        BtnUser.setTypeface(typface);
+        BtnComputer.setTypeface(typface);
+        BtnRadio5.setTypeface(typface);
+        BtnRadio6.setTypeface(typface);
+        BtnRadio7.setTypeface(typface);
+        done.setTypeface(typface);
 
 
 

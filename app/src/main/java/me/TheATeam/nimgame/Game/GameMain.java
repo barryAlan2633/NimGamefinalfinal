@@ -80,11 +80,11 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
 
 
         //Font of game page
-       // Button select = (Button)findViewById(R.id.btnNextTurn);
+        Button select = (Button)findViewById(R.id.btnNextTurn);
 
-       // Typeface typface=Typeface.createFromAsset(getAssets(),"gameFont.ttf");
+        Typeface typface=Typeface.createFromAsset(getAssets(),"gameFont.ttf");
 
-        //select.setTypeface(typface);
+        select.setTypeface(typface);
 
 
 
@@ -98,8 +98,8 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
         settingOnClickListeners();
 
         //setting the font type..needs to be done after initialization
-       // tvPlayerTurn.setTypeface(typface);
-       // tvComputerTurn.setTypeface(typface);
+        tvPlayerTurn.setTypeface(typface);
+        tvComputerTurn.setTypeface(typface);
 
         //Time
         chronometer = (Chronometer) findViewById(R.id.chronometer);
@@ -346,9 +346,9 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     TextView resultTitle = (TextView) resultDialog.findViewById(R.id.resultTitle);
                     ImageView resultGif = (ImageView) resultDialog.findViewById(R.id.resultGif);
 
-                    /*Typeface typface=Typeface.createFromAsset(getAssets(),"gameFont.ttf");
+                    Typeface typface=Typeface.createFromAsset(getAssets(),"gameFont.ttf");
                     userScore.setTypeface(typface);
-                    highScore.setTypeface(typface);*/
+                    highScore.setTypeface(typface);
 
                     if (playerTurn) {
                         userScore.setVisibility(View.INVISIBLE);
@@ -380,9 +380,9 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     Button exitGame = (Button) resultDialog.findViewById(R.id.btnExit);
                     Button wouldYouLikeToPlayAgain = (Button) resultDialog.findViewById(R.id.btnPlayAgain);
 
-                    /*wouldYouLikeToPlayAgain.setTypeface(typface);
+                    wouldYouLikeToPlayAgain.setTypeface(typface);
                     exitGame.setTypeface(typface);
-                    resultTitle.setTypeface(typface);*/
+                    resultTitle.setTypeface(typface);
 
                     exitGame.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -449,6 +449,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
 //expands girs on android screens
         if (TOTAL_SELECTIONS == 15) {
             width = 200;
+            height = 250;
             height = 250;
         } else if (TOTAL_SELECTIONS == 21) {
             width = 170;
@@ -591,7 +592,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     break;
                 }
                 buttonsOnSelect.add(imageButtons.get(0));
-                imageButtons.get(0).setBackgroundResource(R.drawable.burngir);
+                imageButtons.get(0).setBackgroundResource(R.drawable.girdance);
                 break;
             case R.id.girrow2_1:
                 if (!(workingRow.equals(WorkingRow.ROW2))) {
@@ -603,7 +604,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     break;
                 }
                 buttonsOnSelect.add(imageButtons.get(1));
-                imageButtons.get(1).setBackgroundResource(R.drawable.burngir);
+                imageButtons.get(1).setBackgroundResource(R.drawable.girdance);
                 break;
             case R.id.girrow2_2:
                 if (!(workingRow.equals(WorkingRow.ROW2))) {
@@ -615,7 +616,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     break;
                 }
                 buttonsOnSelect.add(imageButtons.get(2));
-                imageButtons.get(2).setBackgroundResource(R.drawable.burngir);
+                imageButtons.get(2).setBackgroundResource(R.drawable.girdance);
                 break;
             case R.id.gir3_1:
                 if (!(workingRow.equals(WorkingRow.ROW3))) {
@@ -627,7 +628,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     break;
                 }
                 buttonsOnSelect.add(imageButtons.get(3));
-                imageButtons.get(3).setBackgroundResource(R.drawable.burngir);
+                imageButtons.get(3).setBackgroundResource(R.drawable.girdance);
                 break;
             case R.id.girrow3_2:
                 if (!(workingRow.equals(WorkingRow.ROW3))) {
@@ -640,7 +641,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     break;
                 }
                 buttonsOnSelect.add(imageButtons.get(4));
-                imageButtons.get(4).setBackgroundResource(R.drawable.burngir);
+                imageButtons.get(4).setBackgroundResource(R.drawable.girdance);
                 break;
             case R.id.girrow3_3:
                 if (!(workingRow.equals(WorkingRow.ROW3))) {
@@ -652,7 +653,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     break;
                 }
                 buttonsOnSelect.add(imageButtons.get(5));
-                imageButtons.get(5).setBackgroundResource(R.drawable.burngir);
+                imageButtons.get(5).setBackgroundResource(R.drawable.girdance);
                 break;
             case R.id.girrow4_1:
                 if (!(workingRow.equals(WorkingRow.ROW4))) {
@@ -664,7 +665,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     break;
                 }
                 buttonsOnSelect.add(imageButtons.get(6));
-                imageButtons.get(6).setBackgroundResource(R.drawable.burngir);
+                imageButtons.get(6).setBackgroundResource(R.drawable.girdance);
                 break;
             case R.id.girrow4_2:
                 if (!(workingRow.equals(WorkingRow.ROW4))) {
@@ -676,7 +677,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     break;
                 }
                 buttonsOnSelect.add(imageButtons.get(7));
-                imageButtons.get(7).setBackgroundResource(R.drawable.burngir);
+                imageButtons.get(7).setBackgroundResource(R.drawable.girdance);
                 break;
             case R.id.girrow4_3:
                 if (!(workingRow.equals(WorkingRow.ROW4))) {
@@ -688,7 +689,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     break;
                 }
                 buttonsOnSelect.add(imageButtons.get(8));
-                imageButtons.get(8).setBackgroundResource(R.drawable.burngir);
+                imageButtons.get(8).setBackgroundResource(R.drawable.girdance);
                 break;
             case R.id.girrow4_4:
                 if (!(workingRow.equals(WorkingRow.ROW4))) {
@@ -700,7 +701,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     break;
                 }
                 buttonsOnSelect.add(imageButtons.get(9));
-                imageButtons.get(9).setBackgroundResource(R.drawable.burngir);
+                imageButtons.get(9).setBackgroundResource(R.drawable.girdance);
                 break;
             case R.id.girrow5_1:
                 if (!(workingRow.equals(WorkingRow.ROW5))) {
@@ -712,7 +713,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     break;
                 }
                 buttonsOnSelect.add(imageButtons.get(10));
-                imageButtons.get(10).setBackgroundResource(R.drawable.burngir);
+                imageButtons.get(10).setBackgroundResource(R.drawable.girdance);
                 break;
             case R.id.girrow5_2:
                 if (!(workingRow.equals(WorkingRow.ROW5))) {
@@ -724,7 +725,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     break;
                 }
                 buttonsOnSelect.add(imageButtons.get(11));
-                imageButtons.get(11).setBackgroundResource(R.drawable.burngir);
+                imageButtons.get(11).setBackgroundResource(R.drawable.girdance);
                 break;
             case R.id.girrow5_3:
                 if (!(workingRow.equals(WorkingRow.ROW5))) {
@@ -736,7 +737,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     break;
                 }
                 buttonsOnSelect.add(imageButtons.get(12));
-                imageButtons.get(12).setBackgroundResource(R.drawable.burngir);
+                imageButtons.get(12).setBackgroundResource(R.drawable.girdance);
                 break;
             case R.id.girrow5_4:
                 if (!(workingRow.equals(WorkingRow.ROW5))) {
@@ -748,7 +749,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     break;
                 }
                 buttonsOnSelect.add(imageButtons.get(13));
-                imageButtons.get(13).setBackgroundResource(R.drawable.burngir);
+                imageButtons.get(13).setBackgroundResource(R.drawable.girdance);
                 break;
             case R.id.girrow5_5:
                 if (!(workingRow.equals(WorkingRow.ROW5))) {
@@ -760,7 +761,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     break;
                 }
                 buttonsOnSelect.add(imageButtons.get(14));
-                imageButtons.get(14).setBackgroundResource(R.drawable.burngir);
+                imageButtons.get(14).setBackgroundResource(R.drawable.girdance);
                 break;
             case R.id.girrow6_1:
                 if (!(workingRow.equals(WorkingRow.ROW6))) {
@@ -772,7 +773,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     break;
                 }
                 buttonsOnSelect.add(imageButtons.get(15));
-                imageButtons.get(15).setBackgroundResource(R.drawable.burngir);
+                imageButtons.get(15).setBackgroundResource(R.drawable.girdance);
                 break;
             case R.id.girrow6_2:
                 if (!(workingRow.equals(WorkingRow.ROW6))) {
@@ -784,7 +785,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     break;
                 }
                 buttonsOnSelect.add(imageButtons.get(16));
-                imageButtons.get(16).setBackgroundResource(R.drawable.burngir);
+                imageButtons.get(16).setBackgroundResource(R.drawable.girdance);
                 break;
             case R.id.girrow6_3:
                 if (!(workingRow.equals(WorkingRow.ROW6))) {
@@ -796,7 +797,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     break;
                 }
                 buttonsOnSelect.add(imageButtons.get(17));
-                imageButtons.get(17).setBackgroundResource(R.drawable.burngir);
+                imageButtons.get(17).setBackgroundResource(R.drawable.girdance);
                 break;
             case R.id.girrow6_4:
                 if (!(workingRow.equals(WorkingRow.ROW6))) {
@@ -808,7 +809,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     break;
                 }
                 buttonsOnSelect.add(imageButtons.get(18));
-                imageButtons.get(18).setBackgroundResource(R.drawable.burngir);
+                imageButtons.get(18).setBackgroundResource(R.drawable.girdance);
                 break;
             case R.id.girrow6_5:
                 if (!(workingRow.equals(WorkingRow.ROW6))) {
@@ -820,7 +821,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     break;
                 }
                 buttonsOnSelect.add(imageButtons.get(19));
-                imageButtons.get(19).setBackgroundResource(R.drawable.burngir);
+                imageButtons.get(19).setBackgroundResource(R.drawable.girdance);
                 break;
             case R.id.girrow6_6:
                 if (!(workingRow.equals(WorkingRow.ROW6))) {
@@ -832,7 +833,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     break;
                 }
                 buttonsOnSelect.add(imageButtons.get(20));
-                imageButtons.get(20).setBackgroundResource(R.drawable.burngir);
+                imageButtons.get(20).setBackgroundResource(R.drawable.girdance);
                 break;
             case R.id.girrow7_1:
                 if (!(workingRow.equals(WorkingRow.ROW7))) {
@@ -844,7 +845,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     break;
                 }
                 buttonsOnSelect.add(imageButtons.get(21));
-                imageButtons.get(21).setBackgroundResource(R.drawable.burngir);
+                imageButtons.get(21).setBackgroundResource(R.drawable.girdance);
                 break;
             case R.id.girrow7_2:
                 if (!(workingRow.equals(WorkingRow.ROW7))) {
@@ -856,7 +857,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     break;
                 }
                 buttonsOnSelect.add(imageButtons.get(22));
-                imageButtons.get(22).setBackgroundResource(R.drawable.burngir);
+                imageButtons.get(22).setBackgroundResource(R.drawable.girdance);
                 break;
             case R.id.girrow7_3:
                 if (!(workingRow.equals(WorkingRow.ROW7))) {
@@ -868,7 +869,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     break;
                 }
                 buttonsOnSelect.add(imageButtons.get(23));
-                imageButtons.get(23).setBackgroundResource(R.drawable.burngir);
+                imageButtons.get(23).setBackgroundResource(R.drawable.girdance);
                 break;
             case R.id.girrow7_4:
                 if (!(workingRow.equals(WorkingRow.ROW7))) {
@@ -880,7 +881,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     break;
                 }
                 buttonsOnSelect.add(imageButtons.get(24));
-                imageButtons.get(24).setBackgroundResource(R.drawable.burngir);
+                imageButtons.get(24).setBackgroundResource(R.drawable.girdance);
                 break;
             case R.id.girrow7_5:
                 if (!(workingRow.equals(WorkingRow.ROW7))) {
@@ -892,7 +893,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     break;
                 }
                 buttonsOnSelect.add(imageButtons.get(25));
-                imageButtons.get(25).setBackgroundResource(R.drawable.burngir);
+                imageButtons.get(25).setBackgroundResource(R.drawable.girdance);
                 break;
             case R.id.girrow7_6:
                 if (!(workingRow.equals(WorkingRow.ROW7))) {
@@ -904,7 +905,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     break;
                 }
                 buttonsOnSelect.add(imageButtons.get(26));
-                imageButtons.get(26).setBackgroundResource(R.drawable.burngir);
+                imageButtons.get(26).setBackgroundResource(R.drawable.girdance);
                 break;
             case R.id.girrow7_7:
                 if (!(workingRow.equals(WorkingRow.ROW7))) {
@@ -916,7 +917,7 @@ public class GameMain extends Activity implements View.OnClickListener, Runnable
                     break;
                 }
                 buttonsOnSelect.add(imageButtons.get(27));
-                imageButtons.get(27).setBackgroundResource(R.drawable.burngir);
+                imageButtons.get(27).setBackgroundResource(R.drawable.girdance);
                 break;
         }
     }

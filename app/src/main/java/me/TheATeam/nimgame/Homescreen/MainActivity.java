@@ -2,6 +2,7 @@ package me.TheATeam.nimgame.Homescreen;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -35,10 +36,10 @@ public class MainActivity extends AppCompatActivity{
         Button play = (Button)findViewById(R.id.playButton);
         Button settings = (Button)findViewById(R.id.settings);
 
-        /*Typeface typface=Typeface.createFromAsset(getAssets(),"gameFont.ttf");
+        Typeface typface= Typeface.createFromAsset(getAssets(),"gameFont.ttf");
         nims.setTypeface(typface);
         play.setTypeface(typface);
-        settings.setTypeface(typface);*/
+        settings.setTypeface(typface);
 
         mContext = this;
         nimGameDB = new NimGameDatabase(this);

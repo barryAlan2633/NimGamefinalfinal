@@ -15,7 +15,7 @@
     <pl.droidsonroids.gif.GifImageButton
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/lose"
+        android:background="@drawable/loop"
         android:layout_marginTop="0dp"
         android:clickable="false"
         android:layout_alignParentTop="true"

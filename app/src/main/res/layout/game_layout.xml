@@ -18,7 +18,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="0dp"
-        android:background="@drawable/girdance"
+        android:background="@drawable/loop"
         android:clickable="false"></pl.droidsonroids.gif.GifImageButton>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
